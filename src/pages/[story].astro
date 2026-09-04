@@ -1,0 +1,15 @@
+---
+import Playground from '../layouts/Playground.astro';
+import { stories } from '../stories';
+
+export function getStaticPaths() {
+  return stories.map((s) => ({ params: { story: s.slug }, props: { story: s } }));
+}
+
+const { story } = Astro.props;
+const { Component } = story;
+---
+
+<Playground title={story.title} bg={story.bg}>
+  <Component />
+</Playground>

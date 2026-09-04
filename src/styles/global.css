@@ -1,0 +1,450 @@
+@import "tailwindcss";
+@import "./brands.css";
+
+/* ---------------------------------------------------------------------------
+   Fonts (files live in /public/fonts)
+   --------------------------------------------------------------------------- */
+@font-face {
+  font-family: "m6x11plus";
+  src: url("/fonts/m6x11plus.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Thin Sans";
+  src: url("/fonts/ThinSans.ttf") format("truetype");
+  font-display: swap;
+}
+
+/* ---------------------------------------------------------------------------
+   Utilities
+   --------------------------------------------------------------------------- */
+@utility pixel-corners {
+  clip-path: polygon(
+    8px 0,
+    calc(100% - 8px) 0,
+    calc(100% - 8px) 4px,
+    calc(100% - 4px) 4px,
+    calc(100% - 4px) 8px,
+    100% 8px,
+    100% calc(100% - 8px),
+    calc(100% - 4px) calc(100% - 8px),
+    calc(100% - 4px) calc(100% - 4px),
+    calc(100% - 8px) calc(100% - 4px),
+    calc(100% - 8px) 100%,
+    8px 100%,
+    8px calc(100% - 4px),
+    4px calc(100% - 4px),
+    4px calc(100% - 8px),
+    0 calc(100% - 8px),
+    0 8px,
+    4px 8px,
+    4px 4px,
+    8px 4px
+  );
+}
+
+/* Hard pixel text shadow, reads --c-text-shadow when set by colorStyle() */
+@utility text-shadow-pixel {
+  text-shadow: var(--c-text-shadow, 3px 3px 0 rgba(0, 0, 0, 0.5));
+}
+
+/* ---------------------------------------------------------------------------
+   Theme tokens + keyframes
+   --------------------------------------------------------------------------- */
+@theme {
+  /* Fonts */
+  --font-sans: "Thin Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-pixel: "m6x11plus", ui-monospace, monospace;
+
+  /* UI type scale. Used by every control (text-ui-*). */
+  --text-ui-xs: 12px;
+  --text-ui-xs--line-height: 1.2;
+  --text-ui-sm: 18px;
+  --text-ui-sm--line-height: 1.1;
+  --text-ui-md: 22px;
+  --text-ui-md--line-height: 1.1;
+  --text-ui-lg: 28px;
+  --text-ui-lg--line-height: 1.1;
+  --text-ui-xl: 36px;
+  --text-ui-xl--line-height: 1.1;
+  --text-ui-2xl: 48px;
+  --text-ui-2xl--line-height: 1.05;
+
+  --animate-rotate-lift: rotate-lift 2.4s ease-in-out infinite;
+  --animate-rainbow-gradient: rainbow 1s ease-in-out infinite;
+  --animate-bounce-soft: bounce-soft 1s linear infinite;
+  --animate-spin-steps: spin 0.8s steps(8) infinite;
+
+  --shadow-soft: 0px 6px 0 rgba(0, 0, 0, 0.25);
+  --shadow-soft-hover: 0px 6px 1px rgba(0, 0, 0, 0.25);
+  --shadow-hard: 4px 4px 0 rgba(0, 0, 0, 0.25);
+
+  @keyframes rotate-lift {
+    20% {
+      transform: translateY(0) rotate(6deg);
+    }
+  }
+
+  @keyframes rainbow {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 200% 50%;
+    }
+  }
+
+  @keyframes bounce-soft {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0);
+    }
+    33% {
+      transform: translateY(-2.5%) rotate(1deg);
+    }
+    66% {
+      transform: translateY(0) rotate(-1deg);
+    }
+  }
+
+}
+
+/* ---------------------------------------------------------------------------
+   Utilities
+   --------------------------------------------------------------------------- */
+@utility pixel-corners {
+  clip-path: polygon(
+    8px 0,
+    calc(100% - 8px) 0,
+    calc(100% - 8px) 4px,
+    calc(100% - 4px) 4px,
+    calc(100% - 4px) 8px,
+    100% 8px,
+    100% calc(100% - 8px),
+    calc(100% - 4px) calc(100% - 8px),
+    calc(100% - 4px) calc(100% - 4px),
+    calc(100% - 8px) calc(100% - 4px),
+    calc(100% - 8px) 100%,
+    8px 100%,
+    8px calc(100% - 4px),
+    4px calc(100% - 4px),
+    4px calc(100% - 8px),
+    0 calc(100% - 8px),
+    0 8px,
+    4px 8px,
+    4px 4px,
+    8px 4px
+  );
+}
+
+/* Hard pixel text shadow, reads --c-text-shadow when set by colorStyle() */
+@utility text-shadow-pixel {
+  text-shadow: var(--c-text-shadow, 3px 3px 0 rgba(0, 0, 0, 0.5));
+}
+
+/* ---------------------------------------------------------------------------
+   Theme tokens + keyframes
+   --------------------------------------------------------------------------- */
+@theme {
+  /* Fonts */
+  --font-sans: "Thin Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-pixel: "m6x11plus", ui-monospace, monospace;
+
+  /* UI type scale. Used by every control (text-ui-*). */
+  --text-ui-xs: 12px;
+  --text-ui-xs--line-height: 1.2;
+  --text-ui-sm: 18px;
+  --text-ui-sm--line-height: 1.1;
+  --text-ui-md: 22px;
+  --text-ui-md--line-height: 1.1;
+  --text-ui-lg: 28px;
+  --text-ui-lg--line-height: 1.1;
+  --text-ui-xl: 36px;
+  --text-ui-xl--line-height: 1.1;
+  --text-ui-2xl: 48px;
+  --text-ui-2xl--line-height: 1.05;
+
+  --animate-rotate-lift: rotate-lift 2.4s ease-in-out infinite;
+  --animate-rainbow-gradient: rainbow 1s ease-in-out infinite;
+  --animate-bounce-soft: bounce-soft 1s linear infinite;
+  --animate-spin-steps: spin 0.8s steps(8) infinite;
+
+  --shadow-soft: 0px 6px 0 rgba(0, 0, 0, 0.25);
+  --shadow-soft-hover: 0px 6px 1px rgba(0, 0, 0, 0.25);
+  --shadow-hard: 4px 4px 0 rgba(0, 0, 0, 0.25);
+
+  @keyframes rotate-lift {
+    20% {
+      transform: translateY(0) rotate(6deg);
+    }
+  }
+
+  @keyframes rainbow {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 200% 50%;
+    }
+  }
+
+  @keyframes bounce-soft {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0);
+    }
+    33% {
+      transform: translateY(-2.5%) rotate(1deg);
+    }
+    66% {
+      transform: translateY(0) rotate(-1deg);
+    }
+  }
+
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes toast-in {
+    from {
+      opacity: 0;
+      transform: translateX(120%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes toast-out {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(120%);
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion: stop all decorative motion.
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===========================================================================
+   GENERAL STYLE
+   Every control shares: rounded-lg, 4px black border, vertical gradient,
+   inner highlight, hard 4px shadow, pixel font, squish on press.
+   Colors come from the --c-* variables (see components/palette.ts).
+   =========================================================================== */
+
+/* Buttons ------------------------------------------------------------------ */
+.btn {
+  @apply relative top-0 inline-flex max-w-full cursor-pointer items-center justify-center rounded-lg border-4 border-black/80 font-pixel font-medium tracking-wide whitespace-nowrap shadow-[inset_0_0_0_4px_rgba(255,255,255,.2),4px_4px_0_rgba(0,0,0,.25)] outline-neutral-500/25 transition-all duration-75 ease-in-out select-none text-shadow-pixel hover:-top-1 hover:scale-105 hover:animate-bounce-soft hover:brightness-110 focus-visible:scale-105 focus-visible:animate-bounce-soft focus-visible:outline-4 focus-visible:outline-offset-0 focus-visible:outline-white/70 active:top-0 active:scale-x-110 active:scale-y-90 active:brightness-95 [&_svg]:relative [&_svg]:top-px [&_svg]:shrink-0 [&_svg]:drop-shadow-(--c-icon-shadow);
+  background-image: linear-gradient(180deg, var(--c-from, #71717a), var(--c-to, #52525b));
+  color: var(--c-text, #fff);
+}
+.btn-sm {
+  @apply gap-2 px-3 py-1 text-ui-sm [&_svg]:size-5;
+}
+.btn-md {
+  @apply gap-2.5 px-4 py-1.5 text-ui-md [&_svg]:size-6;
+}
+.btn-lg {
+  @apply gap-3 px-5 py-2 pb-2.5 text-ui-lg [&_svg]:size-8;
+}
+/* Icon-only: square */
+.btn-icon.btn-sm {
+  @apply size-9 px-0;
+}
+.btn-icon.btn-md {
+  @apply size-11 px-0;
+}
+.btn-icon.btn-lg {
+  @apply size-14 px-0;
+}
+.btn-content {
+  @apply inline-flex items-center gap-[inherit];
+}
+.btn:disabled,
+.btn.is-disabled {
+  @apply pointer-events-none top-1 opacity-50 saturate-50 shadow-[inset_0_0_0_4px_rgba(255,255,255,.2)];
+}
+.btn.is-loading {
+  @apply pointer-events-none;
+}
+.btn.is-loading .btn-content {
+  @apply opacity-0;
+}
+.btn-spinner {
+  @apply absolute inset-0 flex items-center justify-center;
+}
+.btn-spinner svg {
+  @apply animate-spin-steps;
+}
+
+/* Text inputs ------------------------------------------------------------- */
+@utility input-base {
+  @apply relative top-0 flex w-full max-w-lg items-center gap-2.5 rounded-lg border-4 border-black/80 px-4 py-1.5 font-pixel text-ui-md font-medium tracking-wide transition-all duration-75 ease-in-out hover:-top-1 hover:scale-[1.03] focus-within:scale-[1.03] focus-within:animate-bounce-soft focus-within:outline-4 focus-within:outline-offset-0 [&_input]:min-w-0 [&_input]:flex-1 [&_input]:bg-transparent [&_input]:outline-none [&_svg]:relative [&_svg]:top-px [&_svg]:size-6 [&_svg]:shrink-0;
+}
+
+.input-light {
+  @apply input-base bg-linear-180 from-zinc-100 to-zinc-300 text-zinc-800 shadow-[inset_0_0_0_4px_rgba(255,255,255,.2),4px_4px_0_rgba(0,0,0,.25)] outline-neutral-500/25 placeholder:text-zinc-500 focus-within:shadow-soft-hover focus-within:outline-zinc-400 [&_input]:placeholder:text-zinc-500;
+}
+
+.input-dark {
+  @apply input-base border-black/80 bg-black/80 text-white shadow-soft outline-neutral-500/25 placeholder:text-white/40 focus-within:shadow-soft-hover focus-within:outline-white/50 [&_input]:placeholder:text-white/40 [&_svg]:drop-shadow-[3px_3px_0_rgba(0,0,0,.5)];
+}
+
+.input-area {
+  @apply min-h-28 resize-y leading-tight focus-within:animate-none;
+}
+
+.input-select {
+  @apply cursor-pointer appearance-none pr-12 [&_option]:bg-white [&_option]:text-zinc-800 [&_option]:[text-shadow:none];
+}
+
+/* Choice controls --------------------------------------------------------- */
+.choice-field {
+  @apply relative top-0 inline-flex cursor-pointer items-center gap-2.5 font-pixel text-ui-md tracking-wide text-white transition-all duration-75 ease-in-out select-none [text-shadow:_3px_3px_0_rgba(0,0,0,.5)] hover:-top-1 hover:scale-105 active:top-0 active:scale-x-110 active:scale-y-95;
+}
+.choice-field input {
+  @apply sr-only;
+}
+
+.choice-box {
+  @apply relative flex size-8 shrink-0 items-center justify-center rounded-md border-4 border-black/80 bg-linear-180 from-zinc-100 to-zinc-300 shadow-[inset_0_0_0_3px_rgba(255,255,255,.2),4px_4px_0_rgba(0,0,0,.25)] transition-all duration-75 ease-in-out;
+}
+.choice-box.is-radio {
+  @apply rounded-full;
+}
+.choice-box svg {
+  @apply size-6 scale-50 text-white opacity-0 drop-shadow-[2px_2px_0_rgba(0,0,0,.5)] transition-all duration-75 ease-in-out;
+}
+.choice-box.is-radio::after {
+  content: '';
+  @apply size-2.5 scale-0 rounded-full bg-white shadow-[2px_2px_0_rgba(0,0,0,.4)] transition-transform duration-75 ease-in-out;
+}
+.choice-field:has(:checked) .choice-box {
+  @apply bg-none bg-(--accent,#22c55e) shadow-[inset_0_0_0_3px_rgba(255,255,255,.25),4px_4px_0_rgba(0,0,0,.25)];
+}
+.choice-field:has(:checked) .choice-box svg {
+  @apply scale-100 opacity-100;
+}
+.choice-field:has(:checked) .choice-box.is-radio::after {
+  @apply scale-100;
+}
+.choice-field:has(:focus-visible) .choice-box,
+.choice-field:has(:focus-visible) .toggle-track {
+  @apply outline-4 outline-offset-2 outline-white/70;
+}
+.choice-field:has(:disabled) {
+  @apply cursor-not-allowed opacity-50 hover:top-0 hover:scale-100;
+}
+
+/* Toggle */
+.toggle-track {
+  @apply relative h-8 w-14 shrink-0 rounded-lg border-4 border-black/80 bg-black/50 shadow-[inset_0_3px_0_rgba(0,0,0,.4),4px_4px_0_rgba(0,0,0,.25)] transition-all duration-75 ease-in-out;
+}
+.toggle-track::after {
+  content: '';
+  @apply absolute top-0.5 left-0.5 size-5 rounded-md border-2 border-black/80 bg-linear-180 from-zinc-100 to-zinc-300 shadow-[inset_0_0_0_2px_rgba(255,255,255,.3),2px_2px_0_rgba(0,0,0,.4)] transition-all duration-75 ease-in-out;
+}
+.choice-field:has(:checked) .toggle-track {
+  @apply bg-(--accent,#22c55e) shadow-[inset_0_3px_0_rgba(0,0,0,.2),4px_4px_0_rgba(0,0,0,.25)];
+}
+.choice-field:has(:checked) .toggle-track::after {
+  @apply left-[26px] scale-x-110;
+}
+.choice-field:active .toggle-track::after {
+  @apply scale-x-125;
+}
+
+/* Slider (native range). --fill is set by the Slider component script. */
+.slider {
+  @apply relative top-0 h-9 w-full max-w-lg cursor-pointer appearance-none bg-transparent transition-all duration-75 ease-in-out select-none hover:-top-1 hover:scale-[1.03] focus-visible:outline-none;
+}
+.slider::-webkit-slider-runnable-track {
+  @apply h-5 rounded-lg border-4 border-black/80 bg-black/50 shadow-[inset_0_3px_0_rgba(0,0,0,.4),4px_4px_0_rgba(0,0,0,.25)];
+  background-image: linear-gradient(var(--accent, #22c55e), var(--accent, #22c55e));
+  background-size: var(--fill, 50%) 100%;
+  background-repeat: no-repeat;
+}
+.slider::-moz-range-track {
+  @apply h-5 rounded-lg border-4 border-black/80 bg-black/50 shadow-[inset_0_3px_0_rgba(0,0,0,.4),4px_4px_0_rgba(0,0,0,.25)];
+}
+.slider::-moz-range-progress {
+  @apply h-3 rounded-l-md bg-(--accent,#22c55e);
+}
+.slider::-webkit-slider-thumb {
+  @apply -mt-[10px] size-8 cursor-grab appearance-none rounded-lg border-4 border-black/80 bg-linear-180 from-zinc-100 to-zinc-300 shadow-[inset_0_0_0_3px_rgba(255,255,255,.2),4px_4px_0_rgba(0,0,0,.25)] transition-all duration-75 ease-in-out;
+}
+.slider::-moz-range-thumb {
+  @apply size-8 cursor-grab rounded-lg border-4 border-black/80 bg-linear-180 from-zinc-100 to-zinc-300 shadow-[inset_0_0_0_3px_rgba(255,255,255,.2),4px_4px_0_rgba(0,0,0,.25)] transition-all duration-75 ease-in-out;
+}
+.slider:hover::-webkit-slider-thumb {
+  @apply scale-110;
+}
+.slider:hover::-moz-range-thumb {
+  @apply scale-110;
+}
+.slider:active::-webkit-slider-thumb,
+.slider.is-dragging::-webkit-slider-thumb {
+  @apply scale-x-140 scale-y-75 cursor-grabbing shadow-[inset_0_0_0_3px_rgba(255,255,255,.2),2px_2px_0_rgba(0,0,0,.25)];
+}
+.slider:active::-moz-range-thumb,
+.slider.is-dragging::-moz-range-thumb {
+  @apply scale-x-140 scale-y-75 cursor-grabbing shadow-[inset_0_0_0_3px_rgba(255,255,255,.2),2px_2px_0_rgba(0,0,0,.25)];
+}
+.slider.is-dragging {
+  @apply top-0 scale-100;
+}
+.slider:focus-visible::-webkit-slider-thumb {
+  @apply outline-4 outline-offset-2 outline-white/70;
+}
+.slider:focus-visible::-moz-range-thumb {
+  @apply outline-4 outline-offset-2 outline-white/70;
+}
+
+/* Playground chrome (labels, code view) -------------------------------------- */
+.story-label {
+  @apply font-pixel text-ui-sm tracking-wide text-white/70;
+}
+
+/* ---------------------------------------------------------------------------
+   Backgrounds
+   Set the variables with `backgroundStyle()` from components/backgrounds.ts.
+   The animation moves by exactly one tile, so the loop is seamless.
+   --------------------------------------------------------------------------- */
+.bg-pattern {
+  background-color: var(--bg-color, #4f46e5);
+  background-image: var(--bg-image);
+  animation: scroll-top-right var(--bg-speed, 4s) linear infinite;
+}
+
+@keyframes scroll-top-right {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: var(--bg-tile, 240px) var(--bg-tile, 240px);
+  }
+}

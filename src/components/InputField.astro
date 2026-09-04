@@ -1,0 +1,51 @@
+---
+/**
+ * Squishy text input. Variants map 1:1 to the `.input-*` classes in global.css.
+ *
+ *   <InputField variant="dark" placeholder="Name" />
+ *   <InputField><Icon name="user" /></InputField>   // with icon
+ *
+ * With a slot (icon), the class goes on a wrapping <label>; without a slot it
+ * goes on the <input> itself. `focus-within` in the CSS handles both.
+ */
+export const variants = {
+  light: 'input-light',
+  dark: 'input-dark',
+} as const;
+
+export type InputVariant = keyof typeof variants;
+
+interface Props {
+  variant?: InputVariant;
+  type?: 'text' | 'password' | 'email' | 'search' | 'number' | 'url';
+  name?: string;
+  placeholder?: string;
+  value?: string;
+  disabled?: boolean;
+  class?: string;
+}
+
+const {
+  variant = 'light',
+  type = 'text',
+  name,
+  placeholder,
+  value,
+  disabled = false,
+  class: className,
+} = Astro.props;
+
+const hasIcon = Astro.slots.has('default');
+const attrs = { type, name, placeholder, value, disabled };
+---
+
+{
+  hasIcon ? (
+    <label class:list={[variants[variant], className]}>
+      <slot />
+      <input {...attrs} />
+    </label>
+  ) : (
+    <input {...attrs} class:list={[variants[variant], className]} />
+  )
+}

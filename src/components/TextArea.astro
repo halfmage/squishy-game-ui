@@ -1,0 +1,32 @@
+---
+/** Multi-line text field. Uses the same variants as InputField. */
+import { variants, type InputVariant } from './InputField.astro';
+
+interface Props {
+  variant?: InputVariant;
+  name?: string;
+  placeholder?: string;
+  value?: string;
+  rows?: number;
+  disabled?: boolean;
+  class?: string;
+}
+
+const {
+  variant = 'light',
+  name,
+  placeholder,
+  value,
+  rows = 4,
+  disabled = false,
+  class: className,
+} = Astro.props;
+---
+
+<textarea
+  name={name}
+  placeholder={placeholder}
+  rows={rows}
+  disabled={disabled}
+  class:list={[variants[variant], 'input-area', className]}>{value}</textarea
+>

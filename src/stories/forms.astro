@@ -1,0 +1,92 @@
+---
+import InputField, { variants } from '../components/InputField.astro';
+import TextArea from '../components/TextArea.astro';
+import Select from '../components/Select.astro';
+import Checkbox from '../components/Checkbox.astro';
+import Radio from '../components/Radio.astro';
+import Toggle from '../components/Toggle.astro';
+import Slider from '../components/Slider.astro';
+import Icon from '../components/Icon.astro';
+import Heading from '../components/Heading.astro';
+import { accentNames } from '../components/palette';
+
+export const title = 'Forms';
+export const bg = 'dots';
+
+const inputVariants = Object.keys(variants) as (keyof typeof variants)[];
+const options = [
+  { value: 'easy', label: 'Easy' },
+  { value: 'normal', label: 'Normal' },
+  { value: 'hard', label: 'Hard' },
+  { value: 'nightmare', label: 'Nightmare' },
+];
+---
+
+<Heading>Forms</Heading>
+
+<div class="grid w-full max-w-5xl grid-cols-1 gap-x-12 gap-y-8 lg:grid-cols-2">
+  <!-- Left: text inputs -->
+  <div class="flex flex-col items-center gap-6">
+    {
+      inputVariants.map((v) => (
+        <section class="flex w-full max-w-lg flex-col items-center gap-3">
+          <span class="story-label">input · {v}</span>
+          <InputField variant={v} class="w-full" placeholder={`${v} input`} />
+          <InputField variant={v} class="w-full" value="With a value">
+            <Icon name="person" />
+          </InputField>
+          <InputField variant={v} type="password" class="w-full" value="secret">
+            <Icon name="settings" />
+          </InputField>
+          <Select variant={v} class="w-full" options={options} value="normal" />
+          <TextArea variant={v} class="w-full" placeholder={`${v} textarea`} rows={3} />
+        </section>
+      ))
+    }
+  </div>
+
+  <!-- Right: choice controls -->
+  <div class="flex flex-col items-start gap-6">
+    <section class="flex w-full max-w-lg flex-col items-start gap-3">
+      <span class="story-label">checkbox</span>
+      <div class="flex flex-wrap justify-start gap-x-8 gap-y-3">
+        <Checkbox name="music" checked>Music</Checkbox>
+        <Checkbox name="sfx" color="pink">Sound FX</Checkbox>
+        <Checkbox name="vibrate" color="blue" checked>Vibration</Checkbox>
+        <Checkbox name="locked" disabled>Locked</Checkbox>
+      </div>
+    </section>
+
+    <section class="flex w-full max-w-lg flex-col items-start gap-3">
+      <span class="story-label">radio</span>
+      <div class="flex flex-wrap justify-start gap-x-8 gap-y-3">
+        <Radio name="difficulty" value="easy" color="green">Easy</Radio>
+        <Radio name="difficulty" value="normal" color="yellow" checked>Normal</Radio>
+        <Radio name="difficulty" value="hard" color="red">Hard</Radio>
+      </div>
+    </section>
+
+    <section class="flex w-full max-w-lg flex-col items-start gap-3">
+      <span class="story-label">toggle</span>
+      <div class="flex flex-wrap justify-start gap-x-8 gap-y-3">
+        <Toggle name="fullscreen" checked>Fullscreen</Toggle>
+        <Toggle name="vsync" color="purple">V-Sync</Toggle>
+        <Toggle name="hints" color="cyan" checked>Hints</Toggle>
+      </div>
+    </section>
+
+    <section class="flex w-full max-w-lg flex-col items-start gap-3">
+      <span class="story-label">slider</span>
+      <Slider name="master" value={70} class="w-full" />
+      <Slider name="music" value={40} color="pink" class="w-full" />
+      <Slider name="brightness" min={0} max={10} step={1} value={7} color="yellow" class="w-full" />
+    </section>
+
+    <section class="flex w-full max-w-lg flex-col items-start gap-3">
+      <span class="story-label">accent colors</span>
+      <div class="flex flex-wrap justify-start gap-x-6 gap-y-3">
+        {accentNames.map((c) => <Checkbox color={c} checked>{c}</Checkbox>)}
+      </div>
+    </section>
+  </div>
+</div>

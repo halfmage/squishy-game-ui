@@ -1,0 +1,26 @@
+---
+/**
+ * Squishy checkbox. Label text goes in the slot.
+ *   <Checkbox name="music" color="pink" checked>Music</Checkbox>
+ */
+import Icon from './Icon.astro';
+import { accentStyle, type AccentName } from './palette';
+
+interface Props {
+  name?: string;
+  value?: string;
+  checked?: boolean;
+  disabled?: boolean;
+  color?: AccentName;
+  class?: string;
+}
+
+const { name, value, checked = false, disabled = false, color = 'green', class: className } =
+  Astro.props;
+---
+
+<label class:list={['choice-field', className]} style={accentStyle(color)}>
+  <input type="checkbox" name={name} value={value} checked={checked} disabled={disabled} />
+  <span class="choice-box"><Icon name="check" /></span>
+  <slot />
+</label>

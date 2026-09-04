@@ -1,0 +1,25 @@
+---
+/**
+ * Squishy toggle switch. Label text goes in the slot.
+ *   <Toggle name="sound" color="blue" checked>Sound</Toggle>
+ */
+import { accentStyle, type AccentName } from './palette';
+
+interface Props {
+  name?: string;
+  value?: string;
+  checked?: boolean;
+  disabled?: boolean;
+  color?: AccentName;
+  class?: string;
+}
+
+const { name, value, checked = false, disabled = false, color = 'green', class: className } =
+  Astro.props;
+---
+
+<label class:list={['choice-field', className]} style={accentStyle(color)}>
+  <input type="checkbox" role="switch" name={name} value={value} checked={checked} disabled={disabled} />
+  <span class="toggle-track"></span>
+  <slot />
+</label>

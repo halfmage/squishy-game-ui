@@ -1,0 +1,45 @@
+---
+/**
+ * The original branded button looks (press, balatro, minecraft, ...).
+ * Kept for later. Styles live in styles/brands.css.
+ */
+export const variants = {
+  simple: 'simple-button',
+  press: 'press-button',
+  balatro: 'balatro-button',
+  minecraft: 'minecraft-button',
+  rainbow: 'rainbow-button',
+  opacity: 'opacity-button',
+} as const;
+
+export type BrandVariant = keyof typeof variants;
+
+interface Props {
+  variant?: BrandVariant;
+  href?: string;
+  class?: string;
+}
+
+const { variant = 'simple', href = '#', class: className = '' } = Astro.props;
+const needsShadowWrapper = variant === 'balatro';
+const fullWidth = /\bw-full\b/.test(className);
+---
+
+{
+  needsShadowWrapper ? (
+    <div
+      class:list={[
+        'flex justify-center drop-shadow-[0_6px_0_rgba(0,0,0,.5)] hover:drop-shadow-[0_6px_0_rgba(0,0,0,.25)]',
+        fullWidth && 'w-full',
+      ]}
+    >
+      <a href={href} class:list={[variants[variant], 'text-center', className]}>
+        <slot />
+      </a>
+    </div>
+  ) : (
+    <a href={href} class:list={[variants[variant], 'text-center', className]}>
+      <slot />
+    </a>
+  )
+}

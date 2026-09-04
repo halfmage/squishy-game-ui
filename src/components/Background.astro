@@ -1,0 +1,21 @@
+---
+/**
+ * Animated tiled background. Wrap any content in it.
+ *
+ *   <Background pattern="dots" class="p-6">...</Background>
+ */
+import { backgroundStyle, type BackgroundName } from './backgrounds';
+
+interface Props {
+  pattern?: BackgroundName;
+  /** CSS duration for one tile of movement, e.g. "4s" */
+  speed?: string;
+  class?: string;
+}
+
+const { pattern = 'stripes', speed = '4s', class: className } = Astro.props;
+---
+
+<div class:list={['bg-pattern', className]} style={backgroundStyle(pattern, speed)}>
+  <slot />
+</div>

@@ -1,0 +1,40 @@
+---
+import Playground from '../layouts/Playground.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import InputField from '../components/InputField.astro';
+import Toggle from '../components/Toggle.astro';
+import Slider from '../components/Slider.astro';
+import Heading from '../components/Heading.astro';
+---
+
+<Playground title="Overview">
+  <Heading>Squishy Game UI</Heading>
+
+  <Button color="green" size="lg" class="w-full max-w-lg"><Icon name="play-arrow" /> Play</Button>
+  <Button color="blue" size="lg" class="w-full max-w-lg"><Icon name="extension" /> Install Plugins</Button>
+  <Button color="light" size="lg" class="w-full max-w-lg"><Icon name="public" /> Explore Worlds</Button>
+
+  <div class="flex flex-wrap justify-center gap-4">
+    <Button><Icon name="settings" /> Settings</Button>
+    <Button><Icon name="person" /> User</Button>
+    <Button><Icon name="share" /> Share</Button>
+  </div>
+
+  <InputField class="w-full" placeholder="Player name"><Icon name="person" /></InputField>
+
+  <div class="flex w-full max-w-lg flex-col gap-4">
+    <Toggle name="music" checked>Music</Toggle>
+    <Slider name="volume" value={60} color="green" class="w-full" />
+  </div>
+
+  <div class="flex flex-wrap justify-center gap-4">
+    <Button icon color="red" aria-label="Close"><Icon name="close" /></Button>
+    <Button icon color="green" aria-label="Confirm"><Icon name="check" /></Button>
+    <Button icon color="dark" aria-label="Quit"><Icon name="logout" /></Button>
+  </div>
+
+  <p class="max-w-lg text-center text-xs leading-loose text-white [text-shadow:_2px_2px_0_rgba(0,0,0,.5)]">
+    One general style. Colors from the palette, three sizes, Material Symbols Rounded icons.
+  </p>
+</Playground>

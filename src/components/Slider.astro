@@ -1,0 +1,69 @@
+---
+/**
+ * Squishy range slider. The filled part of the track follows the value.
+ *   <Slider name="volume" min={0} max={100} value={40} color="pink" />
+ */
+import { accentStyle, type AccentName } from './palette';
+
+interface Props {
+  name?: string;
+  min?: number;
+  max?: number;
+  step?: number;
+  value?: number;
+  disabled?: boolean;
+  color?: AccentName;
+  class?: string;
+}
+
+const {
+  name,
+  min = 0,
+  max = 100,
+  step = 1,
+  value = 50,
+  disabled = false,
+  color = 'green',
+  class: className,
+} = Astro.props;
+
+const fill = ((value - min) / (max - min)) * 100;
+---
+
+<input
+  type="range"
+  name={name}
+  min={min}
+  max={max}
+  step={step}
+  value={value}
+  disabled={disabled}
+  class:list={['slider', className]}
+  style={`${accentStyle(color)}; --fill: ${fill}%`}
+/>
+
+<script>
+  // Keep --fill in sync with the value so the track fill follows the thumb.
+  function update(el: HTMLInputElement) {
+    const min = Number(el.min || 0);
+    const max = Number(el.max || 100);
+    const pct = ((Number(el.value) - min) / (max - min)) * 100;
+    el.style.setProperty('--fill', `${pct}%`);
+  }
+  function isSlider(t: EventTarget | null): t is HTMLInputElement {
+    return t instanceof HTMLInputElement && t.classList.contains('slider');
+  }
+  document.addEventListener('input', (e) => {
+    if (isSlider(e.target)) update(e.target);
+  });
+  // Squeeze the thumb while dragging (pointer or touch).
+  document.addEventListener('pointerdown', (e) => {
+    if (isSlider(e.target)) e.target.classList.add('is-dragging');
+  });
+  const release = () =>
+    document.querySelectorAll('.slider.is-dragging').forEach((el) => el.classList.remove('is-dragging'));
+  window.addEventListener('pointerup', release);
+  window.addEventListener('pointercancel', release);
+  window.addEventListener('blur', release);
+  document.querySelectorAll<HTMLInputElement>('input.slider').forEach(update);
+</script>

@@ -1,0 +1,53 @@
+---
+import Heading from '../components/Heading.astro';
+
+export const title = 'Typography';
+export const bg = 'waves';
+
+const scale = [
+  { name: 'text-ui-2xl', px: 48 },
+  { name: 'text-ui-xl', px: 36 },
+  { name: 'text-ui-lg', px: 28 },
+  { name: 'text-ui-md', px: 22 },
+  { name: 'text-ui-sm', px: 18 },
+  { name: 'text-ui-xs', px: 12 },
+];
+---
+
+<Heading>Typography</Heading>
+
+<section class="flex w-full max-w-2xl flex-col items-center gap-3">
+  <span class="story-label">UI scale · font-pixel (m6x11plus)</span>
+  <div class="flex w-full flex-col gap-2 text-white [text-shadow:_3px_3px_0_rgba(0,0,0,.5)]">
+    {
+      scale.map((s) => (
+        <div class="flex items-baseline gap-4">
+          <span class="w-28 shrink-0 text-right font-pixel text-ui-xs text-white/60">{s.name} · {s.px}px</span>
+          <span class:list={['font-pixel tracking-wide', s.name]}>Squishy Game UI</span>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<section class="flex w-full max-w-2xl flex-col items-center gap-3">
+  <span class="story-label">UI scale · font-sans (Thin Sans)</span>
+  <div class="flex w-full flex-col gap-2 text-white [text-shadow:_3px_3px_0_rgba(0,0,0,.5)]">
+    {
+      scale.map((s) => (
+        <div class="flex items-baseline gap-4">
+          <span class="w-28 shrink-0 text-right font-pixel text-ui-xs text-white/60">{s.name} · {s.px}px</span>
+          <span class:list={['font-sans', s.name]}>Squishy Game UI</span>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<section class="flex w-full max-w-2xl flex-col items-center gap-3">
+  <span class="story-label">body text</span>
+  <p class="max-w-lg text-center text-xs leading-loose text-white [text-shadow:_2px_2px_0_rgba(0,0,0,.5)]">
+    Lorem ipsum dolor sit amet consectetur elit. Sed do eiusmod tempor incididunt ut labore et
+    dolore magna aliqua.
+  </p>
+</section>

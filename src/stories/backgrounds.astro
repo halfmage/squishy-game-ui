@@ -1,0 +1,33 @@
+---
+import Background from '../components/Background.astro';
+import Heading from '../components/Heading.astro';
+import { backgrounds, backgroundNames } from '../components/backgrounds';
+
+export const title = 'Backgrounds';
+export const bg = 'pixels';
+---
+
+<Heading>Backgrounds</Heading>
+
+<p class="max-w-lg text-center text-xs leading-loose text-white [text-shadow:_2px_2px_0_rgba(0,0,0,.5)]">
+  Each tile scrolls by exactly one tile size, so the loop is seamless. Add a pattern in
+  <code>src/components/backgrounds.ts</code>.
+</p>
+
+<div class="grid w-full max-w-4xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  {
+    backgroundNames.map((name) => (
+      <Background
+        pattern={name}
+        class="flex h-48 flex-col items-center justify-center gap-1 rounded-lg border-4 border-black/80 shadow-[4px_4px_0_rgba(0,0,0,.25)]"
+      >
+        <span class="font-pixel text-ui-lg tracking-wide text-white [text-shadow:_3px_3px_0_rgba(0,0,0,.5)]">
+          {name}
+        </span>
+        <span class="font-pixel text-ui-sm text-white/70">
+          tile {backgrounds[name].tile}px · {backgrounds[name].color}
+        </span>
+      </Background>
+    ))
+  }
+</div>

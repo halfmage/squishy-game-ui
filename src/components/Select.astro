@@ -1,0 +1,49 @@
+---
+/** Native select with the input look and a pixel chevron. */
+import { variants, type InputVariant } from './InputField.astro';
+import Icon from './Icon.astro';
+
+interface Option {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  variant?: InputVariant;
+  name?: string;
+  options: Option[];
+  value?: string;
+  disabled?: boolean;
+  class?: string;
+}
+
+const { variant = 'light', name, options, value, disabled = false, class: className = '' } =
+  Astro.props;
+const fullWidth = /\bw-full\b/.test(className);
+const isDark = variant !== 'light';
+---
+
+<div class:list={['relative inline-flex max-w-lg', fullWidth && 'w-full']}>
+  <select
+    name={name}
+    disabled={disabled}
+    class:list={[variants[variant], 'input-select', className]}
+  >
+    {
+      options.map((o) => (
+        <option value={o.value} selected={o.value === value}>
+          {o.label}
+        </option>
+      ))
+    }
+  </select>
+  <Icon
+    name="keyboard-arrow-down"
+    class:list={[
+      'pointer-events-none absolute top-1/2 right-4 size-8 -translate-y-1/2',
+      isDark
+        ? 'text-white drop-shadow-[3px_3px_0_rgba(0,0,0,.5)]'
+        : 'text-zinc-800',
+    ]}
+  />
+</div>

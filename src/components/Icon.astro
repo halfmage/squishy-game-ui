@@ -1,0 +1,28 @@
+---
+/**
+ * Material Symbols Rounded via astro-icon (Iconify).
+ * Pass the short Material name: <Icon name="settings" />  →  material-symbols:settings-rounded
+ * Full Iconify names also work: <Icon name="material-symbols:progress-activity" />
+ * Browse names: https://icon-sets.iconify.design/material-symbols/?suffixes=rounded
+ */
+import { Icon as IconifyIcon } from 'astro-icon/components';
+
+interface Props {
+  name: string;
+  class?: string;
+  /** aria-label makes the icon meaningful; without it the icon is decorative */
+  'aria-label'?: string;
+}
+
+const { name, class: className, 'aria-label': ariaLabel } = Astro.props;
+const iconName = name.includes(':')
+  ? name
+  : `material-symbols:${name.endsWith('-rounded') ? name : `${name}-rounded`}`;
+---
+
+<IconifyIcon
+  name={iconName}
+  class={className}
+  aria-label={ariaLabel}
+  aria-hidden={ariaLabel ? undefined : 'true'}
+/>

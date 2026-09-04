@@ -1,0 +1,34 @@
+---
+import BrandButton from '../components/BrandButton.astro';
+import PixelIcon from '../components/PixelIcon.astro';
+import Heading from '../components/Heading.astro';
+
+export const title = 'Brands';
+export const bg = 'stripes';
+---
+
+<Heading>Brand styles (later)</Heading>
+
+<p class="max-w-lg text-center text-xs leading-loose text-white [text-shadow:_2px_2px_0_rgba(0,0,0,.5)]">
+  The original one-off looks. Kept in styles/brands.css for a later branding step.
+</p>
+
+<BrandButton variant="opacity" class="w-full">
+  <PixelIcon name="x" class="animate-rotate-lift" />
+  <span class="rainbow-text uppercase">Subscribe to my X</span>
+  <PixelIcon name="x" class="animate-rotate-lift" />
+</BrandButton>
+
+<BrandButton variant="press" class="w-full"><PixelIcon name="plug" /> Install Plugins</BrandButton>
+
+<BrandButton variant="balatro" class="w-full">Play your Cards <PixelIcon name="cards" /></BrandButton>
+
+<BrandButton variant="minecraft" class="w-full"><PixelIcon name="cube" /> Explore Worlds</BrandButton>
+
+<BrandButton variant="rainbow" class="w-full"><PixelIcon name="cube" /> Rainbow</BrandButton>
+
+<div class="flex gap-5">
+  <BrandButton variant="simple">Settings <PixelIcon name="settings" /></BrandButton>
+  <BrandButton variant="simple">User <PixelIcon name="user" /></BrandButton>
+  <BrandButton variant="simple">Share <PixelIcon name="share" /></BrandButton>
+</div>

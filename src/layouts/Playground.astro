@@ -1,0 +1,55 @@
+---
+import '../styles/global.css';
+import { stories } from '../stories';
+import { backgroundStyle, type BackgroundName } from '../components/backgrounds';
+
+interface Props {
+  title: string;
+  bg?: BackgroundName;
+}
+
+const { title, bg = 'stripes' } = Astro.props;
+const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} · Squishy UI</title>
+  </head>
+  <body class="bg-pattern h-screen w-screen overflow-hidden font-sans" style={backgroundStyle(bg)}>
+    <nav
+      class="fixed top-0 left-0 z-50 flex w-full flex-wrap items-center gap-2 px-3 py-2 font-pixel text-xl tracking-wide text-white"
+    >
+      <a
+        href="/"
+        class:list={[
+          'rounded px-2 py-0.5 hover:bg-white/20',
+          current === '/' && 'bg-white/20',
+        ]}>Overview</a
+      >
+      {
+        stories.map((s) => (
+          <a
+            href={s.href}
+            class:list={[
+              'rounded px-2 py-0.5 hover:bg-white/20',
+              current === s.href && 'bg-white/20',
+            ]}
+          >
+            {s.title}
+          </a>
+        ))
+      }
+    </nav>
+
+    <main
+      class="flex h-full w-full flex-col items-center justify-center-safe gap-6 overflow-x-hidden overflow-y-auto p-3 pt-16"
+    >
+      <slot />
+    </main>
+  </body>
+</html>

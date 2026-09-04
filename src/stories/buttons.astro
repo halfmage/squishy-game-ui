@@ -1,0 +1,76 @@
+---
+import Button, { sizes } from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import Heading from '../components/Heading.astro';
+import { colorNames } from '../components/palette';
+
+export const title = 'Buttons';
+export const bg = 'checker';
+
+const sizeNames = Object.keys(sizes) as (keyof typeof sizes)[];
+---
+
+<Heading>Buttons</Heading>
+
+<section class="flex w-full max-w-2xl flex-col items-center gap-3">
+  <span class="story-label">colors</span>
+  <div class="flex flex-wrap justify-center gap-4">
+    {colorNames.map((c) => <Button color={c}>{c}</Button>)}
+  </div>
+</section>
+
+<section class="flex w-full max-w-2xl flex-col items-center gap-3">
+  <span class="story-label">sizes</span>
+  <div class="flex flex-wrap items-center justify-center gap-4">
+    {
+      sizeNames.map((s) => (
+        <Button color="green" size={s}>
+          <Icon name="play-arrow" /> Play ({s})
+        </Button>
+      ))
+    }
+  </div>
+</section>
+
+<section class="flex w-full max-w-2xl flex-col items-center gap-3">
+  <span class="story-label">with icons</span>
+  <div class="flex flex-wrap items-center justify-center gap-4">
+    <Button color="blue"><Icon name="settings" /> Settings</Button>
+    <Button color="pink">Share <Icon name="share" /></Button>
+    <Button color="yellow"><Icon name="star" /> Favorite</Button>
+    <Button color="light"><Icon name="person" /> Profile</Button>
+    <Button color="dark"><Icon name="logout" /> Quit</Button>
+  </div>
+</section>
+
+<section class="flex w-full max-w-2xl flex-col items-center gap-3">
+  <span class="story-label">icon only</span>
+  <div class="flex flex-wrap items-center justify-center gap-4">
+    {
+      sizeNames.map((s) => (
+        <Button icon color="red" size={s} aria-label="Close">
+          <Icon name="close" />
+        </Button>
+      ))
+    }
+    <Button icon color="green" aria-label="Add"><Icon name="add" /></Button>
+    <Button icon color="light" aria-label="Search"><Icon name="search" /></Button>
+    <Button icon color="purple" aria-label="Volume"><Icon name="volume-up" /></Button>
+  </div>
+</section>
+
+<section class="flex w-full max-w-2xl flex-col items-center gap-3">
+  <span class="story-label">states</span>
+  <div class="flex flex-wrap items-center justify-center gap-4">
+    <Button color="green">Normal</Button>
+    <Button color="green" disabled>Disabled</Button>
+    <Button color="green" loading>Loading</Button>
+    <Button as="button" type="submit" color="blue"><Icon name="save" /> Real button</Button>
+    <Button as="button" color="blue" loading><Icon name="save" /> Saving</Button>
+  </div>
+</section>
+
+<section class="flex w-full max-w-2xl flex-col items-center gap-3">
+  <span class="story-label">full width</span>
+  <Button color="orange" size="lg" class="w-full max-w-lg"><Icon name="sports-esports" /> Start Game</Button>
+</section>

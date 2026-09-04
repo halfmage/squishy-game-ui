@@ -1,0 +1,32 @@
+---
+import Icon from '../components/Icon.astro';
+import Heading from '../components/Heading.astro';
+
+export const title = 'Icons';
+export const bg = 'grid';
+
+const names = [
+  'home', 'settings', 'person', 'share', 'search', 'close', 'check', 'add', 'remove',
+  'play-arrow', 'pause', 'refresh', 'save', 'edit', 'delete', 'star', 'favorite',
+  'volume-up', 'sports-esports', 'shopping-cart', 'lock', 'info', 'warning',
+  'check-circle', 'arrow-back', 'arrow-forward', 'keyboard-arrow-down', 'logout',
+];
+---
+
+<Heading>Icons</Heading>
+
+<p class="max-w-lg text-center text-xs leading-loose text-white [text-shadow:_2px_2px_0_rgba(0,0,0,.5)]">
+  Material Symbols Rounded via Iconify. Use the short name: <code>&lt;Icon name="settings" /&gt;</code>.
+  Browse all names at icon-sets.iconify.design/material-symbols.
+</p>
+
+<div class="grid w-full max-w-3xl grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6">
+  {
+    names.map((n) => (
+      <div class="flex flex-col items-center gap-1 text-white">
+        <Icon name={n} class="size-10 drop-shadow-[3px_3px_0_rgba(0,0,0,.5)]" />
+        <span class="font-pixel text-ui-xs tracking-wide text-white/80">{n}</span>
+      </div>
+    ))
+  }
+</div>
