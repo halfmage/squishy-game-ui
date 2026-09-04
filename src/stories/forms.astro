@@ -6,6 +6,7 @@ import Checkbox from '../components/Checkbox.astro';
 import Radio from '../components/Radio.astro';
 import Toggle from '../components/Toggle.astro';
 import Slider from '../components/Slider.astro';
+import Stepper from '../components/Stepper.astro';
 import Icon from '../components/Icon.astro';
 import Heading from '../components/Heading.astro';
 import { accentNames } from '../components/palette';
@@ -43,6 +44,14 @@ const options = [
         </section>
       ))
     }
+    <section class="flex w-full max-w-lg flex-col items-center gap-3">
+      <span class="story-label">number stepper</span>
+      <Stepper name="qty" min={0} max={10} value={3} class="w-full" />
+      <div class="flex gap-4">
+        <Stepper name="lives" min={1} max={5} value={5} class="w-36" />
+        <Stepper name="off" value={0} disabled class="w-36" />
+      </div>
+    </section>
   </div>
 
   <!-- Right: choice controls -->

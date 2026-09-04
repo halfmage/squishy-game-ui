@@ -1,0 +1,80 @@
+---
+/**
+ * Tab bar + panels. Put <TabPanel id="..."> elements in the slot.
+ *
+ *   <Tabs tabs={[{ id: 'audio', label: 'Audio', icon: 'volume-up' }, ...]} active="audio">
+ *     <TabPanel id="audio" active>...</TabPanel>
+ *     <TabPanel id="video">...</TabPanel>
+ *   </Tabs>
+ */
+import Icon from './Icon.astro';
+
+interface Tab {
+  id: string;
+  label: string;
+  icon?: string;
+}
+
+interface Props {
+  tabs: Tab[];
+  active?: string;
+  class?: string;
+}
+
+const { tabs, active = tabs[0]?.id, class: className } = Astro.props;
+---
+
+<div class:list={['flex w-full flex-col gap-4', className]} data-tabs>
+  <div class="tab-list" role="tablist">
+    {
+      tabs.map((t) => (
+        <button
+          type="button"
+          role="tab"
+          class="tab"
+          data-tab={t.id}
+          aria-selected={t.id === active ? 'true' : 'false'}
+          tabindex={t.id === active ? 0 : -1}
+        >
+          {t.icon && <Icon name={t.icon} />}
+          {t.label}
+        </button>
+      ))
+    }
+  </div>
+  <slot />
+</div>
+
+<script>
+  function activate(root: HTMLElement, id: string) {
+    root.querySelectorAll<HTMLElement>('[role=tab]').forEach((tab) => {
+      const on = tab.dataset.tab === id;
+      tab.setAttribute('aria-selected', on ? 'true' : 'false');
+      tab.tabIndex = on ? 0 : -1;
+    });
+    root.querySelectorAll<HTMLElement>('[data-tab-panel]').forEach((p) => {
+      // Only panels that belong to this Tabs root (not nested ones).
+      if (p.closest('[data-tabs]') !== root) return;
+      p.hidden = p.dataset.tabPanel !== id;
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    const tab = (e.target as HTMLElement).closest<HTMLElement>('[role=tab][data-tab]');
+    const root = tab?.closest<HTMLElement>('[data-tabs]');
+    if (tab && root) activate(root, tab.dataset.tab!);
+  });
+
+  // Arrow keys move between tabs.
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    const tab = (e.target as HTMLElement).closest<HTMLElement>('[role=tab][data-tab]');
+    const root = tab?.closest<HTMLElement>('[data-tabs]');
+    if (!tab || !root) return;
+    const tabs = [...root.querySelectorAll<HTMLElement>('[role=tab]')];
+    const i = tabs.indexOf(tab);
+    const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length];
+    next.focus();
+    activate(root, next.dataset.tab!);
+  });
+</script>

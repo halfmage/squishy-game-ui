@@ -75,6 +75,7 @@
   --animate-rainbow-gradient: rainbow 1s ease-in-out infinite;
   --animate-bounce-soft: bounce-soft 1s linear infinite;
   --animate-spin-steps: spin 0.8s steps(8) infinite;
+  --animate-pop: pop 0.15s ease-out both;
 
   --shadow-soft: 0px 6px 0 rgba(0, 0, 0, 0.25);
   --shadow-soft-hover: 0px 6px 1px rgba(0, 0, 0, 0.25);
@@ -92,6 +93,17 @@
     }
     100% {
       background-position: 200% 50%;
+    }
+  }
+
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
     }
   }
 
@@ -169,6 +181,7 @@
   --animate-rainbow-gradient: rainbow 1s ease-in-out infinite;
   --animate-bounce-soft: bounce-soft 1s linear infinite;
   --animate-spin-steps: spin 0.8s steps(8) infinite;
+  --animate-pop: pop 0.15s ease-out both;
 
   --shadow-soft: 0px 6px 0 rgba(0, 0, 0, 0.25);
   --shadow-soft-hover: 0px 6px 1px rgba(0, 0, 0, 0.25);
@@ -322,6 +335,14 @@
   @apply cursor-pointer appearance-none pr-12 [&_option]:bg-white [&_option]:text-zinc-800 [&_option]:[text-shadow:none];
 }
 
+/* Number stepper: <div class="input-light stepper"> - input + </div> */
+.stepper {
+  @apply gap-2 px-2 [&_input]:text-center [&_input]:[appearance:textfield] [&_input]:[&::-webkit-inner-spin-button]:appearance-none [&_input]:[&::-webkit-outer-spin-button]:appearance-none;
+}
+.stepper-btn {
+  @apply flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-md border-2 border-black/80 bg-linear-180 from-zinc-500 to-zinc-600 text-white shadow-[inset_0_0_0_2px_rgba(255,255,255,.2),2px_2px_0_rgba(0,0,0,.25)] transition-all duration-75 hover:brightness-110 active:translate-y-px active:shadow-none disabled:pointer-events-none disabled:opacity-40 [&_svg]:size-5 [&_svg]:drop-shadow-none;
+}
+
 /* Choice controls --------------------------------------------------------- */
 .choice-field {
   @apply relative top-0 inline-flex cursor-pointer items-center gap-2.5 font-pixel text-ui-md tracking-wide text-white transition-all duration-75 ease-in-out select-none [text-shadow:_3px_3px_0_rgba(0,0,0,.5)] hover:-top-1 hover:scale-105 active:top-0 active:scale-x-110 active:scale-y-95;
@@ -422,6 +443,77 @@
 }
 .slider:focus-visible::-moz-range-thumb {
   @apply outline-4 outline-offset-2 outline-white/70;
+}
+
+/* Panel + dialog ---------------------------------------------------------- */
+.panel {
+  @apply w-full max-w-lg overflow-hidden rounded-lg border-4 border-black/80 bg-linear-180 from-zinc-100 to-zinc-300 text-zinc-800 shadow-[inset_0_0_0_4px_rgba(255,255,255,.3),6px_6px_0_rgba(0,0,0,.25)];
+}
+.panel-title {
+  @apply flex items-center gap-2.5 border-b-4 border-black/80 px-4 py-1.5 font-pixel text-ui-md tracking-wide text-shadow-pixel [&>svg]:size-6 [&>svg]:shrink-0 [&>svg]:drop-shadow-(--c-icon-shadow);
+  background-image: linear-gradient(180deg, var(--c-from, #71717a), var(--c-to, #52525b));
+  color: var(--c-text, #fff);
+}
+.panel-title > .btn {
+  @apply ml-auto;
+}
+.panel-body {
+  @apply flex flex-col gap-4 p-4 font-sans text-sm leading-snug;
+}
+.panel-footer {
+  @apply flex flex-wrap items-center justify-end gap-3 border-t-4 border-black/10 bg-black/5 px-4 py-3;
+}
+/* Controls inside a light panel: dark text, no text shadow */
+.panel .choice-field,
+.panel .story-label {
+  @apply text-zinc-800 [text-shadow:none];
+}
+
+.dialog {
+  @apply m-auto max-w-[calc(100vw-2rem)] overflow-visible bg-transparent p-2 open:animate-pop;
+}
+.dialog::backdrop {
+  @apply bg-black/60;
+}
+
+/* Tabs ---------------------------------------------------------------------- */
+.tab-list {
+  @apply flex flex-wrap gap-1 rounded-lg border-4 border-black/80 bg-black/50 p-1 shadow-[inset_0_3px_0_rgba(0,0,0,.4),4px_4px_0_rgba(0,0,0,.25)];
+}
+.tab {
+  @apply flex cursor-pointer items-center gap-1.5 rounded-md px-3 py-1 font-pixel text-ui-sm tracking-wide text-white/70 transition-all duration-75 select-none hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-white/70 aria-selected:bg-linear-180 aria-selected:from-zinc-100 aria-selected:to-zinc-300 aria-selected:text-zinc-800 aria-selected:shadow-[2px_2px_0_rgba(0,0,0,.4)] [&_svg]:size-5;
+}
+.tab-panel[hidden] {
+  display: none;
+}
+
+/* Dropdown menu ------------------------------------------------------------- */
+.dropdown {
+  @apply relative inline-block;
+}
+.dropdown > summary {
+  @apply list-none [&::-webkit-details-marker]:hidden;
+}
+.dropdown > summary svg:last-child {
+  @apply transition-transform duration-75;
+}
+.dropdown[open] > summary svg:last-child {
+  @apply rotate-180;
+}
+.dropdown-menu {
+  @apply absolute top-full left-0 z-40 mt-2 flex min-w-48 animate-pop flex-col gap-0.5 rounded-lg border-4 border-black/80 bg-linear-180 from-zinc-100 to-zinc-300 p-1.5 shadow-[inset_0_0_0_3px_rgba(255,255,255,.3),6px_6px_0_rgba(0,0,0,.25)];
+}
+.dropdown.is-right .dropdown-menu {
+  @apply right-0 left-auto;
+}
+.dropdown-item {
+  @apply flex w-full cursor-pointer items-center gap-2 rounded-md px-3 py-1 text-left font-pixel text-ui-sm tracking-wide text-zinc-800 transition-colors duration-75 hover:bg-black/10 focus-visible:bg-black/10 focus-visible:outline-none [&_svg]:size-5 [&_svg]:shrink-0;
+}
+.dropdown-item.is-danger {
+  @apply text-red-600;
+}
+.dropdown-divider {
+  @apply my-1 h-0.5 bg-black/15;
 }
 
 /* Playground chrome (labels, code view) -------------------------------------- */

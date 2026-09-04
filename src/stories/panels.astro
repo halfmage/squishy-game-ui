@@ -1,0 +1,169 @@
+---
+import Panel from '../components/Panel.astro';
+import Dialog from '../components/Dialog.astro';
+import Tabs from '../components/Tabs.astro';
+import TabPanel from '../components/TabPanel.astro';
+import Dropdown from '../components/Dropdown.astro';
+import DropdownItem from '../components/DropdownItem.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import Toggle from '../components/Toggle.astro';
+import Slider from '../components/Slider.astro';
+import Select from '../components/Select.astro';
+import Checkbox from '../components/Checkbox.astro';
+import Heading from '../components/Heading.astro';
+
+export const title = 'Panels';
+export const bg = 'plus';
+---
+
+<Heading>Panels</Heading>
+
+<div class="grid w-full max-w-5xl grid-cols-1 gap-x-12 gap-y-8 lg:grid-cols-2">
+  <div class="flex flex-col items-center gap-6">
+    <section class="flex w-full max-w-lg flex-col items-center gap-3">
+      <span class="story-label">panel</span>
+      <Panel title="Inventory" color="blue">
+        <Icon name="shopping-cart" slot="icon" />
+        <p>
+          A light panel with a colored title bar. Body text uses the sans font. Put any controls
+          inside.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <Button size="sm" color="green"><Icon name="add" /> Add item</Button>
+          <Button size="sm" color="light"><Icon name="edit" /> Edit</Button>
+        </div>
+        <Fragment slot="footer">
+          <Button size="sm" color="light">Cancel</Button>
+          <Button size="sm" color="blue"><Icon name="check" /> Done</Button>
+        </Fragment>
+      </Panel>
+    </section>
+
+    <section class="flex w-full max-w-lg flex-col items-center gap-3">
+      <span class="story-label">panel · title colors</span>
+      <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
+        <Panel title="Quest" color="green"><Icon name="star" slot="icon" />Collect 10 gems.</Panel>
+        <Panel title="Danger" color="red"><Icon name="warning" slot="icon" />Lava ahead.</Panel>
+        <Panel title="Shop" color="yellow"><Icon name="shopping-cart" slot="icon" />3 items.</Panel>
+        <Panel title="System" color="dark"><Icon name="info" slot="icon" />v0.1.0</Panel>
+      </div>
+    </section>
+
+    <section class="flex w-full max-w-lg flex-col items-center gap-3">
+      <span class="story-label">panel · no title</span>
+      <Panel>
+        <p>A plain panel without a title bar.</p>
+        <Checkbox name="agree" color="blue">I read the rules</Checkbox>
+      </Panel>
+    </section>
+
+    <section class="flex w-full max-w-lg flex-col items-center gap-3">
+      <span class="story-label">dialog</span>
+      <div class="flex flex-wrap justify-center gap-4">
+        <Button color="red" data-dialog-open="quit"><Icon name="logout" /> Quit game</Button>
+        <Button color="green" data-dialog-open="levelup"><Icon name="star" /> Level up</Button>
+      </div>
+    </section>
+  </div>
+
+  <div class="flex flex-col items-center gap-6">
+    <section class="flex w-full max-w-lg flex-col items-center gap-3">
+      <span class="story-label">tabs in a panel</span>
+      <Panel title="Settings" color="zinc">
+        <Icon name="settings" slot="icon" />
+        <Tabs
+          tabs={[
+            { id: 'audio', label: 'Audio', icon: 'volume-up' },
+            { id: 'video', label: 'Video', icon: 'sports-esports' },
+            { id: 'controls', label: 'Controls', icon: 'settings' },
+          ]}
+          active="audio"
+        >
+          <TabPanel id="audio" active>
+            <Toggle name="music" checked>Music</Toggle>
+            <Slider name="master" value={70} class="w-full" />
+            <Slider name="sfx" value={40} color="pink" class="w-full" />
+          </TabPanel>
+          <TabPanel id="video">
+            <Toggle name="fullscreen" color="blue" checked>Fullscreen</Toggle>
+            <Toggle name="vsync" color="blue">V-Sync</Toggle>
+            <Select
+              class="w-full"
+              options={[
+                { value: 'low', label: 'Low' },
+                { value: 'medium', label: 'Medium' },
+                { value: 'high', label: 'High' },
+              ]}
+              value="medium"
+            />
+          </TabPanel>
+          <TabPanel id="controls">
+            <p>Rebind keys in the next step (key caps).</p>
+          </TabPanel>
+        </Tabs>
+        <Fragment slot="footer">
+          <Button size="sm" color="light">Reset</Button>
+          <Button size="sm" color="green"><Icon name="save" /> Save</Button>
+        </Fragment>
+      </Panel>
+    </section>
+
+    <section class="flex w-full max-w-lg flex-col items-center gap-3">
+      <span class="story-label">tabs · standalone</span>
+      <Tabs
+        tabs={[
+          { id: 'a', label: 'Weapons' },
+          { id: 'b', label: 'Armor' },
+          { id: 'c', label: 'Potions' },
+        ]}
+      >
+        <TabPanel id="a" active><Panel>Swords and bows.</Panel></TabPanel>
+        <TabPanel id="b"><Panel>Helmets and boots.</Panel></TabPanel>
+        <TabPanel id="c"><Panel>Red and blue.</Panel></TabPanel>
+      </Tabs>
+    </section>
+
+    <section class="flex w-full max-w-lg flex-col items-center gap-3">
+      <span class="story-label">dropdown menu</span>
+      <div class="flex w-full flex-wrap justify-between gap-4">
+        <Dropdown label="Options" color="blue">
+          <Icon name="settings" slot="icon" />
+          <DropdownItem><Icon name="save" /> Save game</DropdownItem>
+          <DropdownItem><Icon name="refresh" /> Restart level</DropdownItem>
+          <DropdownItem href="/"><Icon name="home" /> Main menu</DropdownItem>
+          <div class="dropdown-divider"></div>
+          <DropdownItem danger><Icon name="delete" /> Delete save</DropdownItem>
+        </Dropdown>
+        <Dropdown label="Player" color="light" align="right">
+          <Icon name="person" slot="icon" />
+          <DropdownItem><Icon name="edit" /> Rename</DropdownItem>
+          <DropdownItem><Icon name="share" /> Share profile</DropdownItem>
+          <div class="dropdown-divider"></div>
+          <DropdownItem danger><Icon name="logout" /> Log out</DropdownItem>
+        </Dropdown>
+      </div>
+    </section>
+  </div>
+</div>
+
+<Dialog id="quit" title="Quit game?" color="red">
+  <Icon name="warning" slot="icon" />
+  <p>Unsaved progress is lost. Are you sure?</p>
+  <Fragment slot="footer">
+    <Button as="button" color="light" data-dialog-close>Cancel</Button>
+    <Button as="button" color="red" data-dialog-close><Icon name="logout" /> Quit</Button>
+  </Fragment>
+</Dialog>
+
+<Dialog id="levelup" title="Level up!" color="green">
+  <Icon name="star" slot="icon" />
+  <p>You reached level 12. Pick a reward:</p>
+  <div class="flex flex-col gap-3">
+    <Checkbox name="reward" color="green" checked>+10 Health</Checkbox>
+    <Checkbox name="reward" color="blue">+5 Mana</Checkbox>
+  </div>
+  <Fragment slot="footer">
+    <Button as="button" color="green" data-dialog-close><Icon name="check" /> Claim</Button>
+  </Fragment>
+</Dialog>

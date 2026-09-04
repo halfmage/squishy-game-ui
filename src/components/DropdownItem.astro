@@ -1,0 +1,23 @@
+---
+interface Props {
+  href?: string;
+  danger?: boolean;
+  class?: string;
+  [key: `data-${string}`]: string | undefined;
+}
+
+const { href, danger = false, class: className, ...rest } = Astro.props;
+const classes = ['dropdown-item', danger && 'is-danger', className];
+---
+
+{
+  href ? (
+    <a href={href} role="menuitem" class:list={classes} {...rest}>
+      <slot />
+    </a>
+  ) : (
+    <button type="button" role="menuitem" class:list={classes} {...rest}>
+      <slot />
+    </button>
+  )
+}

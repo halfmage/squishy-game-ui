@@ -1,0 +1,61 @@
+---
+/**
+ * Modal dialog built on <dialog>. Open it with any element that has
+ * data-dialog-open="<id>"; close with data-dialog-close inside it.
+ *
+ *   <Button data-dialog-open="quit">Quit</Button>
+ *   <Dialog id="quit" title="Quit game?" color="red">
+ *     Progress is lost.
+ *     <Fragment slot="footer">
+ *       <Button as="button" color="light" data-dialog-close>Cancel</Button>
+ *       <Button as="button" color="red" data-dialog-close>Quit</Button>
+ *     </Fragment>
+ *   </Dialog>
+ */
+import Panel from './Panel.astro';
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+import type { ColorName } from './palette';
+
+interface Props {
+  id: string;
+  title: string;
+  color?: ColorName;
+  class?: string;
+}
+
+const { id, title, color = 'zinc', class: className } = Astro.props;
+const hasFooter = Astro.slots.has('footer');
+---
+
+<dialog id={id} class:list={['dialog', className]} aria-labelledby={`${id}-title`}>
+  <Panel title={title} color={color}>
+    <slot name="icon" slot="icon" />
+    <Button as="button" icon size="sm" color="light" aria-label="Close" data-dialog-close slot="actions">
+      <Icon name="close" />
+    </Button>
+    <slot />
+    {hasFooter && <slot name="footer" slot="footer" />}
+  </Panel>
+</dialog>
+
+<script>
+  document.addEventListener('click', (e) => {
+    const t = e.target as HTMLElement;
+    const opener = t.closest<HTMLElement>('[data-dialog-open]');
+    if (opener) {
+      e.preventDefault();
+      const dlg = document.getElementById(opener.dataset.dialogOpen!) as HTMLDialogElement | null;
+      dlg?.showModal();
+      return;
+    }
+    const closer = t.closest<HTMLElement>('[data-dialog-close]');
+    if (closer) {
+      e.preventDefault();
+      closer.closest('dialog')?.close();
+      return;
+    }
+    // Click on the backdrop (the dialog element itself) closes it.
+    if (t instanceof HTMLDialogElement && t.classList.contains('dialog')) t.close();
+  });
+</script>

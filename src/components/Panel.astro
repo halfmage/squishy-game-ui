@@ -1,0 +1,37 @@
+---
+/**
+ * Light panel with an optional colored title bar and footer.
+ *
+ *   <Panel title="Settings" color="blue">
+ *     <Icon name="settings" slot="icon" />
+ *     ...body...
+ *     <Fragment slot="footer"><Button>OK</Button></Fragment>
+ *   </Panel>
+ */
+import { colorStyle, type ColorName } from './palette';
+
+interface Props {
+  title?: string;
+  color?: ColorName;
+  class?: string;
+}
+
+const { title, color = 'zinc', class: className } = Astro.props;
+const hasFooter = Astro.slots.has('footer');
+const hasIcon = Astro.slots.has('icon');
+const hasActions = Astro.slots.has('actions');
+---
+
+<div class:list={['panel', className]} style={colorStyle(color)}>
+  {
+    title && (
+      <div class="panel-title">
+        {hasIcon && <slot name="icon" />}
+        <span>{title}</span>
+        {hasActions && <slot name="actions" />}
+      </div>
+    )
+  }
+  <div class="panel-body"><slot /></div>
+  {hasFooter && <div class="panel-footer"><slot name="footer" /></div>}
+</div>

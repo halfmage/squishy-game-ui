@@ -1,0 +1,18 @@
+---
+interface Props {
+  id: string;
+  active?: boolean;
+  class?: string;
+}
+
+const { id, active = false, class: className } = Astro.props;
+---
+
+<div
+  class:list={['tab-panel flex flex-col gap-4', className]}
+  role="tabpanel"
+  data-tab-panel={id}
+  hidden={!active}
+>
+  <slot />
+</div>

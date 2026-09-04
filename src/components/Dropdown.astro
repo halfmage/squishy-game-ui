@@ -1,0 +1,56 @@
+---
+/**
+ * Dropdown menu on a <details> element. Works without JS; the script closes
+ * it on outside click, Escape, and item click.
+ *
+ *   <Dropdown label="Options" color="blue">
+ *     <DropdownItem href="/save"><Icon name="save" /> Save</DropdownItem>
+ *     <div class="dropdown-divider"></div>
+ *     <DropdownItem danger><Icon name="delete" /> Delete</DropdownItem>
+ *   </Dropdown>
+ */
+import Icon from './Icon.astro';
+import { sizes, type ButtonSize } from './Button.astro';
+import { colorStyle, type ColorName } from './palette';
+
+interface Props {
+  label: string;
+  color?: ColorName;
+  size?: ButtonSize;
+  align?: 'left' | 'right';
+  class?: string;
+}
+
+const { label, color = 'zinc', size = 'md', align = 'left', class: className } = Astro.props;
+---
+
+<details class:list={['dropdown', align === 'right' && 'is-right', className]} data-dropdown>
+  <summary class:list={['btn', sizes[size]]} style={colorStyle(color)}>
+    <span class="btn-content"><slot name="icon" />{label}</span>
+    <Icon name="keyboard-arrow-down" />
+  </summary>
+  <div class="dropdown-menu" role="menu"><slot /></div>
+</details>
+
+<script>
+  const all = () => document.querySelectorAll<HTMLDetailsElement>('details[data-dropdown][open]');
+
+  document.addEventListener('toggle', (e) => {
+    const d = e.target as HTMLDetailsElement;
+    if (!d.matches?.('details[data-dropdown]') || !d.open) return;
+    all().forEach((o) => o !== d && (o.open = false));
+  }, true);
+
+  document.addEventListener('click', (e) => {
+    const t = e.target as HTMLElement;
+    const inside = t.closest('details[data-dropdown]');
+    const item = t.closest('.dropdown-item');
+    all().forEach((d) => {
+      if (d !== inside || item) d.open = false;
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') all().forEach((d) => (d.open = false));
+  });
+</script>

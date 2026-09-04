@@ -1,0 +1,60 @@
+---
+/**
+ * Number field with minus / plus buttons.
+ *   <Stepper name="qty" min={0} max={99} value={1} />
+ */
+import Icon from './Icon.astro';
+
+interface Props {
+  name?: string;
+  min?: number;
+  max?: number;
+  step?: number;
+  value?: number;
+  disabled?: boolean;
+  class?: string;
+}
+
+const { name, min = 0, max = 100, step = 1, value = 0, disabled = false, class: className } =
+  Astro.props;
+---
+
+<div class:list={['input-light stepper', className]} data-stepper>
+  <button type="button" class="stepper-btn" data-step="-1" aria-label="Decrease" disabled={disabled || value <= min}>
+    <Icon name="remove" />
+  </button>
+  <input type="number" name={name} min={min} max={max} step={step} value={value} disabled={disabled} />
+  <button type="button" class="stepper-btn" data-step="1" aria-label="Increase" disabled={disabled || value >= max}>
+    <Icon name="add" />
+  </button>
+</div>
+
+<script>
+  function sync(root: HTMLElement) {
+    const input = root.querySelector('input')!;
+    const v = Number(input.value);
+    const min = input.min === '' ? -Infinity : Number(input.min);
+    const max = input.max === '' ? Infinity : Number(input.max);
+    root.querySelector<HTMLButtonElement>('[data-step="-1"]')!.disabled = input.disabled || v <= min;
+    root.querySelector<HTMLButtonElement>('[data-step="1"]')!.disabled = input.disabled || v >= max;
+  }
+
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-stepper] [data-step]');
+    if (!btn) return;
+    const root = btn.closest<HTMLElement>('[data-stepper]')!;
+    const input = root.querySelector('input')!;
+    const dir = Number(btn.dataset.step);
+    if (dir > 0) input.stepUp();
+    else input.stepDown();
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+
+  document.addEventListener('input', (e) => {
+    const root = (e.target as HTMLElement).closest<HTMLElement>('[data-stepper]');
+    if (root) sync(root);
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-stepper]').forEach(sync);
+</script>
