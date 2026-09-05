@@ -41,6 +41,11 @@ const options = [
           </InputField>
           <Select variant={v} class="w-full" options={options} value="normal" />
           <TextArea variant={v} class="w-full" placeholder={`${v} textarea`} rows={3} />
+          <span class="story-label">input · {v} · lg</span>
+          <InputField variant={v} size="lg" class="w-full" placeholder={`${v} input lg`}>
+            <Icon name="search" />
+          </InputField>
+          <Select variant={v} size="lg" class="w-full" options={options} value="hard" />
         </section>
       ))
     }
