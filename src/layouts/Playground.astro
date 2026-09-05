@@ -49,7 +49,7 @@ const isHome = current === base || current === '';
       <a href={`${base}/`} class:list={['playground-link', isHome && 'is-active']}>Overview</a>
       {
         stories.map((s) => (
-          <a href={s.href} class:list={['playground-link', current === s.href && 'is-active']}>
+          <a href={s.href} class:list={['playground-link', current === s.href.replace(/\/$/, '') && 'is-active']}>
             {s.title}
           </a>
         ))

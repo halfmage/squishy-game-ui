@@ -22,7 +22,7 @@ export const stories = Object.entries(modules)
     const slug = path.replace('./', '').replace('.astro', '');
     return {
       slug,
-      href: `${base}/${slug}`,
+      href: `${base}/${slug}/`,
       title: mod.title ?? slug.charAt(0).toUpperCase() + slug.slice(1),
       bg: mod.bg ?? ('checker' as BackgroundName),
       fullscreen: mod.fullscreen ?? false,
