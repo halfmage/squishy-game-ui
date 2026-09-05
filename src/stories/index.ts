@@ -14,12 +14,15 @@ const modules = import.meta.glob('./*.astro', { eager: true }) as Record<
   { default: any; title?: string; bg?: BackgroundName; fullscreen?: boolean }
 >;
 
+/** Site base without trailing slash ('' at the root) */
+export const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 export const stories = Object.entries(modules)
   .map(([path, mod]) => {
     const slug = path.replace('./', '').replace('.astro', '');
     return {
       slug,
-      href: `/${slug}`,
+      href: `${base}/${slug}`,
       title: mod.title ?? slug.charAt(0).toUpperCase() + slug.slice(1),
       bg: mod.bg ?? ('checker' as BackgroundName),
       fullscreen: mod.fullscreen ?? false,

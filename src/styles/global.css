@@ -2,11 +2,11 @@
 @import "./brands.css";
 
 /* ---------------------------------------------------------------------------
-   Fonts (files live in /public/fonts)
+   Fonts (bundled from src/assets/fonts so the URL follows the site base)
    --------------------------------------------------------------------------- */
 @font-face {
   font-family: "m6x11plus";
-  src: url("/fonts/m6x11plus.ttf") format("truetype");
+  src: url("../assets/fonts/m6x11plus.ttf") format("truetype");
   font-display: swap;
 }
 

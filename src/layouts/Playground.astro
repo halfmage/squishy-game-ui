@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { stories } from '../stories';
+import { stories, base } from '../stories';
 import { backgroundStyle, type BackgroundName } from '../components/backgrounds';
 import Toaster from '../components/Toaster.astro';
 import Icon from '../components/Icon.astro';
@@ -21,7 +21,8 @@ const brands = [
   { id: 'blocky', label: 'Blocky' },
   { id: 'arcade', label: 'Arcade' },
 ];
-const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+const current = Astro.url.pathname.replace(/\/$/, '');
+const isHome = current === base || current === '';
 ---
 
 <!doctype html>
@@ -29,7 +30,7 @@ const current = Astro.url.pathname.replace(/\/$/, '') || '/';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
     <title>{title} · Squishy UI</title>
     <script is:inline>
       // Apply the saved nav state before first paint to avoid a flash.
@@ -45,7 +46,7 @@ const current = Astro.url.pathname.replace(/\/$/, '') || '/';
   </head>
   <body class="bg-pattern h-screen w-screen overflow-hidden font-sans" style={backgroundStyle(bg)}>
     <nav class="playground-nav">
-      <a href="/" class:list={['playground-link', current === '/' && 'is-active']}>Overview</a>
+      <a href={`${base}/`} class:list={['playground-link', isHome && 'is-active']}>Overview</a>
       {
         stories.map((s) => (
           <a href={s.href} class:list={['playground-link', current === s.href && 'is-active']}>

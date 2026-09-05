@@ -12,6 +12,7 @@ import Slider from '../components/Slider.astro';
 import Select from '../components/Select.astro';
 import Checkbox from '../components/Checkbox.astro';
 import Heading from '../components/Heading.astro';
+import { base } from './index';
 
 export const title = 'Panels';
 export const bg = 'plus';
@@ -131,7 +132,7 @@ export const bg = 'plus';
           <Icon name="settings" slot="icon" />
           <DropdownItem><Icon name="save" /> Save game</DropdownItem>
           <DropdownItem><Icon name="refresh" /> Restart level</DropdownItem>
-          <DropdownItem href="/"><Icon name="home" /> Main menu</DropdownItem>
+          <DropdownItem href={`${base}/`}><Icon name="home" /> Main menu</DropdownItem>
           <div class="dropdown-divider"></div>
           <DropdownItem danger><Icon name="delete" /> Delete save</DropdownItem>
         </Dropdown>

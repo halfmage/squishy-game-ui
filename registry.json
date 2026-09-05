@@ -1,13 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "squishy",
-  "homepage": "https://squishy-game-ui.example.com",
+  "homepage": "https://halfmage.github.io/squishy-game-ui",
   "items": [
     {
       "name": "styles",
       "type": "registry:item",
       "title": "Squishy styles",
-      "description": "Tailwind v4 stylesheet with the type scale, shape tokens, light/dark surfaces, brand themes and every component class. Needs the m6x11plus font in public/fonts.",
+      "description": "Tailwind v4 stylesheet with the type scale, shape tokens, light/dark surfaces, brand themes and every component class. Needs the m6x11plus font in src/assets/fonts.",
       "dependencies": [
         "tailwindcss",
         "@tailwindcss/vite"
@@ -29,7 +29,7 @@
           "target": "~/src/components/palette.ts"
         }
       ],
-      "docs": "Add `@import \"./styles/global.css\"` to your layout and put m6x11plus.ttf in public/fonts (https://managore.itch.io/m6x11). Enable the Tailwind Vite plugin in astro.config.mjs.",
+      "docs": "Add `@import \"./styles/global.css\"` to your layout and put m6x11plus.ttf in src/assets/fonts (https://managore.itch.io/m6x11). Enable the Tailwind Vite plugin in astro.config.mjs.",
       "categories": [
         "foundation"
       ]

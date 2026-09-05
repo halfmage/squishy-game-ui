@@ -5,6 +5,8 @@ import icon from 'astro-icon';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://halfmage.github.io',
+  base: '/squishy-game-ui',
   integrations: [
     // Material Symbols via Iconify. Only icons that are used get bundled.
     icon(),

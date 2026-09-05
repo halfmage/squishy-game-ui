@@ -28,7 +28,7 @@ src/
   layouts/Playground.astro   Shell with background + story nav
   pages/index.astro      Overview
   pages/[story].astro    Renders each story from src/stories
-public/fonts/            m6x11plus.ttf
+src/assets/fonts/        m6x11plus.ttf (bundled by Vite)
 ```
 
 ## Conventions
@@ -53,25 +53,26 @@ The components are published as a [shadcn registry](https://ui.shadcn.com/docs/r
 can be installed with the shadcn CLI into any Astro + Tailwind v4 project:
 
 ```
-npx shadcn@latest add https://<your-host>/r/button.json
+npx shadcn@latest add https://halfmage.github.io/squishy-game-ui/r/button.json
 ```
 
 - `registry.json` lists every item. Items are `registry:item` with `registry:file` files and
   explicit `target` paths (`~/src/components/...`), so they work without a React setup.
 - `npm run registry:build` writes `public/r/<item>.json` plus `public/r/registry.json`.
   Run it after you change a component, then commit `public/r`.
-- Set `homepage` in `registry.json` to the deployed URL.
+- `homepage` in `registry.json` is the deployed URL: https://halfmage.github.io/squishy-game-ui
 
 ### List it in the shadcn directory
 
-1. Deploy the site. `https://<host>/r/registry.json` and `https://<host>/r/button.json` must be public.
+1. The site deploys to GitHub Pages on every push to `main` (.github/workflows/deploy.yml).
+   `https://halfmage.github.io/squishy-game-ui/r/registry.json` must be public.
 2. Fork https://github.com/shadcn-ui/ui and add an entry to `apps/v4/registry/directory.json`:
 
    ```json
    {
      "name": "@squishy",
-     "homepage": "https://<host>",
-     "url": "https://<host>/r/{name}.json",
+     "homepage": "https://halfmage.github.io/squishy-game-ui",
+     "url": "https://halfmage.github.io/squishy-game-ui/r/{name}.json",
      "description": "Squishy game UI for Astro + Tailwind v4: pixel font, hard shadows, brand themes.",
      "logo": "<svg ...></svg>"
    }
