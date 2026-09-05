@@ -25,7 +25,7 @@ const { label, color = 'zinc', size = 'md', align = 'left', class: className } =
 ---
 
 <details class:list={['dropdown', align === 'right' && 'is-right', className]} data-dropdown>
-  <summary class:list={['btn', sizes[size]]} style={colorStyle(color)}>
+  <summary class:list={['btn', sizes[size] || null]} style={colorStyle(color)}>
     <span class="btn-content"><slot name="icon" />{label}</span>
     <Icon name="keyboard-arrow-down" />
   </summary>

@@ -6,12 +6,13 @@
  *   <Button as="button" type="submit" color="blue">Save</Button>
  *   <Button icon color="red" aria-label="Close"><Icon name="close" /></Button>
  *
- * Colors: see components/palette.ts. Sizes: sm | md | lg.
+ * Colors: see components/palette.ts. Sizes: md (default) | lg.
  */
 import Icon from './Icon.astro';
 import { colorStyle, type ColorName } from './palette';
 
-export const sizes = { sm: 'btn-sm', md: 'btn-md', lg: 'btn-lg' } as const;
+/** md = base size (no extra class), lg = large */
+export const sizes = { md: '', lg: 'btn-lg' } as const;
 export type ButtonSize = keyof typeof sizes;
 
 interface Props {
@@ -45,7 +46,7 @@ const {
 
 const classes = [
   'btn',
-  sizes[size],
+  sizes[size] || null,
   icon && 'btn-icon',
   disabled && 'is-disabled',
   loading && 'is-loading',

@@ -12,14 +12,14 @@ const sizeNames = Object.keys(sizes) as (keyof typeof sizes)[];
 
 <Heading>Buttons</Heading>
 
-<section class="flex w-full max-w-2xl flex-col items-center gap-3">
+<section class="flex w-full max-w-4xl flex-col items-center gap-3">
   <span class="story-label">colors</span>
   <div class="flex flex-wrap justify-center gap-4">
     {colorNames.map((c) => <Button color={c}>{c}</Button>)}
   </div>
 </section>
 
-<section class="flex w-full max-w-2xl flex-col items-center gap-3">
+<section class="flex w-full max-w-4xl flex-col items-center gap-3">
   <span class="story-label">sizes</span>
   <div class="flex flex-wrap items-center justify-center gap-4">
     {
@@ -32,7 +32,7 @@ const sizeNames = Object.keys(sizes) as (keyof typeof sizes)[];
   </div>
 </section>
 
-<section class="flex w-full max-w-2xl flex-col items-center gap-3">
+<section class="flex w-full max-w-4xl flex-col items-center gap-3">
   <span class="story-label">with icons</span>
   <div class="flex flex-wrap items-center justify-center gap-4">
     <Button color="blue"><Icon name="settings" /> Settings</Button>
@@ -43,7 +43,7 @@ const sizeNames = Object.keys(sizes) as (keyof typeof sizes)[];
   </div>
 </section>
 
-<section class="flex w-full max-w-2xl flex-col items-center gap-3">
+<section class="flex w-full max-w-4xl flex-col items-center gap-3">
   <span class="story-label">icon only</span>
   <div class="flex flex-wrap items-center justify-center gap-4">
     {
@@ -59,7 +59,7 @@ const sizeNames = Object.keys(sizes) as (keyof typeof sizes)[];
   </div>
 </section>
 
-<section class="flex w-full max-w-2xl flex-col items-center gap-3">
+<section class="flex w-full max-w-4xl flex-col items-center gap-3">
   <span class="story-label">states</span>
   <div class="flex flex-wrap items-center justify-center gap-4">
     <Button color="green">Normal</Button>
@@ -70,7 +70,7 @@ const sizeNames = Object.keys(sizes) as (keyof typeof sizes)[];
   </div>
 </section>
 
-<section class="flex w-full max-w-2xl flex-col items-center gap-3">
+<section class="flex w-full max-w-4xl flex-col items-center gap-3">
   <span class="story-label">full width</span>
   <Button color="orange" size="lg" class="w-full max-w-lg"><Icon name="sports-esports" /> Start Game</Button>
 </section>

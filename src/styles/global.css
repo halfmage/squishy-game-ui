@@ -123,136 +123,6 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Utilities
-   --------------------------------------------------------------------------- */
-@utility pixel-corners {
-  clip-path: polygon(
-    8px 0,
-    calc(100% - 8px) 0,
-    calc(100% - 8px) 4px,
-    calc(100% - 4px) 4px,
-    calc(100% - 4px) 8px,
-    100% 8px,
-    100% calc(100% - 8px),
-    calc(100% - 4px) calc(100% - 8px),
-    calc(100% - 4px) calc(100% - 4px),
-    calc(100% - 8px) calc(100% - 4px),
-    calc(100% - 8px) 100%,
-    8px 100%,
-    8px calc(100% - 4px),
-    4px calc(100% - 4px),
-    4px calc(100% - 8px),
-    0 calc(100% - 8px),
-    0 8px,
-    4px 8px,
-    4px 4px,
-    8px 4px
-  );
-}
-
-/* Hard pixel text shadow, reads --c-text-shadow when set by colorStyle() */
-@utility text-shadow-pixel {
-  text-shadow: var(--c-text-shadow, 3px 3px 0 rgba(0, 0, 0, .5));
-}
-@utility text-shadow-pixel-sm {
-  text-shadow: var(--c-text-shadow, 1px 1px 0 rgba(0, 0, 0, .5));
-}
-
-/* ---------------------------------------------------------------------------
-   Theme tokens + keyframes
-   --------------------------------------------------------------------------- */
-@theme {
-  /* Fonts */
-  --font-sans: "Thin Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-pixel: "m6x11plus", ui-monospace, monospace;
-
-  /* UI type scale. Used by every control (text-ui-*). */
-  --text-ui-xs: 12px;
-  --text-ui-xs--line-height: 1.2;
-  --text-ui-sm: 18px;
-  --text-ui-sm--line-height: 1.1;
-  --text-ui-md: 22px;
-  --text-ui-md--line-height: 1.1;
-  --text-ui-lg: 28px;
-  --text-ui-lg--line-height: 1.1;
-  --text-ui-xl: 36px;
-  --text-ui-xl--line-height: 1.1;
-  --text-ui-2xl: 48px;
-  --text-ui-2xl--line-height: 2;
-
-  --animate-rotate-lift: rotate-lift 2.4s ease-in-out infinite;
-  --animate-rainbow-gradient: rainbow 1s ease-in-out infinite;
-  --animate-bounce-soft: bounce-soft 1s linear infinite;
-  --animate-spin-steps: spin 0.8s steps(8) infinite;
-  --animate-pop: pop 0.15s ease-out both;
-
-  --shadow-soft: 0px 6px 0 rgba(0, 0, 0, 0.25);
-  --shadow-soft-hover: 0px 6px 1px rgba(0, 0, 0, 0.25);
-  --shadow-hard: 4px 4px 0 rgba(0, 0, 0, 0.25);
-
-  @keyframes rotate-lift {
-    20% {
-      transform: translateY(0) rotate(6deg);
-    }
-  }
-
-  @keyframes rainbow {
-    0% {
-      background-position: 0% 50%;
-    }
-    100% {
-      background-position: 200% 50%;
-    }
-  }
-
-  @keyframes bounce-soft {
-    0%,
-    100% {
-      transform: translateY(0) rotate(0);
-    }
-    33% {
-      transform: translateY(-2.5%) rotate(1deg);
-    }
-    66% {
-      transform: translateY(0) rotate(-1deg);
-    }
-  }
-
-  @keyframes pop {
-    from {
-      opacity: 0;
-      transform: scale(0.85);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes toast-in {
-    from {
-      opacity: 0;
-      transform: translateX(120%);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes toast-out {
-    from {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    to {
-      opacity: 0;
-      transform: translateX(120%);
-    }
-  }
-}
-
-/* ---------------------------------------------------------------------------
    Reduced motion: stop all decorative motion.
    --------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
@@ -274,28 +144,19 @@
 
 /* Buttons ------------------------------------------------------------------ */
 .btn {
-  @apply relative top-0 inline-flex max-w-full cursor-pointer items-center justify-center rounded-lg border-4 border-black/80 font-pixel font-medium tracking-wide whitespace-nowrap shadow-[inset_0_0_0_4px_rgba(255,255,255,.2),4px_4px_0_rgba(0,0,0,.25)] outline-neutral-500/25 transition-all duration-75 ease-in-out select-none hover:-top-1 hover:scale-105 hover:animate-bounce-soft hover:brightness-110 focus-visible:scale-105 focus-visible:animate-bounce-soft focus-visible:outline-4 focus-visible:outline-offset-0 focus-visible:outline-white/70 active:top-0 active:scale-x-110 active:scale-y-90 active:brightness-95 [&_svg]:relative [&_svg]:top-px [&_svg]:shrink-0 [&_svg]:drop-shadow-(--c-icon-shadow);
+  @apply relative top-0 inline-flex max-w-full cursor-pointer items-center justify-center gap-2.5 rounded-lg border-4 border-black/80 font-pixel font-medium tracking-wide whitespace-nowrap shadow-[inset_0_0_0_4px_rgba(255,255,255,.2),4px_4px_0_rgba(0,0,0,.25)] outline-neutral-500/25 transition-all duration-75 ease-in-out select-none hover:-top-1 hover:scale-105 hover:animate-bounce-soft hover:brightness-110 focus-visible:scale-105 focus-visible:animate-bounce-soft focus-visible:outline-4 focus-visible:outline-offset-0 focus-visible:outline-white/70 active:top-0 active:scale-x-110 active:scale-y-90 active:brightness-95 [&_svg]:relative [&_svg]:top-px [&_svg]:size-6 [&_svg]:shrink-0 [&_svg]:drop-shadow-(--c-icon-shadow) px-4 py-1.5 pb-2.5 text-ui-md text-shadow-pixel;
   background-image: linear-gradient(180deg, var(--c-from, #71717a), var(--c-to, #52525b));
   color: var(--c-text, #fff);
-}
-.btn-sm {
-  @apply gap-2 px-3 py-1 pb-1.5 text-ui-sm [&_svg]:size-5 text-shadow-pixel-sm;
-}
-.btn-md {
-  @apply gap-2.5 px-4 py-1.5 pb-2.5 text-ui-md [&_svg]:size-6 text-shadow-pixel ;
 }
 .btn-lg {
   @apply gap-3 px-5 py-2 pb-3 text-ui-lg [&_svg]:size-8 text-shadow-pixel ;
 }
 /* Icon-only: square */
-.btn-icon.btn-sm {
-  @apply size-9 px-0;
-}
-.btn-icon.btn-md {
-  @apply size-11 px-0;
+.btn-icon {
+  @apply size-11 p-0;
 }
 .btn-icon.btn-lg {
-  @apply size-14 px-0;
+  @apply size-14 p-0;
 }
 .btn-content {
   @apply inline-flex items-center gap-[inherit];
@@ -460,7 +321,7 @@
   @apply w-full max-w-lg overflow-hidden rounded-lg border-4 border-black/80 bg-linear-180 from-zinc-100 to-zinc-300 text-zinc-800 shadow-[inset_0_0_0_4px_rgba(255,255,255,.3),6px_6px_0_rgba(0,0,0,.25)];
 }
 .panel-title {
-  @apply flex items-center gap-2.5 border-b-4 border-black/80 px-4 py-1.5 font-pixel text-ui-md tracking-wide text-shadow-pixel [&>svg]:size-6 [&>svg]:shrink-0 [&>svg]:drop-shadow-(--c-icon-shadow);
+  @apply flex items-center gap-2.5 border-b-4 border-black/80 px-4 py-3 font-pixel text-ui-md tracking-wide text-shadow-pixel [&>svg]:size-6 [&>svg]:shrink-0 [&>svg]:drop-shadow-(--c-icon-shadow);
   background-image: linear-gradient(180deg, var(--c-from, #71717a), var(--c-to, #52525b));
   color: var(--c-text, #fff);
 }
@@ -468,7 +329,7 @@
   @apply ml-auto;
 }
 .panel-body {
-  @apply flex flex-col gap-4 p-4 font-sans text-sm leading-snug;
+  @apply flex flex-col gap-4 p-6 font-sans text-sm leading-snug;
 }
 .panel-footer {
   @apply flex flex-wrap items-center justify-end gap-3 border-t-4 border-black/10 bg-black/5 px-4 py-3;
@@ -517,7 +378,7 @@
   @apply right-0 left-auto;
 }
 .dropdown-item {
-  @apply flex w-full cursor-pointer items-center gap-2 rounded-md px-3 py-1 text-left font-pixel text-ui-sm tracking-wide text-zinc-800 transition-colors duration-75 hover:bg-black/10 focus-visible:bg-black/10 focus-visible:outline-none [&_svg]:size-5 [&_svg]:shrink-0;
+  @apply flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2 text-left font-pixel text-ui-md tracking-wide text-zinc-800 transition-colors duration-75 hover:bg-black/10 focus-visible:bg-black/10 focus-visible:outline-none [&_svg]:size-6 [&_svg]:shrink-0;
 }
 .dropdown-item.is-danger {
   @apply text-red-600;

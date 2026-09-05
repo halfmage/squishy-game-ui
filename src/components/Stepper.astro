@@ -31,11 +31,11 @@ const {
 ---
 
 <div class:list={['stepper', className]} data-stepper>
-  <Button as="button" icon size="sm" color={color} aria-label="Decrease" data-step="-1" disabled={disabled || value <= min}>
+  <Button as="button" icon color={color} aria-label="Decrease" data-step="-1" disabled={disabled || value <= min}>
     <Icon name="remove" />
   </Button>
   <input type="number" name={name} min={min} max={max} step={step} value={value} disabled={disabled} aria-label="Value" />
-  <Button as="button" icon size="sm" color={color} aria-label="Increase" data-step="1" disabled={disabled || value >= max}>
+  <Button as="button" icon color={color} aria-label="Increase" data-step="1" disabled={disabled || value >= max}>
     <Icon name="add" />
   </Button>
 </div>
