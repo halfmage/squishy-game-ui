@@ -42,7 +42,7 @@
 @utility text-shadow-pixel {
   text-shadow: var(--c-text-shadow, 2px 2px 0 rgba(0, 0, 0, 0.5));
 }
-/* 1px shadow for text below 18px */
+/* 1px shadow for text 18px and below */
 @utility text-shadow-pixel-xs {
   text-shadow: var(--c-text-shadow-xs, 1px 1px 0 rgba(0, 0, 0, 0.5));
 }
@@ -159,11 +159,13 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Small text (below 18px) always gets a 1px shadow. Light surfaces set
+   Small text (18px and below) always gets a 1px shadow. Light surfaces set
    --c-text-shadow-xs to none; colored elements set it via colorStyle().
    --------------------------------------------------------------------------- */
 .text-ui-xs,
-.text-xs {
+.text-xs,
+.text-ui-sm,
+.text-sm {
   text-shadow: var(--c-text-shadow-xs, 1px 1px 0 rgba(0, 0, 0, 0.5));
 }
 
@@ -384,6 +386,7 @@
 }
 .panel-body {
   @apply flex flex-col gap-4 p-6 text-ui-md tracking-wide;
+  --c-text-shadow-xs: none;
 }
 .panel-footer {
   @apply flex flex-wrap items-center justify-end gap-3 border-t-4 border-black/10 bg-black/5 px-4 py-3;
@@ -411,6 +414,9 @@
 }
 .tab[aria-selected="true"] {
   @apply text-shadow-[none];
+}
+.tab[aria-selected='true'] {
+  --c-text-shadow-xs: none;
 }
 .tab-panel[hidden] {
   display: none;
@@ -476,10 +482,10 @@
   );
 }
 .progress-label {
-  @apply pointer-events-none absolute inset-0 flex items-center justify-center font-pixel text-ui-sm tracking-wide text-white [text-shadow:_2px_2px_0_rgba(0,0,0,.6)];
+  @apply pointer-events-none absolute inset-0 flex items-center justify-center font-pixel text-ui-sm tracking-wide text-white text-shadow-pixel-xs;
 }
 .progress-row {
-  @apply flex w-full max-w-lg items-center gap-3 font-pixel text-ui-sm tracking-wide text-white [text-shadow:_2px_2px_0_rgba(0,0,0,.5)] [&>svg]:size-6 [&>svg]:shrink-0 [&>svg]:drop-shadow-[2px_2px_0_rgba(0,0,0,.5)];
+  @apply flex w-full max-w-lg items-center gap-3 font-pixel text-ui-sm tracking-wide text-white text-shadow-pixel-xs [&>svg]:size-6 [&>svg]:shrink-0 [&>svg]:drop-shadow-[2px_2px_0_rgba(0,0,0,.5)];
 }
 .panel .progress-row {
   @apply text-zinc-800 [text-shadow:none] [&>svg]:drop-shadow-none;
@@ -487,12 +493,12 @@
 
 /* Badge / key cap ------------------------------------------------------------ */
 .badge {
-  @apply inline-flex items-center justify-center gap-1 rounded-md border-2 border-black/80 font-pixel tracking-wide whitespace-nowrap shadow-[inset_0_0_0_2px_rgba(255,255,255,.2),2px_2px_0_rgba(0,0,0,.25)] text-shadow-pixel [&_svg]:drop-shadow-(--c-icon-shadow);
+  @apply inline-flex items-center justify-center gap-1 rounded-md border-2 border-black/80 font-pixel tracking-wide whitespace-nowrap shadow-[inset_0_0_0_2px_rgba(255,255,255,.2),2px_2px_0_rgba(0,0,0,.25)] text-shadow-pixel-xs [&_svg]:drop-shadow-(--c-icon-shadow);
   background-image: linear-gradient(180deg, var(--c-from, #71717a), var(--c-to, #52525b));
   color: var(--c-text, #fff);
 }
 .badge-sm {
-  @apply min-w-[22px] px-1.5 py-0.5 text-ui-xs text-shadow-pixel-xs [&_svg]:size-3;
+  @apply min-w-[22px] px-1.5 py-0.5 text-ui-xs [&_svg]:size-3;
 }
 .badge-md {
   @apply min-w-7 px-2 py-0.5 pb-1 text-ui-sm [&_svg]:size-4;
@@ -506,20 +512,22 @@
 
 .keycap {
   @apply inline-flex min-w-8 items-center justify-center rounded-md border-2 border-black/80 bg-linear-180 from-zinc-100 to-zinc-300 px-2 py-0.5 font-pixel text-ui-sm tracking-wide text-zinc-800 shadow-[inset_0_0_0_2px_rgba(255,255,255,.4),0_3px_0_rgba(0,0,0,.6)] transition-all duration-75 select-none [&_svg]:size-4;
+  --c-text-shadow-xs: none;
 }
 .keycap.is-pressed,
 .keycap:active {
   @apply translate-y-[3px] shadow-[inset_0_0_0_2px_rgba(255,255,255,.4)];
 }
 .keycap.is-dark {
-  @apply from-zinc-600 to-zinc-800 text-white [text-shadow:_2px_2px_0_rgba(0,0,0,.5)] shadow-[inset_0_0_0_2px_rgba(255,255,255,.15),0_3px_0_rgba(0,0,0,.8)];
+  @apply from-zinc-600 to-zinc-800 text-white shadow-[inset_0_0_0_2px_rgba(255,255,255,.15),0_3px_0_rgba(0,0,0,.8)];
+  --c-text-shadow-xs: 1px 1px 0 rgba(0, 0, 0, 0.5);
 }
 .keycap.is-dark.is-pressed,
 .keycap.is-dark:active {
   @apply shadow-[inset_0_0_0_2px_rgba(255,255,255,.15)];
 }
 .key-hint {
-  @apply inline-flex items-center gap-2 font-pixel text-ui-sm tracking-wide text-white [text-shadow:_2px_2px_0_rgba(0,0,0,.5)];
+  @apply inline-flex items-center gap-2 font-pixel text-ui-sm tracking-wide text-white text-shadow-pixel-xs;
 }
 .panel .key-hint {
   @apply text-zinc-800 [text-shadow:none];
