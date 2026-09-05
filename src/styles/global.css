@@ -46,7 +46,7 @@
 
 /* Hard pixel text shadow, reads --c-text-shadow when set by colorStyle() */
 @utility text-shadow-pixel {
-  text-shadow: var(--c-text-shadow, 3px 3px 0 rgba(0, 0, 0, 0.5));
+  text-shadow: var(--c-text-shadow, 2px 2px 0 rgba(0, 0, 0, 0.5));
 }
 
 /* ---------------------------------------------------------------------------
@@ -152,7 +152,10 @@
 
 /* Hard pixel text shadow, reads --c-text-shadow when set by colorStyle() */
 @utility text-shadow-pixel {
-  text-shadow: var(--c-text-shadow, 3px 3px 0 rgba(0, 0, 0, 0.5));
+  text-shadow: var(--c-text-shadow, 3px 3px 0 rgba(0, 0, 0, .5));
+}
+@utility text-shadow-pixel-sm {
+  text-shadow: var(--c-text-shadow, 1px 1px 0 rgba(0, 0, 0, .5));
 }
 
 /* ---------------------------------------------------------------------------
@@ -175,7 +178,7 @@
   --text-ui-xl: 36px;
   --text-ui-xl--line-height: 1.1;
   --text-ui-2xl: 48px;
-  --text-ui-2xl--line-height: 1.05;
+  --text-ui-2xl--line-height: 2;
 
   --animate-rotate-lift: rotate-lift 2.4s ease-in-out infinite;
   --animate-rainbow-gradient: rainbow 1s ease-in-out infinite;
@@ -271,18 +274,18 @@
 
 /* Buttons ------------------------------------------------------------------ */
 .btn {
-  @apply relative top-0 inline-flex max-w-full cursor-pointer items-center justify-center rounded-lg border-4 border-black/80 font-pixel font-medium tracking-wide whitespace-nowrap shadow-[inset_0_0_0_4px_rgba(255,255,255,.2),4px_4px_0_rgba(0,0,0,.25)] outline-neutral-500/25 transition-all duration-75 ease-in-out select-none text-shadow-pixel hover:-top-1 hover:scale-105 hover:animate-bounce-soft hover:brightness-110 focus-visible:scale-105 focus-visible:animate-bounce-soft focus-visible:outline-4 focus-visible:outline-offset-0 focus-visible:outline-white/70 active:top-0 active:scale-x-110 active:scale-y-90 active:brightness-95 [&_svg]:relative [&_svg]:top-px [&_svg]:shrink-0 [&_svg]:drop-shadow-(--c-icon-shadow);
+  @apply relative top-0 inline-flex max-w-full cursor-pointer items-center justify-center rounded-lg border-4 border-black/80 font-pixel font-medium tracking-wide whitespace-nowrap shadow-[inset_0_0_0_4px_rgba(255,255,255,.2),4px_4px_0_rgba(0,0,0,.25)] outline-neutral-500/25 transition-all duration-75 ease-in-out select-none hover:-top-1 hover:scale-105 hover:animate-bounce-soft hover:brightness-110 focus-visible:scale-105 focus-visible:animate-bounce-soft focus-visible:outline-4 focus-visible:outline-offset-0 focus-visible:outline-white/70 active:top-0 active:scale-x-110 active:scale-y-90 active:brightness-95 [&_svg]:relative [&_svg]:top-px [&_svg]:shrink-0 [&_svg]:drop-shadow-(--c-icon-shadow);
   background-image: linear-gradient(180deg, var(--c-from, #71717a), var(--c-to, #52525b));
   color: var(--c-text, #fff);
 }
 .btn-sm {
-  @apply gap-2 px-3 py-1 text-ui-sm [&_svg]:size-5;
+  @apply gap-2 px-3 py-1 pb-1.5 text-ui-sm [&_svg]:size-5 text-shadow-pixel-sm;
 }
 .btn-md {
-  @apply gap-2.5 px-4 py-1.5 text-ui-md [&_svg]:size-6;
+  @apply gap-2.5 px-4 py-1.5 pb-2.5 text-ui-md [&_svg]:size-6 text-shadow-pixel ;
 }
 .btn-lg {
-  @apply gap-3 px-5 py-2 pb-2.5 text-ui-lg [&_svg]:size-8;
+  @apply gap-3 px-5 py-2 pb-3 text-ui-lg [&_svg]:size-8 text-shadow-pixel ;
 }
 /* Icon-only: square */
 .btn-icon.btn-sm {
@@ -335,12 +338,19 @@
   @apply cursor-pointer appearance-none pr-12 [&_option]:bg-white [&_option]:text-zinc-800 [&_option]:[text-shadow:none];
 }
 
-/* Number stepper: <div class="input-light stepper"> - input + </div> */
+/* Number stepper: two icon buttons with the number between them */
 .stepper {
-  @apply gap-2 px-2 [&_input]:text-center [&_input]:[appearance:textfield] [&_input]:[&::-webkit-inner-spin-button]:appearance-none [&_input]:[&::-webkit-outer-spin-button]:appearance-none;
+  @apply inline-flex items-center gap-3 font-pixel text-ui-lg tracking-wide text-white [text-shadow:_3px_3px_0_rgba(0,0,0,.5)];
 }
-.stepper-btn {
-  @apply flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-md border-2 border-black/80 bg-linear-180 from-zinc-500 to-zinc-600 text-white shadow-[inset_0_0_0_2px_rgba(255,255,255,.2),2px_2px_0_rgba(0,0,0,.25)] transition-all duration-75 hover:brightness-110 active:translate-y-px active:shadow-none disabled:pointer-events-none disabled:opacity-40 [&_svg]:size-5 [&_svg]:drop-shadow-none;
+.stepper input {
+  @apply w-12 bg-transparent text-center outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none;
+}
+.stepper input:disabled {
+  @apply opacity-50;
+}
+/* Inside a light panel: dark number, no shadow */
+.panel .stepper {
+  @apply text-zinc-800 [text-shadow:none];
 }
 
 /* Choice controls --------------------------------------------------------- */
@@ -478,10 +488,10 @@
 
 /* Tabs ---------------------------------------------------------------------- */
 .tab-list {
-  @apply flex flex-wrap gap-1 rounded-lg border-4 border-black/80 bg-black/50 p-1 shadow-[inset_0_3px_0_rgba(0,0,0,.4),4px_4px_0_rgba(0,0,0,.25)];
+  @apply flex flex-wrap gap-2 rounded-lg bg-black/25 p-2 shadow-[inset_0_3px_0_rgba(0,0,0,.4)];
 }
 .tab {
-  @apply flex cursor-pointer items-center gap-1.5 rounded-md px-3 py-1 font-pixel text-ui-sm tracking-wide text-white/70 transition-all duration-75 select-none hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-white/70 aria-selected:bg-linear-180 aria-selected:from-zinc-100 aria-selected:to-zinc-300 aria-selected:text-zinc-800 aria-selected:shadow-[2px_2px_0_rgba(0,0,0,.4)] [&_svg]:size-5;
+  @apply flex cursor-pointer items-center gap-1.5 rounded-md px-3 py-1 font-pixel text-ui-md tracking-wide text-black transition-all duration-75 select-none hover:bg-white/25 hover:scale-105 active:scale-x-125 active:scale-y-75 focus-visible:outline-2 focus-visible:outline-white/70 aria-selected:bg-linear-180 aria-selected:from-zinc-100 aria-selected:to-zinc-300 aria-selected:text-zinc-800 aria-selected:shadow-[2px_2px_0_rgba(0,0,0,.4)] [&_svg]:size-5;
 }
 .tab-panel[hidden] {
   display: none;

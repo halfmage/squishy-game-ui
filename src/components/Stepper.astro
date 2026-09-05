@@ -1,9 +1,11 @@
 ---
 /**
- * Number field with minus / plus buttons.
- *   <Stepper name="qty" min={0} max={99} value={1} />
+ * Number stepper: minus button, number, plus button.
+ *   <Stepper name="qty" min={0} max={99} value={1} color="green" />
  */
+import Button from './Button.astro';
 import Icon from './Icon.astro';
+import type { ColorName } from './palette';
 
 interface Props {
   name?: string;
@@ -11,22 +13,31 @@ interface Props {
   max?: number;
   step?: number;
   value?: number;
+  color?: ColorName;
   disabled?: boolean;
   class?: string;
 }
 
-const { name, min = 0, max = 100, step = 1, value = 0, disabled = false, class: className } =
-  Astro.props;
+const {
+  name,
+  min = 0,
+  max = 100,
+  step = 1,
+  value = 0,
+  color = 'zinc',
+  disabled = false,
+  class: className,
+} = Astro.props;
 ---
 
-<div class:list={['input-light stepper', className]} data-stepper>
-  <button type="button" class="stepper-btn" data-step="-1" aria-label="Decrease" disabled={disabled || value <= min}>
+<div class:list={['stepper', className]} data-stepper>
+  <Button as="button" icon size="sm" color={color} aria-label="Decrease" data-step="-1" disabled={disabled || value <= min}>
     <Icon name="remove" />
-  </button>
-  <input type="number" name={name} min={min} max={max} step={step} value={value} disabled={disabled} />
-  <button type="button" class="stepper-btn" data-step="1" aria-label="Increase" disabled={disabled || value >= max}>
+  </Button>
+  <input type="number" name={name} min={min} max={max} step={step} value={value} disabled={disabled} aria-label="Value" />
+  <Button as="button" icon size="sm" color={color} aria-label="Increase" data-step="1" disabled={disabled || value >= max}>
     <Icon name="add" />
-  </button>
+  </Button>
 </div>
 
 <script>
@@ -44,8 +55,7 @@ const { name, min = 0, max = 100, step = 1, value = 0, disabled = false, class: 
     if (!btn) return;
     const root = btn.closest<HTMLElement>('[data-stepper]')!;
     const input = root.querySelector('input')!;
-    const dir = Number(btn.dataset.step);
-    if (dir > 0) input.stepUp();
+    if (Number(btn.dataset.step) > 0) input.stepUp();
     else input.stepDown();
     input.dispatchEvent(new Event('input', { bubbles: true }));
     input.dispatchEvent(new Event('change', { bubbles: true }));
