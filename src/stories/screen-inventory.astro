@@ -11,10 +11,10 @@ import ProgressBar from '../components/ProgressBar.astro';
 import ItemSlot from '../components/ItemSlot.astro';
 import Dropdown from '../components/Dropdown.astro';
 import DropdownItem from '../components/DropdownItem.astro';
-import Heading from '../components/Heading.astro';
 
 export const title = 'Screen · Inventory';
 export const bg = 'dots';
+export const fullscreen = true;
 
 type Slot = { icon?: string; count?: number; color?: 'red' | 'blue' | 'yellow' | 'orange' | 'green' | 'purple' | 'cyan'; selected?: boolean };
 const items: Slot[] = [
@@ -26,7 +26,6 @@ const items: Slot[] = [
 ];
 ---
 
-<Heading>Inventory screen</Heading>
 
 <Screen pattern="dots" class="flex items-center justify-center p-6">
   <Panel title="Inventory" color="blue" class="max-w-4xl!">

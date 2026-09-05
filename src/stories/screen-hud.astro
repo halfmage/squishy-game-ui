@@ -8,10 +8,10 @@ import KeyCap from '../components/KeyCap.astro';
 import Tooltip from '../components/Tooltip.astro';
 import ProgressBar from '../components/ProgressBar.astro';
 import ItemSlot from '../components/ItemSlot.astro';
-import Heading from '../components/Heading.astro';
 
 export const title = 'Screen · HUD';
 export const bg = 'zigzag';
+export const fullscreen = true;
 
 const hotbar = [
   { icon: 'swords', hotkey: '1', selected: true },
@@ -25,7 +25,6 @@ const hotbar = [
 ];
 ---
 
-<Heading>In-game HUD</Heading>
 
 <Screen pattern="waves" speed="8s">
   <!-- top left: stats -->

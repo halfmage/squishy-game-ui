@@ -5,12 +5,13 @@
  * Optional exports per story:
  *   export const title = 'Buttons';   // nav label
  *   export const bg = 'checker';      // background pattern name
+ *   export const fullscreen = true;   // story fills the viewport (for Screen shells)
  */
 import type { BackgroundName } from '../components/backgrounds';
 
 const modules = import.meta.glob('./*.astro', { eager: true }) as Record<
   string,
-  { default: any; title?: string; bg?: BackgroundName }
+  { default: any; title?: string; bg?: BackgroundName; fullscreen?: boolean }
 >;
 
 export const stories = Object.entries(modules)
@@ -21,6 +22,7 @@ export const stories = Object.entries(modules)
       href: `/${slug}`,
       title: mod.title ?? slug.charAt(0).toUpperCase() + slug.slice(1),
       bg: mod.bg ?? ('checker' as BackgroundName),
+      fullscreen: mod.fullscreen ?? false,
       Component: mod.default,
     };
   })

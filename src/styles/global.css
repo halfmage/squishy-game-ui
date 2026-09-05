@@ -478,7 +478,7 @@
   @apply min-w-[22px] px-1.5 py-0.5 text-ui-xs [&_svg]:size-3;
 }
 .badge-md {
-  @apply min-w-7 px-2 py-0.5 text-ui-sm [&_svg]:size-4;
+  @apply min-w-7 px-2 py-0.5 pb-1 text-ui-sm [&_svg]:size-4;
 }
 .badge.is-pill {
   @apply rounded-full;
@@ -602,6 +602,45 @@
 /* Playground chrome (labels, code view) -------------------------------------- */
 .story-label {
   @apply font-pixel text-ui-sm tracking-wide text-white/70;
+}
+
+/* Header nav. Toggle with the corner button or the H key. */
+.playground-nav {
+  @apply fixed top-0 left-0 z-50 flex w-full flex-wrap items-center gap-2 border-b-4 border-black/40 bg-black/60 py-2 pr-14 pl-3 font-pixel text-ui-sm tracking-wide text-white backdrop-blur transition-transform duration-150 ease-out;
+}
+.playground-link {
+  @apply rounded px-2 py-0.5 hover:bg-white/20;
+}
+.playground-link.is-active {
+  @apply bg-white/20;
+}
+.playground-nav-toggle {
+  @apply fixed top-2 right-3 z-[60] flex size-8 cursor-pointer items-center justify-center rounded-md border-2 border-black/60 bg-black/60 text-white/80 backdrop-blur transition-all duration-150 hover:bg-black/80 hover:text-white [&_svg]:size-6 [&_svg]:transition-transform [&_svg]:duration-150;
+}
+.nav-hidden .playground-nav {
+  @apply -translate-y-full;
+}
+.nav-hidden .playground-nav-toggle {
+  @apply opacity-60 hover:opacity-100 [&_svg]:rotate-180;
+}
+
+/* Main area: centered stories, or a fullscreen shell */
+.playground-main {
+  @apply h-full w-full overflow-x-hidden overflow-y-auto transition-[padding] duration-150 ease-out;
+}
+.playground-main.is-centered {
+  @apply flex flex-col items-center justify-center-safe gap-6 p-3 pt-16;
+}
+.nav-hidden .playground-main.is-centered {
+  @apply pt-3;
+}
+.playground-main.is-fullscreen {
+  @apply overflow-hidden p-0;
+}
+/* In fullscreen mode the Screen frame fills the viewport */
+.playground-main.is-fullscreen .screen {
+  @apply h-full w-full max-w-none rounded-none border-0 shadow-none;
+  aspect-ratio: auto;
 }
 
 /* ---------------------------------------------------------------------------

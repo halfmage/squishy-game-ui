@@ -12,10 +12,10 @@ import Stepper from '../components/Stepper.astro';
 import Radio from '../components/Radio.astro';
 import Checkbox from '../components/Checkbox.astro';
 import KeyCap from '../components/KeyCap.astro';
-import Heading from '../components/Heading.astro';
 
 export const title = 'Screen · Settings';
 export const bg = 'grid';
+export const fullscreen = true;
 
 const bindings = [
   { action: 'Move', keys: ['W', 'A', 'S', 'D'] },
@@ -26,7 +26,6 @@ const bindings = [
 ];
 ---
 
-<Heading>Settings screen</Heading>
 
 <Screen pattern="checker" class="flex items-center justify-center p-6">
   <Panel title="Settings" color="zinc" class="max-w-2xl!">

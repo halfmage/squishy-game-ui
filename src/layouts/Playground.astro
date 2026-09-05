@@ -3,13 +3,16 @@ import '../styles/global.css';
 import { stories } from '../stories';
 import { backgroundStyle, type BackgroundName } from '../components/backgrounds';
 import Toaster from '../components/Toaster.astro';
+import Icon from '../components/Icon.astro';
 
 interface Props {
   title: string;
   bg?: BackgroundName;
+  /** Story fills the viewport (screen shells). No padding, no centering. */
+  fullscreen?: boolean;
 }
 
-const { title, bg = 'stripes' } = Astro.props;
+const { title, bg = 'stripes', fullscreen = false } = Astro.props;
 const current = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
@@ -20,38 +23,48 @@ const current = Astro.url.pathname.replace(/\/$/, '') || '/';
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title} · Squishy UI</title>
+    <script is:inline>
+      // Apply the saved nav state before first paint to avoid a flash.
+      try {
+        if (localStorage.getItem('nav-hidden') === '1') document.documentElement.classList.add('nav-hidden');
+      } catch {}
+    </script>
   </head>
   <body class="bg-pattern h-screen w-screen overflow-hidden font-sans" style={backgroundStyle(bg)}>
-    <nav
-      class="bg-white fixed rounded-xl border-4 border-zinc-900 top-4 left-4 z-50 flex flex-wrap items-center p-2 font-pixel text-xl tracking-wide text-black shadow-[inset_0_0_0_4px_rgba(255,255,255,.2),4px_4px_0_rgba(0,0,0,.25)]"
-    >
-      <a
-        href="/"
-        class:list={[
-          'rounded-lg px-3 py-1 hover:bg-black/10',
-          current === '/' && 'bg-black/10',
-        ]}>Overview</a
-      >
+    <nav class="playground-nav">
+      <a href="/" class:list={['playground-link', current === '/' && 'is-active']}>Overview</a>
       {
         stories.map((s) => (
-          <a
-            href={s.href}
-            class:list={[
-              'rounded-lg px-3 py-1 hover:bg-black/10',
-              current === s.href && 'bg-black/10',
-            ]}
-          >
+          <a href={s.href} class:list={['playground-link', current === s.href && 'is-active']}>
             {s.title}
           </a>
         ))
       }
     </nav>
 
-    <main
-      class="flex h-full w-full flex-col items-center justify-center-safe gap-6 overflow-x-hidden overflow-y-auto p-3 pt-16"
-    >
+    <button type="button" class="playground-nav-toggle" data-nav-toggle aria-label="Toggle navigation" title="Toggle navigation (H)">
+      <Icon name="keyboard-arrow-up" />
+    </button>
+
+    <main class:list={['playground-main', fullscreen ? 'is-fullscreen' : 'is-centered']}>
       <slot />
     </main>
     <Toaster />
+
+    <script>
+      const root = document.documentElement;
+      function toggleNav(force?: boolean) {
+        const hidden = root.classList.toggle('nav-hidden', force);
+        try {
+          localStorage.setItem('nav-hidden', hidden ? '1' : '0');
+        } catch {}
+      }
+      document.querySelector('[data-nav-toggle]')?.addEventListener('click', () => toggleNav());
+      document.addEventListener('keydown', (e) => {
+        const t = e.target as HTMLElement;
+        const typing = t.matches?.('input, textarea, select, [contenteditable]');
+        if (!typing && !e.metaKey && !e.ctrlKey && !e.altKey && e.key.toLowerCase() === 'h') toggleNav();
+      });
+    </script>
   </body>
 </html>

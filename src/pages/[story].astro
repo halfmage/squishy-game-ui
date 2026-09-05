@@ -10,6 +10,6 @@ const { story } = Astro.props;
 const { Component } = story;
 ---
 
-<Playground title={story.title} bg={story.bg}>
+<Playground title={story.title} bg={story.bg} fullscreen={story.fullscreen}>
   <Component />
 </Playground>
