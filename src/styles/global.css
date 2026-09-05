@@ -51,19 +51,20 @@
   --font-sans: "m6x11plus", ui-monospace, monospace;
   --font-pixel: "m6x11plus", ui-monospace, monospace;
 
-  /* UI type scale. Used by every control (text-ui-*). */
+  /* UI type scale. Used by every control (text-ui-*).
+     Line heights are whole pixels so no control gets a fractional height. */
   --text-ui-xs: 12px;
-  --text-ui-xs--line-height: 1.2;
+  --text-ui-xs--line-height: 14px;
   --text-ui-sm: 18px;
-  --text-ui-sm--line-height: 1.1;
+  --text-ui-sm--line-height: 20px;
   --text-ui-md: 22px;
-  --text-ui-md--line-height: 1.1;
+  --text-ui-md--line-height: 24px;
   --text-ui-lg: 28px;
-  --text-ui-lg--line-height: 1.1;
+  --text-ui-lg--line-height: 32px;
   --text-ui-xl: 36px;
-  --text-ui-xl--line-height: 1.1;
+  --text-ui-xl--line-height: 40px;
   --text-ui-2xl: 48px;
-  --text-ui-2xl--line-height: 1.05;
+  --text-ui-2xl--line-height: 52px;
 
   --animate-rotate-lift: rotate-lift 2.4s ease-in-out infinite;
   --animate-rainbow-gradient: rainbow 1s ease-in-out infinite;
@@ -186,7 +187,7 @@
 }
 
 .input-area {
-  @apply min-h-28 resize-y leading-tight focus-within:animate-none;
+  @apply min-h-28 resize-y focus-within:animate-none;
 }
 
 .input-select {
@@ -340,7 +341,7 @@
   @apply ml-auto;
 }
 .panel-body {
-  @apply flex flex-col gap-4 p-6 text-ui-sm leading-snug tracking-wide;
+  @apply flex flex-col gap-4 p-6 text-ui-sm tracking-wide;
 }
 .panel-footer {
   @apply flex flex-wrap items-center justify-end gap-3 border-t-4 border-black/10 bg-black/5 px-4 py-3;
