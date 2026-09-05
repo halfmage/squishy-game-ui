@@ -685,21 +685,52 @@
   @apply font-pixel text-ui-sm tracking-wide text-white/70;
 }
 
-/* Header nav. Toggle with the corner button or the H key. */
-.playground-nav {
-  @apply fixed top-0 left-0 z-50 flex w-full flex-wrap items-center gap-2 border-b-4 border-black/40 bg-black/60 py-2 pr-14 pl-3 font-pixel text-ui-sm tracking-wide text-white backdrop-blur transition-transform duration-150 ease-out;
+/* Sidebar. Toggle with the corner button or the H key. */
+.playground-sidebar {
+  @apply fixed inset-y-0 left-0 z-50 flex w-64 flex-col gap-3 overflow-y-auto border-r-4 border-black/40 bg-black/70 px-3 pt-14 pb-3 font-pixel text-ui-sm tracking-wide text-white backdrop-blur transition-transform duration-150 ease-out;
+}
+.nav-hidden .playground-sidebar {
+  @apply -translate-x-full;
+}
+.playground-sidebar-title {
+  @apply px-2 text-ui-md text-white hover:text-white/80;
+}
+.playground-group {
+  @apply flex flex-col gap-0.5;
+}
+.playground-group-label {
+  @apply px-2 pt-2 pb-1 text-ui-xs text-white/50 uppercase;
 }
 .playground-link {
-  @apply rounded px-2 py-0.5 hover:bg-white/20;
+  @apply flex items-center gap-2 rounded-(--radius-sm) px-2 py-1 hover:bg-white/20 [&_svg]:size-5;
 }
 .playground-link.is-active {
   @apply bg-white/20;
 }
+.playground-sidebar-footer {
+  @apply mt-auto flex flex-col gap-2 border-t-2 border-white/10 pt-3;
+}
+.playground-tools {
+  @apply flex items-center gap-2 px-2;
+}
+.playground-github {
+  @apply flex items-center gap-2 rounded-(--radius-sm) px-2 py-1 hover:bg-white/20 [&_svg]:size-5;
+}
+.playground-hint {
+  @apply px-2 text-ui-xs text-white/40;
+}
 .playground-nav-toggle {
-  @apply fixed top-2 right-3 z-[60] flex size-8 cursor-pointer items-center justify-center rounded-(--radius-sm) border-2 border-black/60 bg-black/60 text-white/80 backdrop-blur transition-all duration-150 hover:bg-black/80 hover:text-white [&_svg]:size-6 [&_svg]:transition-transform [&_svg]:duration-150;
+  @apply fixed top-3 left-3 z-[60] flex size-8 cursor-pointer items-center justify-center rounded-(--radius-sm) border-2 border-black/60 bg-black/60 text-white/80 backdrop-blur transition-all duration-150 hover:bg-black/80 hover:text-white [&_svg]:size-6;
+}
+.playground-nav-toggle svg:first-child,
+.nav-hidden .playground-nav-toggle svg:last-child {
+  @apply hidden;
+}
+.nav-hidden .playground-nav-toggle svg:first-child {
+  @apply block;
 }
 .playground-theme-toggle {
-  @apply fixed top-2 right-13 z-[60] flex size-8 cursor-pointer items-center justify-center rounded-(--radius-sm) border-2 border-black/60 bg-black/60 text-white/80 backdrop-blur transition-all duration-150 hover:bg-black/80 hover:text-white [&_svg]:size-5;
+  @apply flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-(--radius-sm) border-2 border-black/60 bg-black/60 text-white/80 transition-all duration-150 hover:bg-black/80 hover:text-white [&_svg]:size-5;
 }
 .playground-theme-toggle svg:last-child,
 .dark .playground-theme-toggle svg:first-child {
@@ -708,22 +739,16 @@
 .dark .playground-theme-toggle svg:last-child {
   @apply block;
 }
-.nav-hidden .playground-nav {
-  @apply -translate-y-full;
-}
-.nav-hidden .playground-nav-toggle {
-  @apply opacity-60 hover:opacity-100 [&_svg]:rotate-180;
-}
 
 /* Main area: centered stories, or a fullscreen shell */
 .playground-main {
   @apply h-full w-full overflow-x-hidden overflow-y-auto transition-[padding] duration-150 ease-out;
 }
 .playground-main.is-centered {
-  @apply flex flex-col items-center justify-center-safe gap-6 p-3 pt-16;
+  @apply flex flex-col items-center justify-center-safe gap-6 p-3 pt-14 pl-[calc(16rem+0.75rem)];
 }
 .nav-hidden .playground-main.is-centered {
-  @apply pt-3;
+  @apply pl-3;
 }
 .playground-main.is-fullscreen {
   @apply overflow-hidden p-0;
@@ -854,9 +879,9 @@
   @apply top-1 shadow-[0_0_0_4px_rgba(0,0,0,.1),inset_0_0_0_4px_rgba(255,255,255,.3)];
 }
 
-/* Theme selector in the playground chrome */
+/* Theme selector in the sidebar footer */
 .playground-brand-select {
-  @apply fixed top-2 right-24 z-[60] h-8 cursor-pointer appearance-none rounded-md border-2 border-black/60 bg-black/60 px-2 pr-7 font-pixel text-ui-xs tracking-wide text-white/80 backdrop-blur transition-all duration-150 hover:bg-black/80 hover:text-white;
+  @apply h-8 flex-1 cursor-pointer appearance-none rounded-(--radius-sm) border-2 border-black/60 bg-black/60 px-2 pr-7 font-pixel text-ui-xs tracking-wide text-white/80 transition-all duration-150 hover:bg-black/80 hover:text-white;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffffcc'%3E%3Cpath d='M12 15 7 10h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 4px center;

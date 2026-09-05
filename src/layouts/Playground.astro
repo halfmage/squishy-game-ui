@@ -13,6 +13,13 @@ interface Props {
 }
 
 const { title, bg = 'stripes', fullscreen = false } = Astro.props;
+const current = Astro.url.pathname.replace(/\/$/, '');
+const isHome = current === base || current === '';
+const isActive = (href: string) => current === href.replace(/\/$/, '');
+
+const GITHUB = 'https://github.com/halfmage/squishy-game-ui';
+const components = stories.filter((s) => !s.slug.startsWith('screen-'));
+const screens = stories.filter((s) => s.slug.startsWith('screen-'));
 
 /** Brand themes = .theme-<id> classes in global.css */
 const brands = [
@@ -21,8 +28,6 @@ const brands = [
   { id: 'blocky', label: 'Blocky' },
   { id: 'arcade', label: 'Arcade' },
 ];
-const current = Astro.url.pathname.replace(/\/$/, '');
-const isHome = current === base || current === '';
 ---
 
 <!doctype html>
@@ -33,7 +38,7 @@ const isHome = current === base || current === '';
     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
     <title>{title} · Squishy UI</title>
     <script is:inline>
-      // Apply the saved nav state before first paint to avoid a flash.
+      // Apply the saved nav / theme state before first paint to avoid a flash.
       try {
         if (localStorage.getItem('nav-hidden') === '1') document.documentElement.classList.add('nav-hidden');
         const theme = localStorage.getItem('theme');
@@ -45,27 +50,61 @@ const isHome = current === base || current === '';
     </script>
   </head>
   <body class="bg-pattern h-screen w-screen overflow-hidden font-sans" style={backgroundStyle(bg)}>
-    <nav class="playground-nav">
-      <a href={`${base}/`} class:list={['playground-link', isHome && 'is-active']}>Overview</a>
-      {
-        stories.map((s) => (
-          <a href={s.href} class:list={['playground-link', current === s.href.replace(/\/$/, '') && 'is-active']}>
-            {s.title}
-          </a>
-        ))
-      }
-    </nav>
+    <button type="button" class="playground-nav-toggle" data-nav-toggle aria-label="Toggle sidebar" title="Toggle sidebar (H)">
+      <Icon name="menu" />
+      <Icon name="menu-open" />
+    </button>
 
-    <button type="button" class="playground-nav-toggle" data-nav-toggle aria-label="Toggle navigation" title="Toggle navigation (H)">
-      <Icon name="keyboard-arrow-up" />
-    </button>
-    <select class="playground-brand-select" data-brand-select aria-label="Brand theme" title="Brand theme (B cycles)">
-      {brands.map((b) => <option value={b.id}>{b.label}</option>)}
-    </select>
-    <button type="button" class="playground-theme-toggle" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode (D)">
-      <Icon name="dark-mode" />
-      <Icon name="light-mode" />
-    </button>
+    <aside class="playground-sidebar">
+      <a href={`${base}/`} class="playground-sidebar-title">Squishy UI</a>
+
+      <nav class="playground-group">
+        <a href={`${base}/`} class:list={['playground-link', isHome && 'is-active']}>
+          <Icon name="home" /> Overview
+        </a>
+      </nav>
+
+      <nav class="playground-group">
+        <span class="playground-group-label">Components</span>
+        {
+          components.map((s) => (
+            <a href={s.href} class:list={['playground-link', isActive(s.href) && 'is-active']}>
+              {s.title}
+            </a>
+          ))
+        }
+      </nav>
+
+      <nav class="playground-group">
+        <span class="playground-group-label">Screens</span>
+        {
+          screens.map((s) => (
+            <a href={s.href} class:list={['playground-link', isActive(s.href) && 'is-active']}>
+              {s.title.replace('Screen · ', '')}
+            </a>
+          ))
+        }
+      </nav>
+
+      <div class="playground-sidebar-footer">
+        <div class="playground-tools">
+          <select class="playground-brand-select" data-brand-select aria-label="Brand theme" title="Brand theme (B cycles)">
+            {brands.map((b) => <option value={b.id}>{b.label}</option>)}
+          </select>
+          <button type="button" class="playground-theme-toggle" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode (D)">
+            <Icon name="dark-mode" />
+            <Icon name="light-mode" />
+          </button>
+        </div>
+        <a href={GITHUB} class="playground-github" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
+          </svg>
+          GitHub
+        </a>
+        <span class="playground-hint">H sidebar · D dark · B brand</span>
+      </div>
+    </aside>
 
     <main class:list={['playground-main', fullscreen ? 'is-fullscreen' : 'is-centered']}>
       <slot />
