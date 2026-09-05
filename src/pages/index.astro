@@ -1,40 +1,177 @@
 ---
+/**
+ * Kitchen sink: every component on one page.
+ */
 import Playground from '../layouts/Playground.astro';
 import Button from '../components/Button.astro';
 import Icon from '../components/Icon.astro';
 import InputField from '../components/InputField.astro';
+import TextArea from '../components/TextArea.astro';
+import Select from '../components/Select.astro';
+import Stepper from '../components/Stepper.astro';
+import Checkbox from '../components/Checkbox.astro';
+import Radio from '../components/Radio.astro';
 import Toggle from '../components/Toggle.astro';
 import Slider from '../components/Slider.astro';
+import Panel from '../components/Panel.astro';
+import Dialog from '../components/Dialog.astro';
+import Tabs from '../components/Tabs.astro';
+import TabPanel from '../components/TabPanel.astro';
+import Dropdown from '../components/Dropdown.astro';
+import DropdownItem from '../components/DropdownItem.astro';
+import ProgressBar from '../components/ProgressBar.astro';
+import Badge from '../components/Badge.astro';
+import KeyCap from '../components/KeyCap.astro';
+import Tooltip from '../components/Tooltip.astro';
+import Toast from '../components/Toast.astro';
 import Heading from '../components/Heading.astro';
+import { colorNames } from '../components/palette';
+
+const options = [
+  { value: 'easy', label: 'Easy' },
+  { value: 'normal', label: 'Normal' },
+  { value: 'hard', label: 'Hard' },
+];
 ---
 
 <Playground title="Overview">
   <Heading>Squishy Game UI</Heading>
-
-  <Button color="green" size="lg" class="w-full max-w-lg"><Icon name="play-arrow" /> Play</Button>
-  <Button color="blue" size="lg" class="w-full max-w-lg"><Icon name="extension" /> Install Plugins</Button>
-  <Button color="light" size="lg" class="w-full max-w-lg"><Icon name="public" /> Explore Worlds</Button>
-
-  <div class="flex flex-wrap justify-center gap-4">
-    <Button><Icon name="settings" /> Settings</Button>
-    <Button><Icon name="person" /> User</Button>
-    <Button><Icon name="share" /> Share</Button>
-  </div>
-
-  <InputField class="w-full" placeholder="Player name"><Icon name="person" /></InputField>
-
-  <div class="flex w-full max-w-lg flex-col gap-4">
-    <Toggle name="music" checked>Music</Toggle>
-    <Slider name="volume" value={60} color="green" class="w-full" />
-  </div>
-
-  <div class="flex flex-wrap justify-center gap-4">
-    <Button icon color="red" aria-label="Close"><Icon name="close" /></Button>
-    <Button icon color="green" aria-label="Confirm"><Icon name="check" /></Button>
-    <Button icon color="dark" aria-label="Quit"><Icon name="logout" /></Button>
-  </div>
-
   <p class="max-w-lg text-center text-ui-sm leading-loose tracking-wide text-white [text-shadow:_2px_2px_0_rgba(0,0,0,.5)]">
-    One general style. Colors from the palette, three sizes, Material Symbols Rounded icons.
+    Every component on one page. Open a story in the nav for details and variants.
   </p>
+
+  <div class="grid w-full max-w-6xl grid-cols-1 gap-x-10 gap-y-8 lg:grid-cols-2 xl:grid-cols-3">
+    <!-- Buttons -->
+    <section class="flex flex-col gap-3">
+      <span class="story-label">buttons</span>
+      <div class="flex flex-wrap gap-3">
+        {colorNames.map((c) => <Button color={c}>{c}</Button>)}
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <Button color="green" size="lg"><Icon name="play-arrow" /> Play</Button>
+        <Button color="blue"><Icon name="settings" /> Settings</Button>
+        <Button icon color="red" aria-label="Close"><Icon name="close" /></Button>
+        <Button icon color="light" size="lg" aria-label="Search"><Icon name="search" /></Button>
+        <Button color="zinc" disabled>Disabled</Button>
+        <Button color="purple" loading>Loading</Button>
+      </div>
+    </section>
+
+    <!-- Inputs -->
+    <section class="flex flex-col gap-3">
+      <span class="story-label">inputs</span>
+      <InputField placeholder="Player name"><Icon name="person" /></InputField>
+      <InputField variant="dark" type="password" value="secret"><Icon name="lock" /></InputField>
+      <InputField size="lg" placeholder="Search"><Icon name="search" /></InputField>
+      <Select options={options} value="normal" />
+      <TextArea placeholder="Notes" rows={2} />
+      <div class="flex flex-wrap gap-4">
+        <Stepper name="qty" min={0} max={10} value={3} />
+        <Stepper name="lives" min={1} max={5} value={5} color="red" />
+      </div>
+    </section>
+
+    <!-- Choice controls -->
+    <section class="flex flex-col gap-3">
+      <span class="story-label">choice controls</span>
+      <div class="flex flex-wrap gap-x-6 gap-y-3">
+        <Checkbox name="music" checked>Music</Checkbox>
+        <Checkbox name="sfx" color="pink">Sound FX</Checkbox>
+        <Checkbox name="locked" disabled>Locked</Checkbox>
+      </div>
+      <div class="flex flex-wrap gap-x-6 gap-y-3">
+        <Radio name="difficulty" value="easy" color="green">Easy</Radio>
+        <Radio name="difficulty" value="normal" color="yellow" checked>Normal</Radio>
+        <Radio name="difficulty" value="hard" color="red">Hard</Radio>
+      </div>
+      <div class="flex flex-wrap gap-x-6 gap-y-3">
+        <Toggle name="fullscreen" checked>Fullscreen</Toggle>
+        <Toggle name="vsync" color="purple">V-Sync</Toggle>
+      </div>
+      <Slider name="master" value={70} class="w-full" />
+      <Slider name="music" value={40} color="pink" class="w-full" />
+    </section>
+
+    <!-- Progress + badges -->
+    <section class="flex flex-col gap-3">
+      <span class="story-label">progress · badges · keys</span>
+      <ProgressBar name="HP" value={62} color="red" label="62 / 100"><Icon name="favorite" /></ProgressBar>
+      <ProgressBar name="MP" value={40} color="blue" label="40 / 100"><Icon name="star" /></ProgressBar>
+      <ProgressBar value={3} max={5} segments={5} color="yellow" size="lg" />
+      <div class="flex flex-wrap items-center gap-2">
+        <Badge color="red">NEW</Badge>
+        <Badge pill color="yellow"><Icon name="star" /> 1250</Badge>
+        <Badge pill size="sm" color="green">99+</Badge>
+        <Badge pulse color="pink">LEVEL UP</Badge>
+        <Badge color="dark">v0.1.0</Badge>
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <KeyCap>W</KeyCap><KeyCap>A</KeyCap><KeyCap>S</KeyCap><KeyCap>D</KeyCap>
+        <KeyCap hint="Interact">E</KeyCap>
+        <KeyCap hint="Menu" dark>Esc</KeyCap>
+      </div>
+    </section>
+
+    <!-- Panel with tabs -->
+    <section class="flex flex-col gap-3">
+      <span class="story-label">panel · tabs</span>
+      <Panel title="Settings" color="zinc">
+        <Icon name="settings" slot="icon" />
+        <Tabs
+          tabs={[
+            { id: 'ov-audio', label: 'Audio', icon: 'volume-up' },
+            { id: 'ov-video', label: 'Video', icon: 'sports-esports' },
+          ]}
+          active="ov-audio"
+        >
+          <TabPanel id="ov-audio" active>
+            <Toggle name="ov-music" checked>Music</Toggle>
+            <Slider name="ov-master" value={70} class="w-full" />
+          </TabPanel>
+          <TabPanel id="ov-video">
+            <Toggle name="ov-fullscreen" color="blue" checked>Fullscreen</Toggle>
+            <Select class="w-full" options={options} value="hard" />
+          </TabPanel>
+        </Tabs>
+        <Fragment slot="footer">
+          <Button color="light">Reset</Button>
+          <Button color="green"><Icon name="save" /> Save</Button>
+        </Fragment>
+      </Panel>
+    </section>
+
+    <!-- Overlays -->
+    <section class="flex flex-col gap-3">
+      <span class="story-label">dropdown · dialog · toast · tooltip</span>
+      <div class="flex flex-wrap gap-3">
+        <Dropdown label="Options" color="blue">
+          <Icon name="settings" slot="icon" />
+          <DropdownItem><Icon name="save" /> Save game</DropdownItem>
+          <DropdownItem><Icon name="refresh" /> Restart</DropdownItem>
+          <div class="dropdown-divider"></div>
+          <DropdownItem danger><Icon name="delete" /> Delete save</DropdownItem>
+        </Dropdown>
+        <Button color="red" data-dialog-open="ov-quit"><Icon name="logout" /> Quit</Button>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <Button color="green" data-toast='{"title":"Game saved","message":"Slot 1","color":"green","icon":"check-circle"}'>
+          <Icon name="save" /> Toast
+        </Button>
+        <Tooltip text="Share with friends">
+          <Button icon color="pink" aria-label="Share"><Icon name="share" /></Button>
+        </Tooltip>
+        <Tooltip text="+10 HP" position="bottom"><Badge pill color="red"><Icon name="favorite" /> Potion</Badge></Tooltip>
+      </div>
+      <Toast title="Item collected" message="Golden key · +1" color="yellow" icon="star" />
+    </section>
+  </div>
+
+  <Dialog id="ov-quit" title="Quit game?" color="red">
+    <Icon name="warning" slot="icon" />
+    <p>Unsaved progress is lost. Are you sure?</p>
+    <Fragment slot="footer">
+      <Button as="button" color="light" data-dialog-close>Cancel</Button>
+      <Button as="button" color="red" data-dialog-close><Icon name="logout" /> Quit</Button>
+    </Fragment>
+  </Dialog>
 </Playground>
