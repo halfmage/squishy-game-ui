@@ -752,11 +752,25 @@
   --btn-highlight: inset 0 0 0 0 transparent;
   --gradient-to: var(--c-from);
   --surface-gradient-to: var(--surface-from);
+  --surface-highlight: rgba(255, 255, 255, 0);
+  /* light mode: light slate */
+  --surface-from: #dfe5ec;
+  --surface-to: #dfe5ec;
+  --surface-text: #2b3441;
+  --surface-muted: #5b6878;
+  --surface-inset: rgba(0, 0, 0, 0.06);
+  --surface-line: rgba(0, 0, 0, 0.12);
+  --surface-hover: rgba(0, 0, 0, 0.1);
+  --surface-text-shadow: none;
+  --surface-text-shadow-xs: none;
+  --surface-icon-shadow: none;
+}
+.dark.theme-deck {
+  /* dark mode: dark slate */
   --surface-from: #3e4a5c;
   --surface-to: #3e4a5c;
   --surface-text: #f4f4f5;
   --surface-muted: #b8c0cc;
-  --surface-highlight: rgba(255, 255, 255, 0);
   --surface-inset: rgba(0, 0, 0, 0.2);
   --surface-line: rgba(0, 0, 0, 0.3);
   --surface-hover: rgba(255, 255, 255, 0.1);
@@ -782,6 +796,7 @@
   --btn-highlight: inset 4px 4px 0 rgba(255, 255, 255, 0.25), inset -4px -4px 0 rgba(0, 0, 0, 0.25);
   --gradient-to: var(--c-from);
   --surface-gradient-to: var(--surface-from);
+  /* light mode: light stone */
   --surface-from: #c6c6c6;
   --surface-to: #c6c6c6;
   --surface-text: #3f3f3f;
@@ -794,6 +809,20 @@
   --surface-text-shadow-xs: none;
   --surface-icon-shadow: none;
 }
+.dark.theme-blocky {
+  /* dark mode: dark stone */
+  --surface-from: #3c3c3c;
+  --surface-to: #3c3c3c;
+  --surface-text: #e6e6e6;
+  --surface-muted: #a0a0a0;
+  --surface-highlight: rgba(255, 255, 255, 0.15);
+  --surface-inset: rgba(0, 0, 0, 0.25);
+  --surface-line: rgba(0, 0, 0, 0.4);
+  --surface-hover: rgba(255, 255, 255, 0.08);
+  --surface-text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.6);
+  --surface-text-shadow-xs: 1px 1px 0 rgba(0, 0, 0, 0.6);
+  --surface-icon-shadow: 3px 3px 0 rgba(0, 0, 0, 0.6);
+}
 .theme-blocky .btn:hover {
   color: #ffffa0;
 }
@@ -802,7 +831,7 @@
 .theme-blocky .dropdown-menu,
 .theme-blocky .slot,
 .theme-blocky .input-light {
-  box-shadow: inset 4px 4px 0 rgba(255, 255, 255, 0.5), inset -4px -4px 0 rgba(0, 0, 0, 0.25), var(--shadow-hard);
+  box-shadow: inset 4px 4px 0 var(--surface-highlight), inset -4px -4px 0 rgba(0, 0, 0, 0.25), var(--shadow-hard);
 }
 
 /* Arcade: big radius, deep bottom shadow, glossy top highlight */
