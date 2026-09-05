@@ -15,8 +15,13 @@ export const variants = {
 
 export type InputVariant = keyof typeof variants;
 
+/** md = base size (no extra class), lg = 60px high like btn-lg */
+export const inputSizes = { md: '', lg: 'input-lg' } as const;
+export type InputSize = keyof typeof inputSizes;
+
 interface Props {
   variant?: InputVariant;
+  size?: InputSize;
   type?: 'text' | 'password' | 'email' | 'search' | 'number' | 'url';
   name?: string;
   placeholder?: string;
@@ -27,6 +32,7 @@ interface Props {
 
 const {
   variant = 'light',
+  size = 'md',
   type = 'text',
   name,
   placeholder,
@@ -37,15 +43,16 @@ const {
 
 const hasIcon = Astro.slots.has('default');
 const attrs = { type, name, placeholder, value, disabled };
+const classes = [variants[variant], inputSizes[size] || null, className];
 ---
 
 {
   hasIcon ? (
-    <label class:list={[variants[variant], className]}>
+    <label class:list={classes}>
       <slot />
       <input {...attrs} />
     </label>
   ) : (
-    <input {...attrs} class:list={[variants[variant], className]} />
+    <input {...attrs} class:list={classes} />
   )
 }

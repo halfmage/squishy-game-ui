@@ -175,7 +175,7 @@
 
 /* Text inputs ------------------------------------------------------------- */
 @utility input-base {
-  @apply relative top-0 flex w-full max-w-lg items-center gap-2.5 rounded-lg border-4 border-black/80 px-4 py-2.5 font-pixel text-ui-md font-medium tracking-wide transition-all duration-75 ease-in-out hover:-top-1 hover:scale-[1.03] focus-within:scale-[1.03] focus-within:animate-bounce-soft focus-within:outline-4 focus-within:outline-offset-0 [&_input]:min-w-0 [&_input]:flex-1 [&_input]:bg-transparent [&_input]:outline-none [&_svg]:relative [&_svg]:top-px [&_svg]:size-6 [&_svg]:shrink-0;
+  @apply relative top-0 flex w-full max-w-lg items-center gap-2.5 rounded-lg border-4 border-black/80 px-4 py-2 font-pixel text-ui-md font-medium tracking-wide transition-all duration-75 ease-in-out hover:-top-1 hover:scale-[1.03] focus-within:scale-[1.03] focus-within:animate-bounce-soft focus-within:outline-4 focus-within:outline-offset-0 [&_input]:min-w-0 [&_input]:flex-1 [&_input]:bg-transparent [&_input]:outline-none [&_svg]:relative [&_svg]:top-px [&_svg]:size-6 [&_svg]:shrink-0;
 }
 
 .input-light {
@@ -184,6 +184,11 @@
 
 .input-dark {
   @apply input-base border-black/80 bg-black/80 text-white shadow-soft outline-neutral-500/25 placeholder:text-white/40 focus-within:shadow-soft-hover focus-within:outline-white/50 [&_input]:placeholder:text-white/40 [&_svg]:drop-shadow-[3px_3px_0_rgba(0,0,0,.5)];
+}
+
+/* Large input: 10 + 10 padding + 32 line height + 8 border = 60px, same as .btn-lg */
+.input-lg {
+  @apply gap-3 px-5 py-2.5 text-ui-lg [&_svg]:size-8;
 }
 
 .input-area {

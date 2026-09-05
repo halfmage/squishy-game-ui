@@ -1,6 +1,6 @@
 ---
 /** Native select with the input look and a pixel chevron. */
-import { variants, type InputVariant } from './InputField.astro';
+import { variants, inputSizes, type InputVariant, type InputSize } from './InputField.astro';
 import Icon from './Icon.astro';
 
 interface Option {
@@ -10,6 +10,7 @@ interface Option {
 
 interface Props {
   variant?: InputVariant;
+  size?: InputSize;
   name?: string;
   options: Option[];
   value?: string;
@@ -17,8 +18,15 @@ interface Props {
   class?: string;
 }
 
-const { variant = 'light', name, options, value, disabled = false, class: className = '' } =
-  Astro.props;
+const {
+  variant = 'light',
+  size = 'md',
+  name,
+  options,
+  value,
+  disabled = false,
+  class: className = '',
+} = Astro.props;
 const fullWidth = /\bw-full\b/.test(className);
 const isDark = variant !== 'light';
 ---
@@ -27,7 +35,7 @@ const isDark = variant !== 'light';
   <select
     name={name}
     disabled={disabled}
-    class:list={[variants[variant], 'input-select', className]}
+    class:list={[variants[variant], inputSizes[size] || null, 'input-select', className]}
   >
     {
       options.map((o) => (
@@ -40,7 +48,8 @@ const isDark = variant !== 'light';
   <Icon
     name="keyboard-arrow-down"
     class:list={[
-      'pointer-events-none absolute top-1/2 right-4 size-8 -translate-y-1/2',
+      'pointer-events-none absolute top-1/2 right-4 -translate-y-1/2',
+      size === 'lg' ? 'size-8' : 'size-6',
       isDark
         ? 'text-white drop-shadow-[3px_3px_0_rgba(0,0,0,.5)]'
         : 'text-zinc-800',
