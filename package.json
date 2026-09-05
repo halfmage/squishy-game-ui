@@ -9,7 +9,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "registry:build": "shadcn build --output public/r && cp registry.json public/r/registry.json",
+    "check": "astro check"
   },
   "dependencies": {
     "@iconify-json/material-symbols": "^1.2.90",
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "shadcn": "^4.21.0",
     "typescript": "^6.0.3"
   }
 }

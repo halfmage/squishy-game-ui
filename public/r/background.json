@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "background",
+  "title": "Background",
+  "description": "Seamlessly scrolling tiled SVG background patterns.",
+  "registryDependencies": [
+    "@squishy/styles"
+  ],
+  "files": [
+    {
+      "path": "src/components/Background.astro",
+      "content": "---\n/**\n * Animated tiled background. Wrap any content in it.\n *\n *   <Background pattern=\"dots\" class=\"p-6\">...</Background>\n */\nimport { backgroundStyle, type BackgroundName } from './backgrounds';\n\ninterface Props {\n  pattern?: BackgroundName;\n  /** CSS duration for one tile of movement, e.g. \"4s\" */\n  speed?: string;\n  class?: string;\n}\n\nconst { pattern = 'stripes', speed = '4s', class: className } = Astro.props;\n---\n\n<div class:list={['bg-pattern', className]} style={backgroundStyle(pattern, speed)}>\n  <slot />\n</div>\n",
+      "type": "registry:file",
+      "target": "~/src/components/Background.astro"
+    },
+    {
+      "path": "src/components/backgrounds.ts",
+      "content": "/**\n * Background pattern registry.\n *\n * Each pattern is one square SVG tile. `tile` is the rendered tile size in px,\n * `viewBox` is the SVG coordinate size, and `body` is the SVG inner markup.\n * The scroll animation always moves by exactly one tile (see `.bg-pattern`\n * in global.css), so the loop is seamless for every pattern.\n *\n * Add a pattern: add an entry here. It shows up on /backgrounds automatically.\n */\nexport interface BackgroundPattern {\n  /** Base background color */\n  color: string;\n  /** Fill color of the SVG shapes */\n  fill: string;\n  /** Rendered tile size in px (width = height) */\n  tile: number;\n  /** SVG viewBox size (width = height) */\n  viewBox: number;\n  /** Inner SVG markup (paths, circles, ...) */\n  body: string;\n}\n\nexport const backgrounds = {\n  stripes: {\n    color: '#4f46e5',\n    fill: 'rgba(0,0,0,.25)',\n    tile: 240,\n    viewBox: 40,\n    body: `<path d='M0 40L40 0H20L0 20M40 40V20L20 40'/>`,\n  },\n  checker: {\n    color: '#047857',\n    fill: '#064e3b',\n    tile: 160,\n    viewBox: 80,\n    body: `<path d='M0 0h40v40H0V0zm40 40h40v40H40V40zm0-40h2l-2 2V0zm0 4l4-4h2l-6 6V4zm0 4l8-8h2L40 10V8zm0 4L52 0h2L40 14v-2zm0 4L56 0h2L40 18v-2zm0 4L60 0h2L40 22v-2zm0 4L64 0h2L40 26v-2zm0 4L68 0h2L40 30v-2zm0 4L72 0h2L40 34v-2zm0 4L76 0h2L40 38v-2zm0 4L80 0v2L42 40h-2zm4 0L80 4v2L46 40h-2zm4 0L80 8v2L50 40h-2zm4 0l28-28v2L54 40h-2zm4 0l24-24v2L58 40h-2zm4 0l20-20v2L62 40h-2zm4 0l16-16v2L66 40h-2zm4 0l12-12v2L70 40h-2zm4 0l8-8v2l-6 6h-2zm4 0l4-4v2l-2 2h-2z'/>`,\n  },\n  dots: {\n    color: '#db2777',\n    fill: 'rgba(0,0,0,.25)',\n    tile: 160,\n    viewBox: 40,\n    body: `<circle cx='10' cy='10' r='4'/><circle cx='30' cy='30' r='4'/>`,\n  },\n  grid: {\n    color: '#0284c7',\n    fill: 'rgba(0,0,0,.25)',\n    tile: 120,\n    viewBox: 40,\n    body: `<path d='M0 0h40v2H0zM0 0h2v40H0z'/>`,\n  },\n  plus: {\n    color: '#ea580c',\n    fill: 'rgba(0,0,0,.25)',\n    tile: 120,\n    viewBox: 40,\n    body: `<path d='M18 10h4v8h8v4h-8v8h-4v-8h-8v-4h8z'/>`,\n  },\n  zigzag: {\n    color: '#7c3aed',\n    fill: 'rgba(0,0,0,.25)',\n    tile: 160,\n    viewBox: 40,\n    body: `<path d='M0 10L10 0L20 10L30 0L40 10V14L30 4L20 14L10 4L0 14ZM0 30L10 20L20 30L30 20L40 30V34L30 24L20 34L10 24L0 34Z'/>`,\n  },\n  bricks: {\n    color: '#b91c1c',\n    fill: 'rgba(0,0,0,.3)',\n    tile: 160,\n    viewBox: 40,\n    body: `<path d='M0 0h40v2H0zM0 10h40v2H0zM0 20h40v2H0zM0 30h40v2H0zM19 0h2v10h-2zM0 10h1v10H0zM39 10h1v10h-1zM19 20h2v10h-2zM0 30h1v10H0zM39 30h1v10h-1z'/>`,\n  },\n  triangles: {\n    color: '#ca8a04',\n    fill: 'rgba(0,0,0,.25)',\n    tile: 160,\n    viewBox: 40,\n    body: `<path d='M10 4l8 14H2zM30 24l8 14H22z'/>`,\n  },\n  waves: {\n    color: '#0f766e',\n    fill: 'rgba(0,0,0,.25)',\n    tile: 160,\n    viewBox: 40,\n    body: `<path d='M0 10c10 0 10-8 20-8s10 8 20 8v4c-10 0-10-8-20-8S10 14 0 14zM0 30c10 0 10-8 20-8s10 8 20 8v4c-10 0-10-8-20-8S10 34 0 34z'/>`,\n  },\n  pixels: {\n    color: '#374151',\n    fill: 'rgba(255,255,255,.08)',\n    tile: 120,\n    viewBox: 40,\n    body: `<path d='M0 0h8v8H0zM16 8h8v8h-8zM32 0h8v8h-8zM8 24h8v8H8zM24 32h8v8h-8zM32 16h8v8h-8z'/>`,\n  },\n} satisfies Record<string, BackgroundPattern>;\n\nexport type BackgroundName = keyof typeof backgrounds;\n\nexport const backgroundNames = Object.keys(backgrounds) as BackgroundName[];\n\n/** Build the data URI for one pattern. */\nexport function backgroundImage(name: BackgroundName): string {\n  const { tile, viewBox, fill, body } = backgrounds[name];\n  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${tile}' height='${tile}' viewBox='0 0 ${viewBox} ${viewBox}'><g fill='${fill}' fill-rule='evenodd'>${body}</g></svg>`;\n  return `url(\"data:image/svg+xml,${encodeURIComponent(svg)}\")`;\n}\n\n/** Inline style for an element with the `bg-pattern` class. */\nexport function backgroundStyle(name: BackgroundName, speed = '4s'): string {\n  const { color, tile } = backgrounds[name];\n  return [\n    `--bg-color: ${color}`,\n    `--bg-image: ${backgroundImage(name)}`,\n    `--bg-tile: ${tile}px`,\n    `--bg-speed: ${speed}`,\n  ].join('; ');\n}\n",
+      "type": "registry:file",
+      "target": "~/src/components/backgrounds.ts"
+    }
+  ],
+  "categories": [
+    "game-ui"
+  ],
+  "type": "registry:item"
+}

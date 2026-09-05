@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "key-cap",
+  "title": "Key cap",
+  "description": "Keyboard key for control hints, light or dark, with optional hint text.",
+  "registryDependencies": [
+    "@squishy/styles"
+  ],
+  "files": [
+    {
+      "path": "src/components/KeyCap.astro",
+      "content": "---\n/**\n * Keyboard key for control hints.\n *   <KeyCap>E</KeyCap>   <KeyCap dark pressed>Space</KeyCap>\n *   <KeyCap hint=\"Interact\">E</KeyCap>   → key + text\n */\ninterface Props {\n  pressed?: boolean;\n  dark?: boolean;\n  /** Text after the key */\n  hint?: string;\n  class?: string;\n}\n\nconst { pressed = false, dark = false, hint, class: className } = Astro.props;\n---\n\n{\n  hint ? (\n    <span class:list={['key-hint', className]}>\n      <kbd class:list={['keycap', pressed && 'is-pressed', dark && 'is-dark']}><slot /></kbd>\n      <span>{hint}</span>\n    </span>\n  ) : (\n    <kbd class:list={['keycap', pressed && 'is-pressed', dark && 'is-dark', className]}><slot /></kbd>\n  )\n}\n",
+      "type": "registry:file",
+      "target": "~/src/components/KeyCap.astro"
+    }
+  ],
+  "categories": [
+    "game-ui"
+  ],
+  "type": "registry:item"
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button",
+  "title": "Button",
+  "description": "Squishy button with palette colors, two sizes, icon-only, disabled and loading states.",
+  "registryDependencies": [
+    "@squishy/styles",
+    "@squishy/icon"
+  ],
+  "files": [
+    {
+      "path": "src/components/Button.astro",
+      "content": "---\n/**\n * General squishy button.\n *\n *   <Button color=\"green\" size=\"lg\" href=\"/play\"><Icon name=\"play-arrow\" /> Play</Button>\n *   <Button as=\"button\" type=\"submit\" color=\"blue\">Save</Button>\n *   <Button icon color=\"red\" aria-label=\"Close\"><Icon name=\"close\" /></Button>\n *\n * Colors: see components/palette.ts. Sizes: md (default) | lg.\n */\nimport Icon from './Icon.astro';\nimport { colorStyle, type ColorName } from './palette';\n\n/** md = base size (no extra class), lg = large */\nexport const sizes = { md: '', lg: 'btn-lg' } as const;\nexport type ButtonSize = keyof typeof sizes;\n\ninterface Props {\n  /** Render an <a> (default) or a <button> */\n  as?: 'a' | 'button';\n  href?: string;\n  type?: 'button' | 'submit' | 'reset';\n  color?: ColorName;\n  size?: ButtonSize;\n  /** Icon-only: square shape. Give it an aria-label. */\n  icon?: boolean;\n  disabled?: boolean;\n  loading?: boolean;\n  class?: string;\n  [key: `data-${string}`]: string | undefined;\n  'aria-label'?: string;\n}\n\nconst {\n  as = 'a',\n  href = '#',\n  type = 'button',\n  color = 'zinc',\n  size = 'md',\n  icon = false,\n  disabled = false,\n  loading = false,\n  class: className,\n  ...rest\n} = Astro.props;\n\nconst classes = [\n  'btn',\n  sizes[size] || null,\n  icon && 'btn-icon',\n  disabled && 'is-disabled',\n  loading && 'is-loading',\n  className,\n];\nconst style = colorStyle(color);\n---\n\n{\n  as === 'button' ? (\n    <button\n      type={type}\n      disabled={disabled}\n      aria-busy={loading || undefined}\n      class:list={classes}\n      style={style}\n      {...rest}\n    >\n      <span class=\"btn-content\"><slot /></span>\n      {loading && <span class=\"btn-spinner\"><Icon name=\"material-symbols:progress-activity\" /></span>}\n    </button>\n  ) : (\n    <a\n      href={disabled ? undefined : href}\n      aria-disabled={disabled || undefined}\n      tabindex={disabled ? -1 : undefined}\n      aria-busy={loading || undefined}\n      class:list={classes}\n      style={style}\n      {...rest}\n    >\n      <span class=\"btn-content\"><slot /></span>\n      {loading && <span class=\"btn-spinner\"><Icon name=\"material-symbols:progress-activity\" /></span>}\n    </a>\n  )\n}\n",
+      "type": "registry:file",
+      "target": "~/src/components/Button.astro"
+    }
+  ],
+  "categories": [
+    "game-ui"
+  ],
+  "type": "registry:item"
+}

@@ -1,0 +1,469 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "squishy",
+  "homepage": "https://squishy-game-ui.example.com",
+  "items": [
+    {
+      "name": "styles",
+      "type": "registry:item",
+      "title": "Squishy styles",
+      "description": "Tailwind v4 stylesheet with the type scale, shape tokens, light/dark surfaces, brand themes and every component class. Needs the m6x11plus font in public/fonts.",
+      "dependencies": [
+        "tailwindcss",
+        "@tailwindcss/vite"
+      ],
+      "files": [
+        {
+          "path": "src/styles/global.css",
+          "type": "registry:file",
+          "target": "~/src/styles/global.css"
+        },
+        {
+          "path": "src/styles/brands.css",
+          "type": "registry:file",
+          "target": "~/src/styles/brands.css"
+        },
+        {
+          "path": "src/components/palette.ts",
+          "type": "registry:file",
+          "target": "~/src/components/palette.ts"
+        }
+      ],
+      "docs": "Add `@import \"./styles/global.css\"` to your layout and put m6x11plus.ttf in public/fonts (https://managore.itch.io/m6x11). Enable the Tailwind Vite plugin in astro.config.mjs.",
+      "categories": [
+        "foundation"
+      ]
+    },
+    {
+      "name": "icon",
+      "type": "registry:item",
+      "title": "Icon",
+      "description": "Material Symbols Rounded via astro-icon. <Icon name=\"settings\" />",
+      "dependencies": [
+        "astro-icon",
+        "@iconify-json/material-symbols"
+      ],
+      "files": [
+        {
+          "path": "src/components/Icon.astro",
+          "type": "registry:file",
+          "target": "~/src/components/Icon.astro"
+        }
+      ],
+      "docs": "Add `icon()` from astro-icon to integrations in astro.config.mjs.",
+      "categories": [
+        "foundation"
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:item",
+      "title": "Button",
+      "description": "Squishy button with palette colors, two sizes, icon-only, disabled and loading states.",
+      "registryDependencies": [
+        "@squishy/styles",
+        "@squishy/icon"
+      ],
+      "files": [
+        {
+          "path": "src/components/Button.astro",
+          "type": "registry:file",
+          "target": "~/src/components/Button.astro"
+        }
+      ],
+      "categories": [
+        "game-ui"
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:item",
+      "title": "Input",
+      "description": "Text input, textarea, select and number stepper in light and dark variants with optional icon.",
+      "registryDependencies": [
+        "@squishy/styles",
+        "@squishy/icon",
+        "@squishy/button"
+      ],
+      "files": [
+        {
+          "path": "src/components/InputField.astro",
+          "type": "registry:file",
+          "target": "~/src/components/InputField.astro"
+        },
+        {
+          "path": "src/components/TextArea.astro",
+          "type": "registry:file",
+          "target": "~/src/components/TextArea.astro"
+        },
+        {
+          "path": "src/components/Select.astro",
+          "type": "registry:file",
+          "target": "~/src/components/Select.astro"
+        },
+        {
+          "path": "src/components/Stepper.astro",
+          "type": "registry:file",
+          "target": "~/src/components/Stepper.astro"
+        }
+      ],
+      "categories": [
+        "game-ui"
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:item",
+      "title": "Checkbox",
+      "description": "Pixel checkbox with accent color.",
+      "registryDependencies": [
+        "@squishy/styles",
+        "@squishy/icon"
+      ],
+      "files": [
+        {
+          "path": "src/components/Checkbox.astro",
+          "type": "registry:file",
+          "target": "~/src/components/Checkbox.astro"
+        }
+      ],
+      "categories": [
+        "game-ui"
+      ]
+    },
+    {
+      "name": "radio",
+      "type": "registry:item",
+      "title": "Radio",
+      "description": "Pixel radio with accent color.",
+      "registryDependencies": [
+        "@squishy/styles"
+      ],
+      "files": [
+        {
+          "path": "src/components/Radio.astro",
+          "type": "registry:file",
+          "target": "~/src/components/Radio.astro"
+        }
+      ],
+      "categories": [
+        "game-ui"
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:item",
+      "title": "Toggle",
+      "description": "Switch with a square knob and accent color.",
+      "registryDependencies": [
+        "@squishy/styles"
+      ],
+      "files": [
+        {
+          "path": "src/components/Toggle.astro",
+          "type": "registry:file",
+          "target": "~/src/components/Toggle.astro"
+        }
+      ],
+      "categories": [
+        "game-ui"
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:item",
+      "title": "Slider",
+      "description": "Range slider with a filled track and a thumb that squishes while dragging.",
+      "registryDependencies": [
+        "@squishy/styles"
+      ],
+      "files": [
+        {
+          "path": "src/components/Slider.astro",
+          "type": "registry:file",
+          "target": "~/src/components/Slider.astro"
+        }
+      ],
+      "categories": [
+        "game-ui"
+      ]
+    },
+    {
+      "name": "panel",
+      "type": "registry:item",
+      "title": "Panel",
+      "description": "Surface panel with colored title bar, actions and footer slots.",
+      "registryDependencies": [
+        "@squishy/styles"
+      ],
+      "files": [
+        {
+          "path": "src/components/Panel.astro",
+          "type": "registry:file",
+          "target": "~/src/components/Panel.astro"
+        }
+      ],
+      "categories": [
+        "game-ui"
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:item",
+      "title": "Dialog",
+      "description": "Modal on <dialog> with a Panel inside. Open with data-dialog-open, close with data-dialog-close.",
+      "registryDependencies": [
+        "@squishy/styles",
+        "@squishy/panel",
+        "@squishy/button",
+        "@squishy/icon"
+      ],
+      "files": [
+        {
+          "path": "src/components/Dialog.astro",
+          "type": "registry:file",
+          "target": "~/src/components/Dialog.astro"
+        }
+      ],
+      "categories": [
+        "game-ui"
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:item",
+      "title": "Tabs",
+      "description": "Tab bar and panels with keyboard support.",
+      "registryDependencies": [
+        "@squishy/styles",
+        "@squishy/icon"
+      ],
+      "files": [
+        {
+          "path": "src/components/Tabs.astro",
+          "type": "registry:file",
+          "target": "~/src/components/Tabs.astro"
+        },
+        {
+          "path": "src/components/TabPanel.astro",
+          "type": "registry:file",
+          "target": "~/src/components/TabPanel.astro"
+        }
+      ],
+      "categories": [
+        "game-ui"
+      ]
+    },
+    {
+      "name": "dropdown",
+      "type": "registry:item",
+      "title": "Dropdown",
+      "description": "Menu on <details> with items, dividers and danger items.",
+      "registryDependencies": [
+        "@squishy/styles",
+        "@squishy/icon",
+        "@squishy/button"
+      ],
+      "files": [
+        {
+          "path": "src/components/Dropdown.astro",
+          "type": "registry:file",
+          "target": "~/src/components/Dropdown.astro"
+        },
+        {
+          "path": "src/components/DropdownItem.astro",
+          "type": "registry:file",
+          "target": "~/src/components/DropdownItem.astro"
+        }
+      ],
+      "categories": [
+        "game-ui"
+      ]
+    },
+    {
+      "name": "progress-bar",
+      "type": "registry:item",
+      "title": "Progress bar",
+      "description": "Health / XP bar with sizes, label, segments and a row mode with icon and name.",
+      "registryDependencies": [
+        "@squishy/styles"
+      ],
+      "files": [
+        {
+          "path": "src/components/ProgressBar.astro",
+          "type": "registry:file",
+          "target": "~/src/components/ProgressBar.astro"
+        }
+      ],
+      "categories": [
+        "game-ui"
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:item",
+      "title": "Badge",
+      "description": "Small label or counter, pill option, pulse animation.",
+      "registryDependencies": [
+        "@squishy/styles"
+      ],
+      "files": [
+        {
+          "path": "src/components/Badge.astro",
+          "type": "registry:file",
+          "target": "~/src/components/Badge.astro"
+        }
+      ],
+      "categories": [
+        "game-ui"
+      ]
+    },
+    {
+      "name": "key-cap",
+      "type": "registry:item",
+      "title": "Key cap",
+      "description": "Keyboard key for control hints, light or dark, with optional hint text.",
+      "registryDependencies": [
+        "@squishy/styles"
+      ],
+      "files": [
+        {
+          "path": "src/components/KeyCap.astro",
+          "type": "registry:file",
+          "target": "~/src/components/KeyCap.astro"
+        }
+      ],
+      "categories": [
+        "game-ui"
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:item",
+      "title": "Tooltip",
+      "description": "CSS-only tooltip on hover and focus.",
+      "registryDependencies": [
+        "@squishy/styles"
+      ],
+      "files": [
+        {
+          "path": "src/components/Tooltip.astro",
+          "type": "registry:file",
+          "target": "~/src/components/Tooltip.astro"
+        }
+      ],
+      "categories": [
+        "game-ui"
+      ]
+    },
+    {
+      "name": "toast",
+      "type": "registry:item",
+      "title": "Toast",
+      "description": "Toast card plus a Toaster with a window.toast() runtime API.",
+      "registryDependencies": [
+        "@squishy/styles",
+        "@squishy/icon"
+      ],
+      "files": [
+        {
+          "path": "src/components/Toast.astro",
+          "type": "registry:file",
+          "target": "~/src/components/Toast.astro"
+        },
+        {
+          "path": "src/components/Toaster.astro",
+          "type": "registry:file",
+          "target": "~/src/components/Toaster.astro"
+        }
+      ],
+      "categories": [
+        "game-ui"
+      ]
+    },
+    {
+      "name": "item-slot",
+      "type": "registry:item",
+      "title": "Item slot",
+      "description": "Inventory / hotbar slot with icon, count and hotkey badges.",
+      "registryDependencies": [
+        "@squishy/styles",
+        "@squishy/icon",
+        "@squishy/badge"
+      ],
+      "files": [
+        {
+          "path": "src/components/ItemSlot.astro",
+          "type": "registry:file",
+          "target": "~/src/components/ItemSlot.astro"
+        }
+      ],
+      "categories": [
+        "game-ui"
+      ]
+    },
+    {
+      "name": "background",
+      "type": "registry:item",
+      "title": "Background",
+      "description": "Seamlessly scrolling tiled SVG background patterns.",
+      "registryDependencies": [
+        "@squishy/styles"
+      ],
+      "files": [
+        {
+          "path": "src/components/Background.astro",
+          "type": "registry:file",
+          "target": "~/src/components/Background.astro"
+        },
+        {
+          "path": "src/components/backgrounds.ts",
+          "type": "registry:file",
+          "target": "~/src/components/backgrounds.ts"
+        }
+      ],
+      "categories": [
+        "game-ui"
+      ]
+    },
+    {
+      "name": "screen",
+      "type": "registry:item",
+      "title": "Screen",
+      "description": "16:9 game viewport frame for layout shells.",
+      "registryDependencies": [
+        "@squishy/styles",
+        "@squishy/background"
+      ],
+      "files": [
+        {
+          "path": "src/components/Screen.astro",
+          "type": "registry:file",
+          "target": "~/src/components/Screen.astro"
+        }
+      ],
+      "categories": [
+        "game-ui"
+      ]
+    },
+    {
+      "name": "heading",
+      "type": "registry:item",
+      "title": "Heading",
+      "description": "Page heading with a hard text shadow.",
+      "registryDependencies": [
+        "@squishy/styles"
+      ],
+      "files": [
+        {
+          "path": "src/components/Heading.astro",
+          "type": "registry:file",
+          "target": "~/src/components/Heading.astro"
+        }
+      ],
+      "categories": [
+        "game-ui"
+      ]
+    }
+  ]
+}

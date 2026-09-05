@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox",
+  "title": "Checkbox",
+  "description": "Pixel checkbox with accent color.",
+  "registryDependencies": [
+    "@squishy/styles",
+    "@squishy/icon"
+  ],
+  "files": [
+    {
+      "path": "src/components/Checkbox.astro",
+      "content": "---\n/**\n * Squishy checkbox. Label text goes in the slot.\n *   <Checkbox name=\"music\" color=\"pink\" checked>Music</Checkbox>\n */\nimport Icon from './Icon.astro';\nimport { accentStyle, type AccentName } from './palette';\n\ninterface Props {\n  name?: string;\n  value?: string;\n  checked?: boolean;\n  disabled?: boolean;\n  color?: AccentName;\n  class?: string;\n}\n\nconst { name, value, checked = false, disabled = false, color = 'green', class: className } =\n  Astro.props;\n---\n\n<label class:list={['choice-field', className]} style={accentStyle(color)}>\n  <input type=\"checkbox\" name={name} value={value} checked={checked} disabled={disabled} />\n  <span class=\"choice-box\"><Icon name=\"check\" /></span>\n  <slot />\n</label>\n",
+      "type": "registry:file",
+      "target": "~/src/components/Checkbox.astro"
+    }
+  ],
+  "categories": [
+    "game-ui"
+  ],
+  "type": "registry:item"
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "heading",
+  "title": "Heading",
+  "description": "Page heading with a hard text shadow.",
+  "registryDependencies": [
+    "@squishy/styles"
+  ],
+  "files": [
+    {
+      "path": "src/components/Heading.astro",
+      "content": "---\ninterface Props {\n  class?: string;\n}\n\nconst { class: className } = Astro.props;\n---\n\n<h1\n  class:list={[\n    'max-w-lg text-center font-pixel tracking-wide text-ui-lg text-white [text-shadow:_4px_4px_0_rgba(0,0,0,.5)] sm:text-ui-xl',\n    className,\n  ]}\n>\n  <slot />\n</h1>\n",
+      "type": "registry:file",
+      "target": "~/src/components/Heading.astro"
+    }
+  ],
+  "categories": [
+    "game-ui"
+  ],
+  "type": "registry:item"
+}

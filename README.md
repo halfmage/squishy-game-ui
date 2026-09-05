@@ -19,7 +19,7 @@ color variants. Icons are Material Symbols Rounded via Iconify.
 ```
 src/
   styles/global.css      Theme tokens (type scale, fonts, shadows), keyframes, all component classes
-  styles/brands.css      Original one-off brand looks (press, balatro, minecraft, ...) for later
+  styles/brands.css      Original one-off brand looks (press, deck, blocky, ...) for later
   components/palette.ts  Color variants. colorStyle() → --c-* vars. accentStyle() → --accent
   components/backgrounds.ts  Tiled SVG background patterns
   components/            Button, Icon, InputField, TextArea, Select, Checkbox, Radio, Toggle,
@@ -46,3 +46,35 @@ public/fonts/            m6x11plus.ttf
 2. Add a component file in `src/components/`.
 3. Add a story in `src/stories/<name>.astro` with `export const title = '...'` and
    optional `export const bg = 'dots'`. The nav and route update automatically.
+
+## shadcn registry
+
+The components are published as a [shadcn registry](https://ui.shadcn.com/docs/registry) so they
+can be installed with the shadcn CLI into any Astro + Tailwind v4 project:
+
+```
+npx shadcn@latest add https://<your-host>/r/button.json
+```
+
+- `registry.json` lists every item. Items are `registry:item` with `registry:file` files and
+  explicit `target` paths (`~/src/components/...`), so they work without a React setup.
+- `npm run registry:build` writes `public/r/<item>.json` plus `public/r/registry.json`.
+  Run it after you change a component, then commit `public/r`.
+- Set `homepage` in `registry.json` to the deployed URL.
+
+### List it in the shadcn directory
+
+1. Deploy the site. `https://<host>/r/registry.json` and `https://<host>/r/button.json` must be public.
+2. Fork https://github.com/shadcn-ui/ui and add an entry to `apps/v4/registry/directory.json`:
+
+   ```json
+   {
+     "name": "@squishy",
+     "homepage": "https://<host>",
+     "url": "https://<host>/r/{name}.json",
+     "description": "Squishy game UI for Astro + Tailwind v4: pixel font, hard shadows, brand themes.",
+     "logo": "<svg ...></svg>"
+   }
+   ```
+
+3. Run `pnpm validate:registries` in the fork, then open a pull request.

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "slider",
+  "title": "Slider",
+  "description": "Range slider with a filled track and a thumb that squishes while dragging.",
+  "registryDependencies": [
+    "@squishy/styles"
+  ],
+  "files": [
+    {
+      "path": "src/components/Slider.astro",
+      "content": "---\n/**\n * Squishy range slider. The filled part of the track follows the value.\n *   <Slider name=\"volume\" min={0} max={100} value={40} color=\"pink\" />\n */\nimport { accentStyle, type AccentName } from './palette';\n\ninterface Props {\n  name?: string;\n  min?: number;\n  max?: number;\n  step?: number;\n  value?: number;\n  disabled?: boolean;\n  color?: AccentName;\n  class?: string;\n}\n\nconst {\n  name,\n  min = 0,\n  max = 100,\n  step = 1,\n  value = 50,\n  disabled = false,\n  color = 'green',\n  class: className,\n} = Astro.props;\n\nconst fill = ((value - min) / (max - min)) * 100;\n---\n\n<input\n  type=\"range\"\n  name={name}\n  min={min}\n  max={max}\n  step={step}\n  value={value}\n  disabled={disabled}\n  class:list={['slider', className]}\n  style={`${accentStyle(color)}; --fill: ${fill}%`}\n/>\n\n<script>\n  // Keep --fill in sync with the value so the track fill follows the thumb.\n  function update(el: HTMLInputElement) {\n    const min = Number(el.min || 0);\n    const max = Number(el.max || 100);\n    const pct = ((Number(el.value) - min) / (max - min)) * 100;\n    el.style.setProperty('--fill', `${pct}%`);\n  }\n  function isSlider(t: EventTarget | null): t is HTMLInputElement {\n    return t instanceof HTMLInputElement && t.classList.contains('slider');\n  }\n  document.addEventListener('input', (e) => {\n    if (isSlider(e.target)) update(e.target);\n  });\n  // Squeeze the thumb while dragging (pointer or touch).\n  document.addEventListener('pointerdown', (e) => {\n    if (isSlider(e.target)) e.target.classList.add('is-dragging');\n  });\n  const release = () =>\n    document.querySelectorAll('.slider.is-dragging').forEach((el) => el.classList.remove('is-dragging'));\n  window.addEventListener('pointerup', release);\n  window.addEventListener('pointercancel', release);\n  window.addEventListener('blur', release);\n  document.querySelectorAll<HTMLInputElement>('input.slider').forEach(update);\n</script>\n",
+      "type": "registry:file",
+      "target": "~/src/components/Slider.astro"
+    }
+  ],
+  "categories": [
+    "game-ui"
+  ],
+  "type": "registry:item"
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon",
+  "title": "Icon",
+  "description": "Material Symbols Rounded via astro-icon. <Icon name=\"settings\" />",
+  "dependencies": [
+    "astro-icon",
+    "@iconify-json/material-symbols"
+  ],
+  "files": [
+    {
+      "path": "src/components/Icon.astro",
+      "content": "---\n/**\n * Material Symbols Rounded via astro-icon (Iconify).\n * Pass the short Material name: <Icon name=\"settings\" />  →  material-symbols:settings-rounded\n * Full Iconify names also work: <Icon name=\"material-symbols:progress-activity\" />\n * Browse names: https://icon-sets.iconify.design/material-symbols/?suffixes=rounded\n */\nimport { Icon as IconifyIcon } from 'astro-icon/components';\n\ninterface Props {\n  name: string;\n  class?: string;\n  /** aria-label makes the icon meaningful; without it the icon is decorative */\n  'aria-label'?: string;\n}\n\nconst { name, class: className, 'aria-label': ariaLabel } = Astro.props;\nconst iconName = name.includes(':')\n  ? name\n  : `material-symbols:${name.endsWith('-rounded') ? name : `${name}-rounded`}`;\n---\n\n<IconifyIcon\n  name={iconName}\n  class={className}\n  aria-label={ariaLabel}\n  aria-hidden={ariaLabel ? undefined : 'true'}\n/>\n",
+      "type": "registry:file",
+      "target": "~/src/components/Icon.astro"
+    }
+  ],
+  "docs": "Add `icon()` from astro-icon to integrations in astro.config.mjs.",
+  "categories": [
+    "foundation"
+  ],
+  "type": "registry:item"
+}

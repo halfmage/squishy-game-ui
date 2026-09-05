@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "title": "Badge",
+  "description": "Small label or counter, pill option, pulse animation.",
+  "registryDependencies": [
+    "@squishy/styles"
+  ],
+  "files": [
+    {
+      "path": "src/components/Badge.astro",
+      "content": "---\n/**\n * Small label / counter.\n *   <Badge color=\"red\">NEW</Badge>   <Badge pill color=\"yellow\"><Icon name=\"star\" /> 12</Badge>\n */\nimport { colorStyle, type ColorName } from './palette';\n\nexport const badgeSizes = { sm: 'badge-sm', md: 'badge-md' } as const;\n\ninterface Props {\n  color?: ColorName;\n  size?: keyof typeof badgeSizes;\n  pill?: boolean;\n  /** Soft bounce animation, for attention */\n  pulse?: boolean;\n  class?: string;\n}\n\nconst { color = 'zinc', size = 'md', pill = false, pulse = false, class: className } = Astro.props;\n---\n\n<span\n  class:list={['badge', badgeSizes[size], pill && 'is-pill', pulse && 'is-pulse', className]}\n  style={colorStyle(color)}\n>\n  <slot />\n</span>\n",
+      "type": "registry:file",
+      "target": "~/src/components/Badge.astro"
+    }
+  ],
+  "categories": [
+    "game-ui"
+  ],
+  "type": "registry:item"
+}

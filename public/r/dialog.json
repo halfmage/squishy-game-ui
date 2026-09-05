@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dialog",
+  "title": "Dialog",
+  "description": "Modal on <dialog> with a Panel inside. Open with data-dialog-open, close with data-dialog-close.",
+  "registryDependencies": [
+    "@squishy/styles",
+    "@squishy/panel",
+    "@squishy/button",
+    "@squishy/icon"
+  ],
+  "files": [
+    {
+      "path": "src/components/Dialog.astro",
+      "content": "---\n/**\n * Modal dialog built on <dialog>. Open it with any element that has\n * data-dialog-open=\"<id>\"; close with data-dialog-close inside it.\n *\n *   <Button data-dialog-open=\"quit\">Quit</Button>\n *   <Dialog id=\"quit\" title=\"Quit game?\" color=\"red\">\n *     Progress is lost.\n *     <Fragment slot=\"footer\">\n *       <Button as=\"button\" color=\"light\" data-dialog-close>Cancel</Button>\n *       <Button as=\"button\" color=\"red\" data-dialog-close>Quit</Button>\n *     </Fragment>\n *   </Dialog>\n */\nimport Panel from './Panel.astro';\nimport Button from './Button.astro';\nimport Icon from './Icon.astro';\nimport type { ColorName } from './palette';\n\ninterface Props {\n  id: string;\n  title: string;\n  color?: ColorName;\n  class?: string;\n}\n\nconst { id, title, color = 'zinc', class: className } = Astro.props;\nconst hasFooter = Astro.slots.has('footer');\n---\n\n<dialog id={id} class:list={['dialog', className]} aria-labelledby={`${id}-title`}>\n  <Panel title={title} color={color}>\n    <slot name=\"icon\" slot=\"icon\" />\n    <Button as=\"button\" icon color=\"light\" aria-label=\"Close\" data-dialog-close slot=\"actions\">\n      <Icon name=\"close\" />\n    </Button>\n    <slot />\n    {hasFooter && <slot name=\"footer\" slot=\"footer\" />}\n  </Panel>\n</dialog>\n\n<script>\n  document.addEventListener('click', (e) => {\n    const t = e.target as HTMLElement;\n    const opener = t.closest<HTMLElement>('[data-dialog-open]');\n    if (opener) {\n      e.preventDefault();\n      const dlg = document.getElementById(opener.dataset.dialogOpen!) as HTMLDialogElement | null;\n      dlg?.showModal();\n      return;\n    }\n    const closer = t.closest<HTMLElement>('[data-dialog-close]');\n    if (closer) {\n      e.preventDefault();\n      closer.closest('dialog')?.close();\n      return;\n    }\n    // Click on the backdrop (the dialog element itself) closes it.\n    if (t instanceof HTMLDialogElement && t.classList.contains('dialog')) t.close();\n  });\n</script>\n",
+      "type": "registry:file",
+      "target": "~/src/components/Dialog.astro"
+    }
+  ],
+  "categories": [
+    "game-ui"
+  ],
+  "type": "registry:item"
+}

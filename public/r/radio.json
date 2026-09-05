@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radio",
+  "title": "Radio",
+  "description": "Pixel radio with accent color.",
+  "registryDependencies": [
+    "@squishy/styles"
+  ],
+  "files": [
+    {
+      "path": "src/components/Radio.astro",
+      "content": "---\n/**\n * Squishy radio. Group radios with the same `name`.\n *   <Radio name=\"mode\" value=\"easy\" checked>Easy</Radio>\n */\nimport { accentStyle, type AccentName } from './palette';\n\ninterface Props {\n  name: string;\n  value: string;\n  checked?: boolean;\n  disabled?: boolean;\n  color?: AccentName;\n  class?: string;\n}\n\nconst { name, value, checked = false, disabled = false, color = 'green', class: className } =\n  Astro.props;\n---\n\n<label class:list={['choice-field', className]} style={accentStyle(color)}>\n  <input type=\"radio\" name={name} value={value} checked={checked} disabled={disabled} />\n  <span class=\"choice-box is-radio\"></span>\n  <slot />\n</label>\n",
+      "type": "registry:file",
+      "target": "~/src/components/Radio.astro"
+    }
+  ],
+  "categories": [
+    "game-ui"
+  ],
+  "type": "registry:item"
+}

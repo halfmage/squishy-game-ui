@@ -740,8 +740,8 @@
    Switch with the selector in the top right or the B key.
    =========================================================================== */
 
-/* Balatro: flat colors, tiny radius, no border, deep drop shadow, dark slate panels */
-.theme-balatro {
+/* Deck (card game look): flat colors, tiny radius, no border, deep drop shadow, dark slate panels */
+.theme-deck {
   --radius: 4px;
   --radius-sm: 3px;
   --border-w: 0px;
@@ -764,13 +764,13 @@
   --surface-text-shadow-xs: 1px 1px 0 rgba(0, 0, 0, 0.5);
   --surface-icon-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
 }
-.theme-balatro .btn:active,
-.theme-balatro .slot:active {
+.theme-deck .btn:active,
+.theme-deck .slot:active {
   @apply shadow-none;
 }
 
-/* Minecraft: square, thick black border, bevel highlight, flat stone gray */
-.theme-minecraft {
+/* Blocky (voxel look): square, thick black border, bevel highlight, flat stone gray */
+.theme-blocky {
   --radius: 0px;
   --radius-sm: 0px;
   --border-w: 4px;
@@ -794,14 +794,14 @@
   --surface-text-shadow-xs: none;
   --surface-icon-shadow: none;
 }
-.theme-minecraft .btn:hover {
+.theme-blocky .btn:hover {
   color: #ffffa0;
 }
-.theme-minecraft .panel,
-.theme-minecraft .toast,
-.theme-minecraft .dropdown-menu,
-.theme-minecraft .slot,
-.theme-minecraft .input-light {
+.theme-blocky .panel,
+.theme-blocky .toast,
+.theme-blocky .dropdown-menu,
+.theme-blocky .slot,
+.theme-blocky .input-light {
   box-shadow: inset 4px 4px 0 rgba(255, 255, 255, 0.5), inset -4px -4px 0 rgba(0, 0, 0, 0.25), var(--shadow-hard);
 }
 

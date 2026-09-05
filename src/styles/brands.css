@@ -12,7 +12,7 @@
   @apply relative top-0 flex max-w-lg items-center justify-center gap-3 rounded-lg border-4 border-black/80 bg-linear-180 from-green-600 via-green-400 to-green-500 px-4 py-3 font-pixel text-4xl font-medium tracking-wide text-white shadow-[0_6px_0_0_rgba(0,0,0,.8),_inset_0_2px_0_2px_rgba(255,255,255,.6)] outline-neutral-500/25 transition-all duration-75 ease-in-out select-none [text-shadow:_3px_3px_0_rgba(0,0,0,.5)] hover:top-1 hover:scale-110 hover:animate-bounce-soft hover:from-lime-600 hover:via-lime-400 hover:to-lime-500 hover:shadow-[0_0_0_4px_rgba(0,0,0,.1),_inset_0_0_0_4px_rgba(255,255,255,.3)] focus:scale-110 focus:animate-bounce-soft focus:shadow-soft-hover focus:outline-4 focus:outline-offset-2 focus:outline-sky-400 active:scale-x-125 active:scale-y-90 [&_svg]:relative [&_svg]:top-px [&_svg]:size-9 [&_svg]:drop-shadow-[3px_3px_0_rgba(0,0,0,.5)];
 }
 
-.minecraft-button {
+.blocky-button {
   @apply relative top-0 flex max-w-lg items-center justify-center gap-3 border-4 border-black bg-[#6f6f6f] px-4 py-3 font-pixel text-4xl font-medium tracking-wide text-white shadow-[inset_4px_4px_0_rgba(255,255,255,.25),inset_-4px_-4px_0_rgba(0,0,0,.25),4px_4px_0_rgba(0,0,0,.25)] outline-neutral-500/25 transition-all duration-75 ease-in-out select-none [text-shadow:_3px_3px_0_rgba(0,0,0,.5)] hover:-top-1 hover:scale-110 hover:animate-bounce-soft hover:bg-[#7a8fbf] hover:text-[#ffffa0] focus:scale-110 focus:animate-bounce-soft focus:outline-4 focus:outline-offset-1 focus:outline-stone-400 active:top-0 active:scale-x-125 active:scale-y-90 [&_svg]:relative [&_svg]:top-px [&_svg]:size-9 [&_svg]:drop-shadow-[3px_3px_0_rgba(0,0,0,.5)];
 }
 
@@ -20,7 +20,7 @@
   @apply relative top-0 flex max-w-lg items-center justify-center gap-3 animate-rainbow-gradient bg-[linear-gradient(to_right,#ef4444,#f97316,#eab308,#22c55e,#06b6d4,#3b82f6,#a855f7,#ef4444)] bg-[200%_auto] px-4 py-3 font-pixel text-4xl font-medium tracking-wide text-white shadow-soft outline-neutral-500/25 transition-all duration-75 ease-in-out select-none [text-shadow:_3px_3px_0_rgba(0,0,0,.5)] hover:-top-1 hover:scale-110 hover:shadow-soft-hover focus:scale-110 focus:shadow-soft-hover focus:outline-4 focus:outline-offset-2 focus:outline-pink-400 active:top-0 active:scale-x-125 active:scale-y-90 [&_svg]:relative [&_svg]:top-px [&_svg]:size-9 [&_svg]:drop-shadow-[3px_3px_0_rgba(0,0,0,.5)];
 }
 
-.balatro-button {
+.deck-button {
   @apply relative top-0 flex max-w-lg items-center justify-center gap-2 bg-[#ef4444] px-4 py-3 font-pixel text-4xl font-medium tracking-wide text-white outline-neutral-500/25 transition-all duration-75 ease-in-out select-none [text-shadow:_3px_3px_0_rgba(0,0,0,.5)] pixel-corners hover:-top-1 hover:scale-110 hover:animate-bounce-soft hover:shadow-soft-hover focus:scale-110 focus:animate-bounce-soft focus:shadow-soft-hover focus:outline-2 focus:outline-offset-2 focus:outline-emerald-300 active:top-0 active:scale-x-125 active:scale-y-90 active:bg-[#ef0044] [&_svg]:relative [&_svg]:top-px [&_svg]:size-9 [&_svg]:drop-shadow-[3px_3px_0_rgba(0,0,0,.5)];
 }
 

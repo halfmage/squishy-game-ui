@@ -1,13 +1,13 @@
 ---
 /**
- * The original branded button looks (press, balatro, minecraft, ...).
+ * The original branded button looks (press, deck, blocky, ...).
  * Kept for later. Styles live in styles/brands.css.
  */
 export const variants = {
   simple: 'simple-button',
   press: 'press-button',
-  balatro: 'balatro-button',
-  minecraft: 'minecraft-button',
+  deck: 'deck-button',
+  blocky: 'blocky-button',
   rainbow: 'rainbow-button',
   opacity: 'opacity-button',
 } as const;
@@ -21,7 +21,7 @@ interface Props {
 }
 
 const { variant = 'simple', href = '#', class: className = '' } = Astro.props;
-const needsShadowWrapper = variant === 'balatro';
+const needsShadowWrapper = variant === 'deck';
 const fullWidth = /\bw-full\b/.test(className);
 ---
 
