@@ -1,0 +1,20 @@
+---
+/**
+ * 16:9 game viewport frame for layout shells. Children go in an absolute
+ * inset-0 content box; use `class` to lay them out.
+ *   <Screen pattern="stripes" class="flex items-center justify-center">...</Screen>
+ */
+import { backgroundStyle, type BackgroundName } from './backgrounds';
+
+interface Props {
+  pattern?: BackgroundName;
+  speed?: string;
+  class?: string;
+}
+
+const { pattern = 'stripes', speed = '4s', class: className } = Astro.props;
+---
+
+<div class="screen bg-pattern" style={backgroundStyle(pattern, speed)}>
+  <div class:list={['screen-content', className]}><slot /></div>
+</div>

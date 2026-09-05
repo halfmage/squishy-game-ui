@@ -1,0 +1,55 @@
+---
+import Screen from '../components/Screen.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import Badge from '../components/Badge.astro';
+import KeyCap from '../components/KeyCap.astro';
+import Tooltip from '../components/Tooltip.astro';
+import Heading from '../components/Heading.astro';
+
+export const title = 'Screen · Menu';
+export const bg = 'pixels';
+---
+
+<Heading>Main menu</Heading>
+
+<Screen pattern="stripes" class="flex flex-col">
+  <!-- top bar -->
+  <div class="flex items-start justify-between p-4">
+    <Badge color="dark">v0.1.0 · alpha</Badge>
+    <div class="flex gap-3">
+      <Tooltip text="Sound" position="bottom">
+        <Button icon color="light" aria-label="Sound"><Icon name="volume-up" /></Button>
+      </Tooltip>
+      <Tooltip text="Fullscreen" position="bottom">
+        <Button icon color="light" aria-label="Fullscreen"><Icon name="fullscreen" /></Button>
+      </Tooltip>
+    </div>
+  </div>
+
+  <!-- title + buttons -->
+  <div class="flex flex-1 flex-col items-center justify-center gap-8">
+    <div class="flex flex-col items-center gap-2">
+      <h2 class="font-pixel text-ui-2xl tracking-wide text-white [text-shadow:_6px_6px_0_rgba(0,0,0,.5)]">
+        SQUISHY QUEST
+      </h2>
+      <Badge pill color="yellow"><Icon name="star" /> Season 1</Badge>
+    </div>
+    <div class="flex w-72 flex-col gap-4">
+      <Button color="green" size="lg" class="w-full"><Icon name="play-arrow" /> Continue</Button>
+      <Button color="blue" size="lg" class="w-full"><Icon name="add" /> New game</Button>
+      <Button color="light" size="lg" class="w-full"><Icon name="settings" /> Settings</Button>
+      <Button color="red" size="lg" class="w-full"><Icon name="logout" /> Quit</Button>
+    </div>
+  </div>
+
+  <!-- bottom bar -->
+  <div class="flex items-center justify-between px-4 py-3">
+    <span class="font-pixel text-ui-xs tracking-wide text-white/70">© 2026 Squishy Games</span>
+    <div class="flex gap-6">
+      <KeyCap hint="Navigate" dark>↑↓</KeyCap>
+      <KeyCap hint="Select" dark>Enter</KeyCap>
+      <KeyCap hint="Back" dark>Esc</KeyCap>
+    </div>
+  </div>
+</Screen>

@@ -1,0 +1,112 @@
+---
+import Screen from '../components/Screen.astro';
+import Panel from '../components/Panel.astro';
+import Tabs from '../components/Tabs.astro';
+import TabPanel from '../components/TabPanel.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import Badge from '../components/Badge.astro';
+import KeyCap from '../components/KeyCap.astro';
+import ProgressBar from '../components/ProgressBar.astro';
+import ItemSlot from '../components/ItemSlot.astro';
+import Dropdown from '../components/Dropdown.astro';
+import DropdownItem from '../components/DropdownItem.astro';
+import Heading from '../components/Heading.astro';
+
+export const title = 'Screen · Inventory';
+export const bg = 'dots';
+
+type Slot = { icon?: string; count?: number; color?: 'red' | 'blue' | 'yellow' | 'orange' | 'green' | 'purple' | 'cyan'; selected?: boolean };
+const items: Slot[] = [
+  { icon: 'swords', selected: true }, { icon: 'shield' }, { icon: 'science', count: 3, color: 'red' },
+  { icon: 'science', count: 5, color: 'blue' }, { icon: 'local-fire-department', count: 12, color: 'orange' },
+  { icon: 'key', count: 1, color: 'yellow' }, { icon: 'restaurant', count: 7 }, { icon: 'eco', count: 20, color: 'green' },
+  { icon: 'book-2', color: 'purple' }, { icon: 'diamond', count: 18, color: 'cyan' }, { icon: 'hardware' }, { icon: 'handyman' },
+  {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+];
+---
+
+<Heading>Inventory screen</Heading>
+
+<Screen pattern="dots" class="flex items-center justify-center p-6">
+  <Panel title="Inventory" color="blue" class="max-w-4xl!">
+    <Icon name="backpack" slot="icon" />
+    <Fragment slot="actions">
+      <Badge color="dark" class="ml-auto">12 / 24</Badge>
+      <Button icon color="light" aria-label="Close" class="ml-3!"><Icon name="close" /></Button>
+    </Fragment>
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-[1fr_16rem]">
+      <!-- items -->
+      <Tabs
+        tabs={[
+          { id: 'inv-all', label: 'All' },
+          { id: 'inv-weapons', label: 'Weapons', icon: 'swords' },
+          { id: 'inv-potions', label: 'Potions', icon: 'science' },
+          { id: 'inv-misc', label: 'Misc', icon: 'key' },
+        ]}
+        active="inv-all"
+      >
+        <TabPanel id="inv-all" active>
+          <div class="slot-grid" style="--cols: 6">
+            {items.map((s) => <ItemSlot {...s} />)}
+          </div>
+        </TabPanel>
+        <TabPanel id="inv-weapons">
+          <div class="slot-grid" style="--cols: 6">
+            <ItemSlot icon="swords" selected /><ItemSlot icon="shield" /><ItemSlot /><ItemSlot /><ItemSlot /><ItemSlot />
+          </div>
+        </TabPanel>
+        <TabPanel id="inv-potions">
+          <div class="slot-grid" style="--cols: 6">
+            <ItemSlot icon="science" count={3} color="red" /><ItemSlot icon="science" count={5} color="blue" /><ItemSlot /><ItemSlot /><ItemSlot /><ItemSlot />
+          </div>
+        </TabPanel>
+        <TabPanel id="inv-misc">
+          <div class="slot-grid" style="--cols: 6">
+            <ItemSlot icon="key" count={1} color="yellow" /><ItemSlot icon="book-2" color="purple" /><ItemSlot icon="diamond" count={18} color="cyan" /><ItemSlot /><ItemSlot /><ItemSlot />
+          </div>
+        </TabPanel>
+      </Tabs>
+
+      <!-- detail -->
+      <div class="flex flex-col gap-4 rounded-lg border-4 border-black/10 bg-black/5 p-4">
+        <div class="flex items-center gap-4">
+          <ItemSlot icon="swords" size="lg" label="Iron sword" />
+          <div class="flex flex-col gap-1">
+            <span class="font-pixel text-ui-lg">Iron Sword</span>
+            <div class="flex gap-2">
+              <Badge size="sm" color="blue">Rare</Badge>
+              <Badge size="sm" color="dark">Lv 10</Badge>
+            </div>
+          </div>
+        </div>
+        <p>A sturdy blade. Slightly chipped from the goblin wars.</p>
+        <div class="flex flex-col gap-2">
+          <ProgressBar name="ATK" value={64} color="red" size="sm" />
+          <ProgressBar name="SPD" value={40} color="cyan" size="sm" />
+          <ProgressBar name="DUR" value={82} color="green" size="sm" label="82%" />
+        </div>
+        <div class="mt-auto flex gap-3">
+          <Button color="green" class="flex-1"><Icon name="check" /> Equip</Button>
+          <Button icon color="red" aria-label="Drop"><Icon name="delete" /></Button>
+        </div>
+      </div>
+    </div>
+
+    <Fragment slot="footer">
+      <div class="mr-auto flex gap-5">
+        <KeyCap hint="Move">↑↓←→</KeyCap>
+        <KeyCap hint="Use">Enter</KeyCap>
+        <KeyCap hint="Close">Tab</KeyCap>
+      </div>
+      <Dropdown label="Sort" color="light" align="right">
+        <Icon name="sort" slot="icon" />
+        <DropdownItem>By name</DropdownItem>
+        <DropdownItem>By rarity</DropdownItem>
+        <DropdownItem>By count</DropdownItem>
+      </Dropdown>
+      <Button color="zinc"><Icon name="close" /> Close</Button>
+    </Fragment>
+  </Panel>
+</Screen>

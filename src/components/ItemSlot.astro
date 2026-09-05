@@ -1,0 +1,61 @@
+---
+/**
+ * Inventory / hotbar slot.
+ *   <ItemSlot icon="swords" count={3} hotkey="1" selected />
+ *   <ItemSlot />  → empty slot
+ */
+import Icon from './Icon.astro';
+import Badge from './Badge.astro';
+import { colors, type ColorName } from './palette';
+
+interface Props {
+  icon?: string;
+  count?: number;
+  hotkey?: string;
+  selected?: boolean;
+  disabled?: boolean;
+  size?: 'md' | 'lg';
+  /** Tint of the icon */
+  color?: ColorName;
+  label?: string;
+  class?: string;
+  [key: `data-${string}`]: string | undefined;
+}
+
+const {
+  icon,
+  count,
+  hotkey,
+  selected = false,
+  disabled = false,
+  size = 'md',
+  color,
+  label,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const empty = !icon;
+const style = color ? `--slot-icon: ${colors[color].from}` : undefined;
+---
+
+<button
+  type="button"
+  class:list={[
+    'slot',
+    size === 'lg' && 'slot-lg',
+    empty && 'is-empty',
+    selected && 'is-selected',
+    disabled && 'is-disabled',
+    className,
+  ]}
+  style={style}
+  aria-label={label ?? (icon ? icon.replace(/-/g, ' ') : 'Empty slot')}
+  aria-pressed={selected || undefined}
+  disabled={disabled}
+  {...rest}
+>
+  {icon && <Icon name={icon} />}
+  {count !== undefined && <Badge pill size="sm" color="dark" class="slot-count">{count}</Badge>}
+  {hotkey && <Badge size="sm" color="light" class="slot-key">{hotkey}</Badge>}
+</button>

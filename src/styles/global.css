@@ -563,6 +563,42 @@
   @apply flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-md text-zinc-500 transition-colors hover:bg-black/10 hover:text-zinc-800 [&_svg]:size-5;
 }
 
+/* Screen frame (16:9 game viewport for layout shells) ------------------------ */
+.screen {
+  @apply relative w-full max-w-5xl aspect-video overflow-hidden rounded-lg border-4 border-black/80 shadow-[6px_6px_0_rgba(0,0,0,.25)];
+}
+.screen-content {
+  @apply absolute inset-0;
+}
+
+/* Item slot ------------------------------------------------------------------- */
+.slot {
+  @apply relative flex size-14 shrink-0 cursor-pointer items-center justify-center rounded-lg border-4 border-black/80 bg-linear-180 from-zinc-100 to-zinc-300 text-zinc-700 shadow-[inset_0_0_0_3px_rgba(255,255,255,.3),4px_4px_0_rgba(0,0,0,.25)] transition-all duration-75 ease-in-out select-none hover:-translate-y-1 hover:scale-105 focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white/70 active:translate-y-0 active:scale-x-110 active:scale-y-95 [&>svg]:size-8 [&>svg]:drop-shadow-[2px_2px_0_rgba(0,0,0,.25)];
+  color: var(--slot-icon, #3f3f46);
+}
+.slot-lg {
+  @apply size-24 [&>svg]:size-14;
+}
+.slot.is-empty {
+  @apply bg-none bg-black/30 text-white/30 shadow-[inset_0_3px_0_rgba(0,0,0,.4)] [&>svg]:drop-shadow-none;
+}
+.slot.is-selected {
+  @apply -translate-y-1 border-yellow-300 shadow-[inset_0_0_0_3px_rgba(255,255,255,.3),4px_4px_0_rgba(0,0,0,.25),0_0_0_4px_rgba(253,224,71,.5)];
+}
+.slot.is-disabled {
+  @apply pointer-events-none opacity-50 saturate-50;
+}
+.slot-count {
+  @apply absolute -right-2 -bottom-2;
+}
+.slot-key {
+  @apply absolute -top-2 -left-2;
+}
+.slot-grid {
+  @apply grid gap-3;
+  grid-template-columns: repeat(var(--cols, 8), minmax(0, 1fr));
+}
+
 /* Playground chrome (labels, code view) -------------------------------------- */
 .story-label {
   @apply font-pixel text-ui-sm tracking-wide text-white/70;

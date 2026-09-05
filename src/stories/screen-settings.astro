@@ -1,0 +1,110 @@
+---
+import Screen from '../components/Screen.astro';
+import Panel from '../components/Panel.astro';
+import Tabs from '../components/Tabs.astro';
+import TabPanel from '../components/TabPanel.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import Toggle from '../components/Toggle.astro';
+import Slider from '../components/Slider.astro';
+import Select from '../components/Select.astro';
+import Stepper from '../components/Stepper.astro';
+import Radio from '../components/Radio.astro';
+import Checkbox from '../components/Checkbox.astro';
+import KeyCap from '../components/KeyCap.astro';
+import Heading from '../components/Heading.astro';
+
+export const title = 'Screen · Settings';
+export const bg = 'grid';
+
+const bindings = [
+  { action: 'Move', keys: ['W', 'A', 'S', 'D'] },
+  { action: 'Jump', keys: ['Space'] },
+  { action: 'Interact', keys: ['E'] },
+  { action: 'Inventory', keys: ['Tab'] },
+  { action: 'Pause', keys: ['Esc'] },
+];
+---
+
+<Heading>Settings screen</Heading>
+
+<Screen pattern="checker" class="flex items-center justify-center p-6">
+  <Panel title="Settings" color="zinc" class="max-w-2xl!">
+    <Icon name="settings" slot="icon" />
+    <Button icon color="light" aria-label="Close" slot="actions"><Icon name="close" /></Button>
+
+    <Tabs
+      tabs={[
+        { id: 'st-audio', label: 'Audio', icon: 'volume-up' },
+        { id: 'st-video', label: 'Video', icon: 'fullscreen' },
+        { id: 'st-controls', label: 'Controls', icon: 'keyboard' },
+        { id: 'st-game', label: 'Gameplay', icon: 'gamepad' },
+      ]}
+      active="st-audio"
+    >
+      <TabPanel id="st-audio" active>
+        <div class="flex items-center gap-4"><span class="w-24 shrink-0 font-pixel text-ui-sm">Master</span><Slider name="master" value={80} class="flex-1" /></div>
+        <div class="flex items-center gap-4"><span class="w-24 shrink-0 font-pixel text-ui-sm">Music</span><Slider name="music" value={55} color="pink" class="flex-1" /></div>
+        <div class="flex items-center gap-4"><span class="w-24 shrink-0 font-pixel text-ui-sm">Effects</span><Slider name="sfx" value={70} color="blue" class="flex-1" /></div>
+        <div class="flex flex-wrap gap-6 pt-2">
+          <Toggle name="mute" color="red">Mute in background</Toggle>
+          <Toggle name="subtitles" checked>Subtitles</Toggle>
+        </div>
+      </TabPanel>
+
+      <TabPanel id="st-video">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="flex flex-col gap-1">
+            <span class="font-pixel text-ui-sm">Resolution</span>
+            <Select class="w-full" options={[{ value: '720', label: '1280 × 720' }, { value: '1080', label: '1920 × 1080' }, { value: '1440', label: '2560 × 1440' }]} value="1080" />
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="font-pixel text-ui-sm">Quality</span>
+            <Select class="w-full" options={[{ value: 'low', label: 'Low' }, { value: 'medium', label: 'Medium' }, { value: 'high', label: 'High' }, { value: 'ultra', label: 'Ultra' }]} value="high" />
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-6">
+          <Toggle name="fullscreen" color="blue" checked>Fullscreen</Toggle>
+          <Toggle name="vsync" color="blue">V-Sync</Toggle>
+          <span class="flex items-center gap-3 font-pixel text-ui-sm">FPS cap <Stepper name="fps" min={30} max={240} step={30} value={60} color="blue" /></span>
+        </div>
+      </TabPanel>
+
+      <TabPanel id="st-controls">
+        <div class="flex flex-col gap-3">
+          {
+            bindings.map((b) => (
+              <div class="flex items-center gap-4">
+                <span class="w-28 shrink-0 font-pixel text-ui-sm">{b.action}</span>
+                <div class="flex flex-1 gap-2">{b.keys.map((k) => <KeyCap>{k}</KeyCap>)}</div>
+                <Button color="light">Rebind</Button>
+              </div>
+            ))
+          }
+        </div>
+      </TabPanel>
+
+      <TabPanel id="st-game">
+        <div class="flex flex-col gap-2">
+          <span class="font-pixel text-ui-sm">Difficulty</span>
+          <div class="flex flex-wrap gap-6">
+            <Radio name="difficulty" value="easy" color="green">Easy</Radio>
+            <Radio name="difficulty" value="normal" color="yellow" checked>Normal</Radio>
+            <Radio name="difficulty" value="hard" color="red">Hard</Radio>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-6">
+          <Checkbox name="hints" color="blue" checked>Tutorial hints</Checkbox>
+          <Checkbox name="autosave" color="green" checked>Autosave</Checkbox>
+          <Checkbox name="gore" color="red">Blood effects</Checkbox>
+        </div>
+      </TabPanel>
+    </Tabs>
+
+    <Fragment slot="footer">
+      <Button color="light" class="mr-auto"><Icon name="refresh" /> Reset defaults</Button>
+      <Button color="zinc"><Icon name="arrow-back" /> Back</Button>
+      <Button color="green"><Icon name="check" /> Apply</Button>
+    </Fragment>
+  </Panel>
+</Screen>
