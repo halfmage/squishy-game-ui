@@ -740,12 +740,13 @@
    Switch with the selector in the top right or the B key.
    =========================================================================== */
 
-/* Deck (card game look): flat colors, tiny radius, no border, deep drop shadow, dark slate panels */
+/* Deck (card game look): flat colors, tiny radius, thin border, deep drop shadow, slate panels */
 .theme-deck {
   --radius: 4px;
   --radius-sm: 3px;
-  --border-w: 0px;
-  --border-w-sm: 0px;
+  --border-w: 2px;
+  --border-w-sm: 2px;
+  --border-color: rgba(0, 0, 0, 0.55);
   --shadow-hard: 0 5px 0 rgba(0, 0, 0, 0.5);
   --shadow-hard-lg: 0 7px 0 rgba(0, 0, 0, 0.5);
   --shadow-hard-sm: 0 3px 0 rgba(0, 0, 0, 0.5);
