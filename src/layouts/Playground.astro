@@ -13,6 +13,14 @@ interface Props {
 }
 
 const { title, bg = 'stripes', fullscreen = false } = Astro.props;
+
+/** Brand themes = .theme-<id> classes in global.css */
+const brands = [
+  { id: 'default', label: 'Squishy' },
+  { id: 'balatro', label: 'Balatro' },
+  { id: 'minecraft', label: 'Minecraft' },
+  { id: 'arcade', label: 'Arcade' },
+];
 const current = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
@@ -30,6 +38,8 @@ const current = Astro.url.pathname.replace(/\/$/, '') || '/';
         const theme = localStorage.getItem('theme');
         const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
         if (dark) document.documentElement.classList.add('dark');
+        const brand = localStorage.getItem('brand');
+        if (brand && brand !== 'default') document.documentElement.classList.add('theme-' + brand);
       } catch {}
     </script>
   </head>
@@ -48,6 +58,9 @@ const current = Astro.url.pathname.replace(/\/$/, '') || '/';
     <button type="button" class="playground-nav-toggle" data-nav-toggle aria-label="Toggle navigation" title="Toggle navigation (H)">
       <Icon name="keyboard-arrow-up" />
     </button>
+    <select class="playground-brand-select" data-brand-select aria-label="Brand theme" title="Brand theme (B cycles)">
+      {brands.map((b) => <option value={b.id}>{b.label}</option>)}
+    </select>
     <button type="button" class="playground-theme-toggle" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode (D)">
       <Icon name="dark-mode" />
       <Icon name="light-mode" />
@@ -72,6 +85,20 @@ const current = Astro.url.pathname.replace(/\/$/, '') || '/';
           localStorage.setItem('theme', dark ? 'dark' : 'light');
         } catch {}
       }
+      const brandSelect = document.querySelector<HTMLSelectElement>('[data-brand-select]');
+      const brandIds = brandSelect ? [...brandSelect.options].map((o) => o.value) : ['default'];
+      function setBrand(id: string) {
+        root.classList.forEach((c) => c.startsWith('theme-') && root.classList.remove(c));
+        if (id !== 'default') root.classList.add('theme-' + id);
+        if (brandSelect) brandSelect.value = id;
+        try {
+          localStorage.setItem('brand', id);
+        } catch {}
+      }
+      // Sync the select with the class applied before paint
+      const current = [...root.classList].find((c) => c.startsWith('theme-'))?.slice(6) ?? 'default';
+      if (brandSelect) brandSelect.value = current;
+      brandSelect?.addEventListener('change', () => setBrand(brandSelect.value));
       document.querySelector('[data-nav-toggle]')?.addEventListener('click', () => toggleNav());
       document.querySelector('[data-theme-toggle]')?.addEventListener('click', () => toggleTheme());
       document.addEventListener('keydown', (e) => {
@@ -80,6 +107,10 @@ const current = Astro.url.pathname.replace(/\/$/, '') || '/';
         if (typing || e.metaKey || e.ctrlKey || e.altKey) return;
         if (e.key.toLowerCase() === 'h') toggleNav();
         if (e.key.toLowerCase() === 'd') toggleTheme();
+        if (e.key.toLowerCase() === 'b') {
+          const i = brandIds.indexOf(brandSelect?.value ?? 'default');
+          setBrand(brandIds[(i + 1) % brandIds.length]);
+        }
       });
     </script>
   </body>

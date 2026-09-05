@@ -7,10 +7,29 @@ export const title = 'Brands';
 export const bg = 'stripes';
 ---
 
-<Heading>Brand styles (later)</Heading>
+<Heading>Brand themes</Heading>
 
-<p class="max-w-lg text-center text-ui-sm leading-loose tracking-wide text-white [text-shadow:_2px_2px_0_rgba(0,0,0,.5)]">
-  The original one-off looks. Kept in styles/brands.css for a later branding step.
+<p class="max-w-lg text-center text-ui-sm leading-loose tracking-wide text-white">
+  A brand theme is a class on the html element that overrides the shape tokens: radius, border,
+  shadow, button highlight, gradient, and the surface colors. Pick one in the top right or press B.
+  It applies to every page. Dark mode (D) works on top of the default and arcade themes.
+</p>
+
+<section class="flex w-full max-w-2xl flex-col items-center gap-3">
+  <span class="story-label">tokens a theme can override</span>
+  <div class="flex flex-wrap justify-center gap-2">
+    {
+      ['--radius', '--radius-sm', '--border-w', '--border-w-sm', '--border-color', '--shadow-hard', '--shadow-hard-lg', '--shadow-hard-sm', '--btn-highlight', '--gradient-to', '--surface-*'].map((t) => (
+        <code class="rounded-(--radius-sm) bg-black/50 px-2 py-0.5 font-pixel text-ui-xs text-white">{t}</code>
+      ))
+    }
+  </div>
+</section>
+
+<Heading class="mt-6 text-ui-lg!">Legacy one-off buttons</Heading>
+
+<p class="max-w-lg text-center text-ui-sm leading-loose tracking-wide text-white">
+  The original looks, kept in styles/brands.css as a reference for the themes above.
 </p>
 
 <BrandButton variant="opacity" class="w-full">

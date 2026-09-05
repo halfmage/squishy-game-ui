@@ -16,6 +16,18 @@
    palette color. Toggle dark mode with the .dark class on <html>.
    --------------------------------------------------------------------------- */
 :root {
+  /* Shape tokens. Brand themes (.theme-*) override these. */
+  --radius: 0.5rem;
+  --radius-sm: 0.375rem;
+  --border-w: 4px;
+  --border-w-sm: 2px;
+  --border-color: rgba(0, 0, 0, 0.8);
+  --shadow-hard: 4px 4px 0 rgba(0, 0, 0, 0.25);
+  --shadow-hard-lg: 6px 6px 0 rgba(0, 0, 0, 0.25);
+  --shadow-hard-sm: 2px 2px 0 rgba(0, 0, 0, 0.25);
+  --btn-highlight: inset 0 0 0 4px rgba(255, 255, 255, 0.2);
+  --gradient-to: var(--c-to);
+
   --surface-from: #f4f4f5;
   --surface-to: #d4d4d8;
   --surface-text: #27272a;
@@ -72,7 +84,7 @@
 
 /* Surface gradient (light or dark, see :root / .dark) */
 @utility bg-surface {
-  background-image: linear-gradient(180deg, var(--surface-from), var(--surface-to));
+  background-image: linear-gradient(180deg, var(--surface-from), var(--surface-gradient-to, var(--surface-to)));
 }
 
 /* Hard pixel text shadow, reads --c-text-shadow when set by colorStyle() */
@@ -208,15 +220,15 @@
 
 /* ===========================================================================
    GENERAL STYLE
-   Every control shares: rounded-lg, 4px black border, vertical gradient,
+   Every control shares: rounded-(--radius), 4px black border, vertical gradient,
    inner highlight, hard 4px shadow, pixel font, squish on press.
    Colors come from the --c-* variables (see components/palette.ts).
    =========================================================================== */
 
 /* Buttons ------------------------------------------------------------------ */
 .btn {
-  @apply relative top-0 inline-flex max-w-full cursor-pointer items-center justify-center gap-2.5 rounded-lg border-4 border-black/80 font-pixel font-medium tracking-wide whitespace-nowrap shadow-[inset_0_0_0_4px_rgba(255,255,255,.2),4px_4px_0_rgba(0,0,0,.25)] outline-neutral-500/25 transition-all duration-75 ease-in-out select-none hover:-top-1 hover:scale-105 hover:animate-bounce-soft focus-visible:scale-105 focus-visible:animate-bounce-soft focus-visible:outline-4 focus-visible:outline-offset-0 focus-visible:outline-white/70 active:top-0 active:scale-x-110 active:scale-y-90 [&_svg]:size-6 [&_svg]:shrink-0 [&_svg]:drop-shadow-(--c-icon-shadow) px-4 py-1.5 pb-2.5 text-ui-md text-shadow-pixel;
-  background-image: linear-gradient(180deg, var(--c-from, #71717a), var(--c-to, #52525b));
+  @apply relative top-0 inline-flex max-w-full cursor-pointer items-center justify-center gap-2.5 rounded-(--radius) border-(length:--border-w) border-(--border-color) font-pixel font-medium tracking-wide whitespace-nowrap shadow-[var(--btn-highlight),var(--shadow-hard)] outline-neutral-500/25 transition-all duration-75 ease-in-out select-none hover:-top-1 hover:scale-105 hover:animate-bounce-soft focus-visible:scale-105 focus-visible:animate-bounce-soft focus-visible:outline-4 focus-visible:outline-offset-0 focus-visible:outline-white/70 active:top-0 active:scale-x-110 active:scale-y-90 [&_svg]:size-6 [&_svg]:shrink-0 [&_svg]:drop-shadow-(--c-icon-shadow) px-4 py-1.5 pb-2.5 text-ui-md text-shadow-pixel;
+  background-image: linear-gradient(180deg, var(--c-from, #71717a), var(--gradient-to, var(--c-to, #52525b)));
   color: var(--c-text, #fff);
 }
 .btn-lg {
@@ -251,11 +263,11 @@
 
 /* Text inputs ------------------------------------------------------------- */
 @utility input-base {
-  @apply relative top-0 flex w-full max-w-lg items-center gap-2.5 rounded-lg border-4 border-black/80 px-4 py-2 font-pixel text-ui-md font-medium tracking-wide transition-all duration-75 ease-in-out hover:-top-1 hover:scale-[1.03] focus-within:scale-[1.03] focus-within:animate-bounce-soft focus-within:outline-4 focus-within:outline-offset-0 [&_input]:min-w-0 [&_input]:flex-1 [&_input]:bg-transparent [&_input]:outline-none [&_svg]:relative [&_svg]:top-px [&_svg]:size-6 [&_svg]:shrink-0;
+  @apply relative top-0 flex w-full max-w-lg items-center gap-2.5 rounded-(--radius) border-(length:--border-w) border-(--border-color) px-4 py-2 font-pixel text-ui-md font-medium tracking-wide transition-all duration-75 ease-in-out hover:-top-1 hover:scale-[1.03] focus-within:scale-[1.03] focus-within:animate-bounce-soft focus-within:outline-4 focus-within:outline-offset-0 [&_input]:min-w-0 [&_input]:flex-1 [&_input]:bg-transparent [&_input]:outline-none [&_svg]:relative [&_svg]:top-px [&_svg]:size-6 [&_svg]:shrink-0;
 }
 
 .input-light {
-  @apply input-base bg-surface text-(--surface-text) shadow-[inset_0_0_0_4px_var(--surface-highlight),4px_4px_0_rgba(0,0,0,.25)] outline-neutral-500/25 placeholder:text-(--surface-muted) focus-within:shadow-soft-hover focus-within:outline-zinc-400 [&_input]:placeholder:text-(--surface-muted);
+  @apply input-base bg-surface text-(--surface-text) shadow-[inset_0_0_0_4px_var(--surface-highlight),var(--shadow-hard)] outline-neutral-500/25 placeholder:text-(--surface-muted) focus-within:shadow-soft-hover focus-within:outline-zinc-400 [&_input]:placeholder:text-(--surface-muted);
 }
 
 .input-dark {
@@ -300,7 +312,7 @@
 }
 
 .choice-box {
-  @apply relative flex size-8 shrink-0 items-center justify-center rounded-md border-4 border-black/80 bg-surface shadow-[inset_0_0_0_3px_var(--surface-highlight),4px_4px_0_rgba(0,0,0,.25)] transition-all duration-75 ease-in-out;
+  @apply relative flex size-8 shrink-0 items-center justify-center rounded-(--radius-sm) border-(length:--border-w) border-(--border-color) bg-surface shadow-[inset_0_0_0_3px_var(--surface-highlight),var(--shadow-hard)] transition-all duration-75 ease-in-out;
 }
 .choice-field:hover .choice-box {
   @apply -translate-y-1 scale-105;
@@ -319,7 +331,7 @@
   @apply size-2.5 scale-0 rounded-full bg-white shadow-[2px_2px_0_rgba(0,0,0,.4)] transition-transform duration-75 ease-in-out;
 }
 .choice-field:has(:checked) .choice-box {
-  @apply bg-none bg-(--accent,#22c55e) shadow-[inset_0_0_0_3px_rgba(255,255,255,.25),4px_4px_0_rgba(0,0,0,.25)];
+  @apply bg-none bg-(--accent,#22c55e) shadow-[inset_0_0_0_3px_rgba(255,255,255,.25),var(--shadow-hard)];
 }
 .choice-field:has(:checked) .choice-box svg {
   @apply scale-100 opacity-100;
@@ -341,7 +353,7 @@
 
 /* Toggle */
 .toggle-track {
-  @apply relative h-8 w-14 shrink-0 rounded-lg border-4 border-black/80 bg-black/50 shadow-[inset_0_3px_0_rgba(0,0,0,.4),4px_4px_0_rgba(0,0,0,.25)] transition-all duration-75 ease-in-out;
+  @apply relative h-8 w-14 shrink-0 rounded-(--radius) border-(length:--border-w) border-(--border-color) bg-black/50 shadow-[inset_0_3px_0_rgba(0,0,0,.4),var(--shadow-hard)] transition-all duration-75 ease-in-out;
 }
 .choice-field:hover .toggle-track {
   @apply -translate-y-1 scale-105;
@@ -351,10 +363,10 @@
 }
 .toggle-track::after {
   content: '';
-  @apply absolute top-0.5 left-0.5 size-5 rounded-md border-2 border-black/80 bg-surface shadow-[inset_0_0_0_2px_var(--surface-highlight),2px_2px_0_rgba(0,0,0,.4)] transition-all duration-75 ease-in-out;
+  @apply absolute top-0.5 left-0.5 size-5 rounded-(--radius-sm) border-(length:--border-w-sm) border-(--border-color) bg-surface shadow-[inset_0_0_0_2px_var(--surface-highlight),2px_2px_0_rgba(0,0,0,.4)] transition-all duration-75 ease-in-out;
 }
 .choice-field:has(:checked) .toggle-track {
-  @apply bg-(--accent,#22c55e) shadow-[inset_0_3px_0_rgba(0,0,0,.2),4px_4px_0_rgba(0,0,0,.25)];
+  @apply bg-(--accent,#22c55e) shadow-[inset_0_3px_0_rgba(0,0,0,.2),var(--shadow-hard)];
 }
 .choice-field:has(:checked) .toggle-track::after {
   @apply left-[26px] scale-x-110;
@@ -368,22 +380,22 @@
   @apply relative top-0 h-9 w-full max-w-lg cursor-pointer appearance-none bg-transparent transition-all duration-75 ease-in-out select-none hover:-top-1 hover:scale-[1.03] focus-visible:outline-none;
 }
 .slider::-webkit-slider-runnable-track {
-  @apply h-5 rounded-lg border-4 border-black/80 bg-black/50 shadow-[inset_0_3px_0_rgba(0,0,0,.4),4px_4px_0_rgba(0,0,0,.25)];
+  @apply h-5 rounded-(--radius) border-(length:--border-w) border-(--border-color) bg-black/50 shadow-[inset_0_3px_0_rgba(0,0,0,.4),var(--shadow-hard)];
   background-image: linear-gradient(var(--accent, #22c55e), var(--accent, #22c55e));
   background-size: var(--fill, 50%) 100%;
   background-repeat: no-repeat;
 }
 .slider::-moz-range-track {
-  @apply h-5 rounded-lg border-4 border-black/80 bg-black/50 shadow-[inset_0_3px_0_rgba(0,0,0,.4),4px_4px_0_rgba(0,0,0,.25)];
+  @apply h-5 rounded-(--radius) border-(length:--border-w) border-(--border-color) bg-black/50 shadow-[inset_0_3px_0_rgba(0,0,0,.4),var(--shadow-hard)];
 }
 .slider::-moz-range-progress {
   @apply h-3 rounded-l-md bg-(--accent,#22c55e);
 }
 .slider::-webkit-slider-thumb {
-  @apply -mt-[10px] size-8 cursor-grab appearance-none rounded-lg border-4 border-black/80 bg-surface shadow-[inset_0_0_0_3px_var(--surface-highlight),4px_4px_0_rgba(0,0,0,.25)] transition-all duration-75 ease-in-out;
+  @apply -mt-[10px] size-8 cursor-grab appearance-none rounded-(--radius) border-(length:--border-w) border-(--border-color) bg-surface shadow-[inset_0_0_0_3px_var(--surface-highlight),var(--shadow-hard)] transition-all duration-75 ease-in-out;
 }
 .slider::-moz-range-thumb {
-  @apply size-8 cursor-grab rounded-lg border-4 border-black/80 bg-surface shadow-[inset_0_0_0_3px_var(--surface-highlight),4px_4px_0_rgba(0,0,0,.25)] transition-all duration-75 ease-in-out;
+  @apply size-8 cursor-grab rounded-(--radius) border-(length:--border-w) border-(--border-color) bg-surface shadow-[inset_0_0_0_3px_var(--surface-highlight),var(--shadow-hard)] transition-all duration-75 ease-in-out;
 }
 .slider:hover::-webkit-slider-thumb {
   @apply scale-110;
@@ -393,11 +405,11 @@
 }
 .slider:active::-webkit-slider-thumb,
 .slider.is-dragging::-webkit-slider-thumb {
-  @apply scale-x-140 scale-y-75 cursor-grabbing shadow-[inset_0_0_0_3px_rgba(255,255,255,.2),2px_2px_0_rgba(0,0,0,.25)];
+  @apply scale-x-140 scale-y-75 cursor-grabbing shadow-[inset_0_0_0_3px_rgba(255,255,255,.2),var(--shadow-hard-sm)];
 }
 .slider:active::-moz-range-thumb,
 .slider.is-dragging::-moz-range-thumb {
-  @apply scale-x-140 scale-y-75 cursor-grabbing shadow-[inset_0_0_0_3px_rgba(255,255,255,.2),2px_2px_0_rgba(0,0,0,.25)];
+  @apply scale-x-140 scale-y-75 cursor-grabbing shadow-[inset_0_0_0_3px_rgba(255,255,255,.2),var(--shadow-hard-sm)];
 }
 .slider.is-dragging {
   @apply top-0 scale-100;
@@ -411,11 +423,11 @@
 
 /* Panel + dialog ---------------------------------------------------------- */
 .panel {
-  @apply w-full max-w-lg overflow-hidden rounded-lg border-4 border-black/80 bg-surface text-(--surface-text) shadow-[inset_0_0_0_4px_var(--surface-highlight),6px_6px_0_rgba(0,0,0,.25)];
+  @apply w-full max-w-lg overflow-hidden rounded-(--radius) border-(length:--border-w) border-(--border-color) bg-surface text-(--surface-text) shadow-[inset_0_0_0_4px_var(--surface-highlight),var(--shadow-hard-lg)];
 }
 .panel-title {
-  @apply flex items-center gap-2.5 border-b-4 border-black/80 px-4 py-3 font-pixel text-ui-md tracking-wide text-shadow-pixel [&>svg]:size-6 [&>svg]:shrink-0 [&>svg]:drop-shadow-(--c-icon-shadow);
-  background-image: linear-gradient(180deg, var(--c-from, #71717a), var(--c-to, #52525b));
+  @apply flex items-center gap-2.5 border-b-(length:--border-w) border-(--border-color) px-4 py-3 font-pixel text-ui-md tracking-wide text-shadow-pixel [&>svg]:size-6 [&>svg]:shrink-0 [&>svg]:drop-shadow-(--c-icon-shadow);
+  background-image: linear-gradient(180deg, var(--c-from, #71717a), var(--gradient-to, var(--c-to, #52525b)));
   color: var(--c-text, #fff);
 }
 .panel-title > .btn {
@@ -427,7 +439,7 @@
   --c-text-shadow-xs: var(--surface-text-shadow-xs);
 }
 .panel-footer {
-  @apply flex flex-wrap items-center justify-end gap-3 border-t-4 border-(--surface-line) bg-(--surface-inset) px-4 py-3;
+  @apply flex flex-wrap items-center justify-end gap-3 border-t-(length:--border-w) border-(--surface-line) bg-(--surface-inset) px-4 py-3;
   --c-text-shadow-xs: var(--surface-text-shadow-xs);
 }
 /* Controls inside a light panel: dark text, no text shadow */
@@ -445,10 +457,10 @@
 
 /* Tabs ---------------------------------------------------------------------- */
 .tab-list {
-  @apply flex flex-wrap gap-2 rounded-lg bg-black/50 p-2 shadow-[inset_0_3px_0_rgba(0,0,0,.4)];
+  @apply flex flex-wrap gap-2 rounded-(--radius) bg-black/50 p-2 shadow-[inset_0_3px_0_rgba(0,0,0,.4)];
 }
 .tab {
-  @apply flex cursor-pointer items-center gap-1.5 rounded-md px-3 py-1 font-pixel text-ui-md tracking-wide text-white transition-all duration-75 select-none hover:bg-white/25 hover:scale-105 active:scale-x-125 active:scale-y-75 focus-visible:outline-2 focus-visible:outline-white/70 aria-selected:bg-surface aria-selected:text-(--surface-text) aria-selected:shadow-[2px_2px_0_rgba(0,0,0,.4)] [&_svg]:size-5 text-shadow-pixel;
+  @apply flex cursor-pointer items-center gap-1.5 rounded-(--radius-sm) px-3 py-1 font-pixel text-ui-md tracking-wide text-white transition-all duration-75 select-none hover:bg-white/25 hover:scale-105 active:scale-x-125 active:scale-y-75 focus-visible:outline-2 focus-visible:outline-white/70 aria-selected:bg-surface aria-selected:text-(--surface-text) aria-selected:shadow-[2px_2px_0_rgba(0,0,0,.4)] [&_svg]:size-5 text-shadow-pixel;
 }
 .tab[aria-selected="true"] {
   @apply text-shadow-[none];
@@ -474,7 +486,7 @@
   @apply rotate-180;
 }
 .dropdown-menu {
-  @apply absolute top-full left-0 z-40 mt-2 flex min-w-48 animate-pop flex-col gap-0.5 rounded-lg border-4 border-black/80 bg-surface p-1.5 shadow-[inset_0_0_0_3px_var(--surface-highlight),6px_6px_0_rgba(0,0,0,.25)];
+  @apply absolute top-full left-0 z-40 mt-2 flex min-w-48 animate-pop flex-col gap-0.5 rounded-(--radius) border-(length:--border-w) border-(--border-color) bg-surface p-1.5 shadow-[inset_0_0_0_3px_var(--surface-highlight),var(--shadow-hard-lg)];
 }
 .dropdown-menu {
   --c-text-shadow-xs: var(--surface-text-shadow-xs);
@@ -483,7 +495,7 @@
   @apply right-0 left-auto;
 }
 .dropdown-item {
-  @apply flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2 text-left font-pixel text-ui-md tracking-wide text-(--surface-text) transition-colors duration-75 hover:bg-(--surface-hover) focus-visible:bg-(--surface-hover) focus-visible:outline-none [&_svg]:size-6 [&_svg]:shrink-0;
+  @apply flex w-full cursor-pointer items-center gap-3 rounded-(--radius-sm) px-3 py-2 text-left font-pixel text-ui-md tracking-wide text-(--surface-text) transition-colors duration-75 hover:bg-(--surface-hover) focus-visible:bg-(--surface-hover) focus-visible:outline-none [&_svg]:size-6 [&_svg]:shrink-0;
   text-shadow: var(--surface-text-shadow);
 }
 .dropdown-item.is-danger {
@@ -495,7 +507,7 @@
 
 /* Progress ------------------------------------------------------------------ */
 .progress {
-  @apply relative w-full max-w-lg overflow-hidden rounded-lg border-4 border-black/80 bg-black/50 shadow-[inset_0_3px_0_rgba(0,0,0,.4),4px_4px_0_rgba(0,0,0,.25)];
+  @apply relative w-full max-w-lg overflow-hidden rounded-(--radius) border-(length:--border-w) border-(--border-color) bg-black/50 shadow-[inset_0_3px_0_rgba(0,0,0,.4),var(--shadow-hard)];
 }
 .progress-sm {
   @apply h-4;
@@ -508,7 +520,7 @@
 }
 .progress-fill {
   @apply h-full rounded-sm shadow-[inset_0_3px_0_rgba(255,255,255,.35)] transition-[width] duration-300 ease-out;
-  background-image: linear-gradient(180deg, var(--c-from, #22c55e), var(--c-to, #16a34a));
+  background-image: linear-gradient(180deg, var(--c-from, #22c55e), var(--gradient-to, var(--c-to, #16a34a)));
 }
 .progress-segments {
   @apply pointer-events-none absolute inset-0;
@@ -532,8 +544,8 @@
 
 /* Badge / key cap ------------------------------------------------------------ */
 .badge {
-  @apply inline-flex items-center justify-center gap-1 rounded-md border-2 border-black/80 font-pixel tracking-wide whitespace-nowrap shadow-[inset_0_0_0_2px_rgba(255,255,255,.2),2px_2px_0_rgba(0,0,0,.25)] text-shadow-pixel-xs [&_svg]:drop-shadow-(--c-icon-shadow);
-  background-image: linear-gradient(180deg, var(--c-from, #71717a), var(--c-to, #52525b));
+  @apply inline-flex items-center justify-center gap-1 rounded-(--radius-sm) border-(length:--border-w-sm) border-(--border-color) font-pixel tracking-wide whitespace-nowrap shadow-[inset_0_0_0_2px_rgba(255,255,255,.2),var(--shadow-hard-sm)] text-shadow-pixel-xs [&_svg]:drop-shadow-(--c-icon-shadow);
+  background-image: linear-gradient(180deg, var(--c-from, #71717a), var(--gradient-to, var(--c-to, #52525b)));
   color: var(--c-text, #fff);
 }
 .badge-sm {
@@ -550,7 +562,7 @@
 }
 
 .keycap {
-  @apply inline-flex min-w-8 items-center justify-center rounded-md border-2 border-black/80 bg-surface px-2 py-0.5 font-pixel text-ui-sm tracking-wide text-(--surface-text) shadow-[inset_0_0_0_2px_var(--surface-highlight),0_3px_0_rgba(0,0,0,.6)] transition-all duration-75 select-none [&_svg]:size-4;
+  @apply inline-flex min-w-8 items-center justify-center rounded-(--radius-sm) border-(length:--border-w-sm) border-(--border-color) bg-surface px-2 py-0.5 font-pixel text-ui-sm tracking-wide text-(--surface-text) shadow-[inset_0_0_0_2px_var(--surface-highlight),0_3px_0_rgba(0,0,0,.6)] transition-all duration-75 select-none [&_svg]:size-4;
   text-shadow: var(--surface-text-shadow);
   --c-text-shadow-xs: var(--surface-text-shadow-xs);
 }
@@ -578,7 +590,7 @@
   @apply relative inline-flex;
 }
 .tooltip {
-  @apply pointer-events-none absolute left-1/2 z-40 -translate-x-1/2 scale-90 rounded-md border-2 border-black/80 bg-black/85 px-2 py-1 font-pixel text-ui-sm tracking-wide whitespace-nowrap text-white opacity-0 shadow-[2px_2px_0_rgba(0,0,0,.25)] transition-all duration-75 ease-out;
+  @apply pointer-events-none absolute left-1/2 z-40 -translate-x-1/2 scale-90 rounded-(--radius-sm) border-(length:--border-w-sm) border-(--border-color) bg-black/85 px-2 py-1 font-pixel text-ui-sm tracking-wide whitespace-nowrap text-white opacity-0 shadow-[var(--shadow-hard-sm)] transition-all duration-75 ease-out;
 }
 .tooltip::after {
   content: '';
@@ -606,7 +618,7 @@
   @apply pointer-events-none fixed right-4 bottom-4 z-50 flex w-[calc(100vw-2rem)] max-w-sm flex-col gap-3;
 }
 .toast {
-  @apply pointer-events-auto flex w-full animate-toast-in items-start gap-3 rounded-lg border-4 border-black/80 bg-surface p-3 text-(--surface-text) shadow-[inset_0_0_0_3px_var(--surface-highlight),6px_6px_0_rgba(0,0,0,.25)];
+  @apply pointer-events-auto flex w-full animate-toast-in items-start gap-3 rounded-(--radius) border-(length:--border-w) border-(--border-color) bg-surface p-3 text-(--surface-text) shadow-[inset_0_0_0_3px_var(--surface-highlight),var(--shadow-hard-lg)];
 }
 .toast {
   --c-text-shadow-xs: var(--surface-text-shadow-xs);
@@ -615,8 +627,8 @@
   @apply animate-toast-out;
 }
 .toast-icon {
-  @apply flex size-9 shrink-0 items-center justify-center rounded-md border-2 border-black/80 text-white shadow-[inset_0_0_0_2px_rgba(255,255,255,.2)] [&_svg]:size-6 [&_svg]:drop-shadow-[2px_2px_0_rgba(0,0,0,.4)];
-  background-image: linear-gradient(180deg, var(--c-from, #71717a), var(--c-to, #52525b));
+  @apply flex size-9 shrink-0 items-center justify-center rounded-(--radius-sm) border-(length:--border-w-sm) border-(--border-color) text-white shadow-[inset_0_0_0_2px_rgba(255,255,255,.2)] [&_svg]:size-6 [&_svg]:drop-shadow-[2px_2px_0_rgba(0,0,0,.4)];
+  background-image: linear-gradient(180deg, var(--c-from, #71717a), var(--gradient-to, var(--c-to, #52525b)));
 }
 .toast-body {
   @apply flex min-w-0 flex-1 flex-col gap-0.5 font-pixel tracking-wide;
@@ -629,12 +641,12 @@
   @apply text-ui-sm text-(--surface-muted);
 }
 .toast-close {
-  @apply flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-md text-(--surface-muted) transition-colors hover:bg-(--surface-hover) hover:text-(--surface-text) [&_svg]:size-5;
+  @apply flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-(--radius-sm) text-(--surface-muted) transition-colors hover:bg-(--surface-hover) hover:text-(--surface-text) [&_svg]:size-5;
 }
 
 /* Screen frame (16:9 game viewport for layout shells) ------------------------ */
 .screen {
-  @apply relative w-full max-w-5xl aspect-video overflow-hidden rounded-lg border-4 border-black/80 shadow-[6px_6px_0_rgba(0,0,0,.25)];
+  @apply relative w-full max-w-5xl aspect-video overflow-hidden rounded-(--radius) border-(length:--border-w) border-(--border-color) shadow-[var(--shadow-hard-lg)];
 }
 .screen-content {
   @apply absolute inset-0;
@@ -642,7 +654,7 @@
 
 /* Item slot ------------------------------------------------------------------- */
 .slot {
-  @apply relative flex size-14 shrink-0 cursor-pointer items-center justify-center rounded-lg border-4 border-black/80 bg-surface text-(--surface-text) shadow-[inset_0_0_0_3px_var(--surface-highlight),4px_4px_0_rgba(0,0,0,.25)] transition-all duration-75 ease-in-out select-none hover:-translate-y-1 hover:scale-105 focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white/70 active:translate-y-0 active:scale-x-110 active:scale-y-95 [&>svg]:size-8 [&>svg]:drop-shadow-[2px_2px_0_rgba(0,0,0,.25)];
+  @apply relative flex size-14 shrink-0 cursor-pointer items-center justify-center rounded-(--radius) border-(length:--border-w) border-(--border-color) bg-surface text-(--surface-text) shadow-[inset_0_0_0_3px_var(--surface-highlight),var(--shadow-hard)] transition-all duration-75 ease-in-out select-none hover:-translate-y-1 hover:scale-105 focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white/70 active:translate-y-0 active:scale-x-110 active:scale-y-95 [&>svg]:size-8 [&>svg]:drop-shadow-[var(--shadow-hard-sm)];
   color: var(--slot-icon, var(--surface-text));
 }
 .slot-lg {
@@ -652,7 +664,7 @@
   @apply bg-none bg-black/30 text-white/30 shadow-[inset_0_3px_0_rgba(0,0,0,.4)] [&>svg]:drop-shadow-(--surface-icon-shadow);
 }
 .slot.is-selected {
-  @apply -translate-y-1 border-yellow-300 shadow-[inset_0_0_0_3px_rgba(255,255,255,.3),4px_4px_0_rgba(0,0,0,.25),0_0_0_4px_rgba(253,224,71,.5)];
+  @apply -translate-y-1 border-yellow-300 shadow-[inset_0_0_0_3px_rgba(255,255,255,.3),var(--shadow-hard),0_0_0_4px_rgba(253,224,71,.5)];
 }
 .slot.is-disabled {
   @apply pointer-events-none opacity-50 saturate-50;
@@ -684,10 +696,10 @@
   @apply bg-white/20;
 }
 .playground-nav-toggle {
-  @apply fixed top-2 right-3 z-[60] flex size-8 cursor-pointer items-center justify-center rounded-md border-2 border-black/60 bg-black/60 text-white/80 backdrop-blur transition-all duration-150 hover:bg-black/80 hover:text-white [&_svg]:size-6 [&_svg]:transition-transform [&_svg]:duration-150;
+  @apply fixed top-2 right-3 z-[60] flex size-8 cursor-pointer items-center justify-center rounded-(--radius-sm) border-2 border-black/60 bg-black/60 text-white/80 backdrop-blur transition-all duration-150 hover:bg-black/80 hover:text-white [&_svg]:size-6 [&_svg]:transition-transform [&_svg]:duration-150;
 }
 .playground-theme-toggle {
-  @apply fixed top-2 right-13 z-[60] flex size-8 cursor-pointer items-center justify-center rounded-md border-2 border-black/60 bg-black/60 text-white/80 backdrop-blur transition-all duration-150 hover:bg-black/80 hover:text-white [&_svg]:size-5;
+  @apply fixed top-2 right-13 z-[60] flex size-8 cursor-pointer items-center justify-center rounded-(--radius-sm) border-2 border-black/60 bg-black/60 text-white/80 backdrop-blur transition-all duration-150 hover:bg-black/80 hover:text-white [&_svg]:size-5;
 }
 .playground-theme-toggle svg:last-child,
 .dark .playground-theme-toggle svg:first-child {
@@ -720,6 +732,108 @@
 .playground-main.is-fullscreen .screen {
   @apply h-full w-full max-w-none rounded-none border-0 shadow-none;
   aspect-ratio: auto;
+}
+
+/* ===========================================================================
+   BRAND THEMES
+   A theme is a class on <html> that overrides the shape + surface tokens.
+   Switch with the selector in the top right or the B key.
+   =========================================================================== */
+
+/* Balatro: flat colors, tiny radius, no border, deep drop shadow, dark slate panels */
+.theme-balatro {
+  --radius: 4px;
+  --radius-sm: 3px;
+  --border-w: 0px;
+  --border-w-sm: 0px;
+  --shadow-hard: 0 5px 0 rgba(0, 0, 0, 0.5);
+  --shadow-hard-lg: 0 7px 0 rgba(0, 0, 0, 0.5);
+  --shadow-hard-sm: 0 3px 0 rgba(0, 0, 0, 0.5);
+  --btn-highlight: inset 0 0 0 0 transparent;
+  --gradient-to: var(--c-from);
+  --surface-gradient-to: var(--surface-from);
+  --surface-from: #3e4a5c;
+  --surface-to: #3e4a5c;
+  --surface-text: #f4f4f5;
+  --surface-muted: #b8c0cc;
+  --surface-highlight: rgba(255, 255, 255, 0);
+  --surface-inset: rgba(0, 0, 0, 0.2);
+  --surface-line: rgba(0, 0, 0, 0.3);
+  --surface-hover: rgba(255, 255, 255, 0.1);
+  --surface-text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
+  --surface-text-shadow-xs: 1px 1px 0 rgba(0, 0, 0, 0.5);
+  --surface-icon-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+.theme-balatro .btn:active,
+.theme-balatro .slot:active {
+  @apply shadow-none;
+}
+
+/* Minecraft: square, thick black border, bevel highlight, flat stone gray */
+.theme-minecraft {
+  --radius: 0px;
+  --radius-sm: 0px;
+  --border-w: 4px;
+  --border-w-sm: 2px;
+  --border-color: #000;
+  --shadow-hard: 4px 4px 0 rgba(0, 0, 0, 0.25);
+  --shadow-hard-lg: 6px 6px 0 rgba(0, 0, 0, 0.25);
+  --shadow-hard-sm: 2px 2px 0 rgba(0, 0, 0, 0.25);
+  --btn-highlight: inset 4px 4px 0 rgba(255, 255, 255, 0.25), inset -4px -4px 0 rgba(0, 0, 0, 0.25);
+  --gradient-to: var(--c-from);
+  --surface-gradient-to: var(--surface-from);
+  --surface-from: #c6c6c6;
+  --surface-to: #c6c6c6;
+  --surface-text: #3f3f3f;
+  --surface-muted: #6f6f6f;
+  --surface-highlight: rgba(255, 255, 255, 0.5);
+  --surface-inset: rgba(0, 0, 0, 0.1);
+  --surface-line: rgba(0, 0, 0, 0.25);
+  --surface-hover: rgba(0, 0, 0, 0.1);
+  --surface-text-shadow: none;
+  --surface-text-shadow-xs: none;
+  --surface-icon-shadow: none;
+}
+.theme-minecraft .btn:hover {
+  color: #ffffa0;
+}
+.theme-minecraft .panel,
+.theme-minecraft .toast,
+.theme-minecraft .dropdown-menu,
+.theme-minecraft .slot,
+.theme-minecraft .input-light {
+  box-shadow: inset 4px 4px 0 rgba(255, 255, 255, 0.5), inset -4px -4px 0 rgba(0, 0, 0, 0.25), var(--shadow-hard);
+}
+
+/* Arcade: big radius, deep bottom shadow, glossy top highlight */
+.theme-arcade {
+  --radius: 0.75rem;
+  --radius-sm: 0.5rem;
+  --border-w: 4px;
+  --border-w-sm: 2px;
+  --border-color: rgba(0, 0, 0, 0.8);
+  --shadow-hard: 0 6px 0 rgba(0, 0, 0, 0.6);
+  --shadow-hard-lg: 0 8px 0 rgba(0, 0, 0, 0.6);
+  --shadow-hard-sm: 0 3px 0 rgba(0, 0, 0, 0.6);
+  --btn-highlight: inset 0 2px 0 2px rgba(255, 255, 255, 0.6);
+}
+.theme-arcade .btn:hover {
+  @apply top-1;
+}
+.theme-arcade .btn:active {
+  @apply top-1 shadow-[0_0_0_4px_rgba(0,0,0,.1),inset_0_0_0_4px_rgba(255,255,255,.3)];
+}
+
+/* Theme selector in the playground chrome */
+.playground-brand-select {
+  @apply fixed top-2 right-24 z-[60] h-8 cursor-pointer appearance-none rounded-md border-2 border-black/60 bg-black/60 px-2 pr-7 font-pixel text-ui-xs tracking-wide text-white/80 backdrop-blur transition-all duration-150 hover:bg-black/80 hover:text-white;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffffcc'%3E%3Cpath d='M12 15 7 10h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  background-size: 16px;
+}
+.playground-brand-select option {
+  @apply bg-zinc-900 text-white;
 }
 
 /* ---------------------------------------------------------------------------
