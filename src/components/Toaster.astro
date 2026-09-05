@@ -1,0 +1,81 @@
+---
+/**
+ * Toast container + runtime API. Put it once in the layout.
+ *
+ *   window.toast({ title: 'Saved', message: 'Slot 1', color: 'green', icon: 'check-circle' })
+ *   <Button data-toast='{"title":"Saved","color":"green","icon":"check-circle"}'>Save</Button>
+ *
+ * Icons are pre-rendered here, because astro-icon runs at build time.
+ * Add a name to `icons` to make it available at runtime.
+ */
+import Icon from './Icon.astro';
+import Toast from './Toast.astro';
+import { colorNames, colorStyle } from './palette';
+
+const icons = ['info', 'check-circle', 'warning', 'star', 'save', 'delete', 'favorite', 'shopping-cart'];
+const styles = Object.fromEntries(colorNames.map((c) => [c, colorStyle(c)]));
+---
+
+<div class="toaster" data-toaster data-colors={JSON.stringify(styles)} aria-live="polite"></div>
+
+<template data-toast-template><Toast title="" /></template>
+{icons.map((n) => <template data-toast-icon={n}><Icon name={n} /></template>)}
+
+<script>
+  type ToastOptions = {
+    title: string;
+    message?: string;
+    color?: string;
+    icon?: string;
+    /** ms; 0 = stays until closed */
+    duration?: number;
+  };
+
+  const toaster = document.querySelector<HTMLElement>('[data-toaster]');
+  const colors: Record<string, string> = toaster ? JSON.parse(toaster.dataset.colors || '{}') : {};
+
+  function dismiss(el: HTMLElement) {
+    if (el.classList.contains('is-leaving')) return;
+    el.classList.add('is-leaving');
+    el.addEventListener('animationend', () => el.remove(), { once: true });
+  }
+
+  function toast(opts: ToastOptions) {
+    if (!toaster) return;
+    const tpl = document.querySelector<HTMLTemplateElement>('[data-toast-template]')!;
+    const el = (tpl.content.firstElementChild as HTMLElement).cloneNode(true) as HTMLElement;
+    el.querySelector('.toast-title')!.textContent = opts.title;
+    const body = el.querySelector('.toast-body')!;
+    body.querySelector('.toast-message')?.remove();
+    if (opts.message) {
+      const m = document.createElement('div');
+      m.className = 'toast-message';
+      m.textContent = opts.message;
+      body.appendChild(m);
+    }
+    el.setAttribute('style', colors[opts.color ?? 'zinc'] ?? colors.zinc ?? '');
+    const iconTpl = document.querySelector<HTMLTemplateElement>(`[data-toast-icon="${opts.icon ?? 'info'}"]`);
+    if (iconTpl) el.querySelector('.toast-icon')!.replaceChildren(iconTpl.content.cloneNode(true));
+    toaster.appendChild(el);
+    const duration = opts.duration ?? 4000;
+    if (duration > 0) setTimeout(() => dismiss(el), duration);
+    return el;
+  }
+
+  (window as any).toast = toast;
+
+  document.addEventListener('click', (e) => {
+    const t = e.target as HTMLElement;
+    const close = t.closest<HTMLElement>('[data-toast-close]');
+    if (close) return dismiss(close.closest<HTMLElement>('.toast')!);
+    const trigger = t.closest<HTMLElement>('[data-toast]');
+    if (trigger) {
+      e.preventDefault();
+      try {
+        toast(JSON.parse(trigger.dataset.toast!));
+      } catch {
+        toast({ title: trigger.dataset.toast! });
+      }
+    }
+  });
+</script>

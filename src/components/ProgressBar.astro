@@ -1,0 +1,74 @@
+---
+/**
+ * Progress / health / XP bar.
+ *   <ProgressBar value={70} color="red" label="HP 70/100" />
+ *   <ProgressBar value={3} max={5} segments={5} color="yellow" size="lg" />
+ * Add `name` + an icon in the slot for a labelled row: <ProgressBar name="HP"><Icon name="favorite" /></ProgressBar>
+ */
+import { colorStyle, type ColorName } from './palette';
+
+export const progressSizes = { sm: 'progress-sm', md: 'progress-md', lg: 'progress-lg' } as const;
+
+interface Props {
+  value: number;
+  max?: number;
+  color?: ColorName;
+  size?: keyof typeof progressSizes;
+  /** Text drawn on the bar */
+  label?: string;
+  /** Number of segments (draws dividers) */
+  segments?: number;
+  /** Row label shown left of the bar */
+  name?: string;
+  class?: string;
+}
+
+const {
+  value,
+  max = 100,
+  color = 'green',
+  size = 'md',
+  label,
+  segments,
+  name,
+  class: className,
+} = Astro.props;
+
+const pct = Math.max(0, Math.min(100, (value / max) * 100));
+const hasIcon = Astro.slots.has('default');
+---
+
+{
+  name || hasIcon ? (
+    <div class:list={['progress-row', className]}>
+      <slot />
+      {name && <span class="w-12 shrink-0">{name}</span>}
+      <div
+        class:list={['progress', progressSizes[size]]}
+        style={colorStyle(color)}
+        role="progressbar"
+        aria-valuenow={value}
+        aria-valuemin={0}
+        aria-valuemax={max}
+        aria-label={name}
+      >
+        <div class="progress-fill" style={`width: ${pct}%`} />
+        {segments && <div class="progress-segments" style={`--seg: ${100 / segments}%`} />}
+        {label && <span class="progress-label">{label}</span>}
+      </div>
+    </div>
+  ) : (
+    <div
+      class:list={['progress', progressSizes[size], className]}
+      style={colorStyle(color)}
+      role="progressbar"
+      aria-valuenow={value}
+      aria-valuemin={0}
+      aria-valuemax={max}
+    >
+      <div class="progress-fill" style={`width: ${pct}%`} />
+      {segments && <div class="progress-segments" style={`--seg: ${100 / segments}%`} />}
+      {label && <span class="progress-label">{label}</span>}
+    </div>
+  )
+}

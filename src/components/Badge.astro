@@ -1,0 +1,27 @@
+---
+/**
+ * Small label / counter.
+ *   <Badge color="red">NEW</Badge>   <Badge pill color="yellow"><Icon name="star" /> 12</Badge>
+ */
+import { colorStyle, type ColorName } from './palette';
+
+export const badgeSizes = { sm: 'badge-sm', md: 'badge-md' } as const;
+
+interface Props {
+  color?: ColorName;
+  size?: keyof typeof badgeSizes;
+  pill?: boolean;
+  /** Soft bounce animation, for attention */
+  pulse?: boolean;
+  class?: string;
+}
+
+const { color = 'zinc', size = 'md', pill = false, pulse = false, class: className } = Astro.props;
+---
+
+<span
+  class:list={['badge', badgeSizes[size], pill && 'is-pill', pulse && 'is-pulse', className]}
+  style={colorStyle(color)}
+>
+  <slot />
+</span>

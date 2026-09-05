@@ -1,0 +1,18 @@
+---
+/**
+ * CSS-only tooltip. Shows on hover and on keyboard focus of the child.
+ *   <Tooltip text="Settings"><Button icon aria-label="Settings"><Icon name="settings" /></Button></Tooltip>
+ */
+interface Props {
+  text: string;
+  position?: 'top' | 'bottom';
+  class?: string;
+}
+
+const { text, position = 'top', class: className } = Astro.props;
+---
+
+<span class:list={['tooltip-wrap', className]} data-position={position}>
+  <slot />
+  <span class="tooltip" role="tooltip">{text}</span>
+</span>

@@ -1,0 +1,29 @@
+---
+/**
+ * One toast card. For runtime toasts use <Toaster /> in the layout and call
+ * window.toast({ title, message, color, icon }) or put data-toast='{...}' on a button.
+ */
+import Icon from './Icon.astro';
+import { colorStyle, type ColorName } from './palette';
+
+interface Props {
+  title: string;
+  message?: string;
+  color?: ColorName;
+  icon?: string;
+  class?: string;
+}
+
+const { title, message, color = 'zinc', icon = 'info', class: className } = Astro.props;
+---
+
+<div class:list={['toast', className]} role="status" style={colorStyle(color)}>
+  <span class="toast-icon"><Icon name={icon} /></span>
+  <div class="toast-body">
+    <div class="toast-title">{title}</div>
+    {message && <div class="toast-message">{message}</div>}
+  </div>
+  <button type="button" class="toast-close" aria-label="Dismiss" data-toast-close>
+    <Icon name="close" />
+  </button>
+</div>

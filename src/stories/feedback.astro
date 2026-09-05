@@ -1,0 +1,124 @@
+---
+import ProgressBar from '../components/ProgressBar.astro';
+import Badge from '../components/Badge.astro';
+import KeyCap from '../components/KeyCap.astro';
+import Tooltip from '../components/Tooltip.astro';
+import Toast from '../components/Toast.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import Panel from '../components/Panel.astro';
+import Heading from '../components/Heading.astro';
+import { colorNames } from '../components/palette';
+
+export const title = 'Feedback';
+export const bg = 'triangles';
+---
+
+<Heading>Feedback</Heading>
+
+<div class="grid w-full max-w-5xl grid-cols-1 gap-x-12 gap-y-8 lg:grid-cols-2">
+  <div class="flex flex-col items-center gap-6">
+    <section class="flex w-full max-w-lg flex-col items-center gap-3">
+      <span class="story-label">progress · sizes</span>
+      <ProgressBar value={70} size="sm" color="green" />
+      <ProgressBar value={70} size="md" color="green" label="70%" />
+      <ProgressBar value={70} size="lg" color="green" label="70 / 100" />
+    </section>
+
+    <section class="flex w-full max-w-lg flex-col items-center gap-3">
+      <span class="story-label">progress · rows with icon and name</span>
+      <ProgressBar name="HP" value={35} color="red" label="35 / 100"><Icon name="favorite" /></ProgressBar>
+      <ProgressBar name="MP" value={80} color="blue" label="80 / 100"><Icon name="star" /></ProgressBar>
+      <ProgressBar name="XP" value={1250} max={2000} color="yellow" label="1250 / 2000"><Icon name="check-circle" /></ProgressBar>
+    </section>
+
+    <section class="flex w-full max-w-lg flex-col items-center gap-3">
+      <span class="story-label">progress · segments</span>
+      <ProgressBar value={3} max={5} segments={5} color="red" size="lg" />
+      <ProgressBar value={7} max={10} segments={10} color="cyan" />
+      <ProgressBar value={2} max={4} segments={4} color="purple" size="sm" />
+    </section>
+
+    <section class="flex w-full max-w-lg flex-col items-center gap-3">
+      <span class="story-label">progress · in a panel</span>
+      <Panel title="Player" color="blue">
+        <Icon name="person" slot="icon" />
+        <ProgressBar name="HP" value={62} color="red" label="62"><Icon name="favorite" /></ProgressBar>
+        <ProgressBar name="MP" value={40} color="blue" label="40"><Icon name="star" /></ProgressBar>
+        <ProgressBar name="XP" value={30} color="yellow" size="sm"><Icon name="check-circle" /></ProgressBar>
+      </Panel>
+    </section>
+  </div>
+
+  <div class="flex flex-col items-start gap-6">
+    <section class="flex w-full max-w-lg flex-col items-start gap-3">
+      <span class="story-label">badge · colors</span>
+      <div class="flex flex-wrap gap-2">
+        {colorNames.map((c) => <Badge color={c}>{c}</Badge>)}
+      </div>
+    </section>
+
+    <section class="flex w-full max-w-lg flex-col items-start gap-3">
+      <span class="story-label">badge · sizes, pill, icons, pulse</span>
+      <div class="flex flex-wrap items-center gap-3">
+        <Badge size="sm" color="red">NEW</Badge>
+        <Badge color="red">NEW</Badge>
+        <Badge pill color="yellow"><Icon name="star" /> 1250</Badge>
+        <Badge pill size="sm" color="green">99+</Badge>
+        <Badge pill color="blue"><Icon name="favorite" /> 3</Badge>
+        <Badge pulse color="pink">LEVEL UP</Badge>
+        <span class="relative inline-flex">
+          <Button icon color="light" aria-label="Inventory"><Icon name="shopping-cart" /></Button>
+          <Badge pill size="sm" color="red" class="absolute -top-2 -right-2">7</Badge>
+        </span>
+      </div>
+    </section>
+
+    <section class="flex w-full max-w-lg flex-col items-start gap-3">
+      <span class="story-label">key caps</span>
+      <div class="flex flex-wrap items-center gap-3">
+        <KeyCap>W</KeyCap><KeyCap>A</KeyCap><KeyCap>S</KeyCap><KeyCap>D</KeyCap>
+        <KeyCap pressed>E</KeyCap>
+        <KeyCap>Space</KeyCap>
+        <KeyCap>Shift</KeyCap>
+        <KeyCap dark>Esc</KeyCap>
+        <KeyCap dark pressed>Tab</KeyCap>
+        <KeyCap><Icon name="arrow-back" /></KeyCap>
+        <KeyCap><Icon name="arrow-forward" /></KeyCap>
+      </div>
+      <div class="flex flex-wrap gap-6">
+        <KeyCap hint="Interact">E</KeyCap>
+        <KeyCap hint="Jump">Space</KeyCap>
+        <KeyCap hint="Menu" dark>Esc</KeyCap>
+      </div>
+    </section>
+
+    <section class="flex w-full max-w-lg flex-col items-start gap-3">
+      <span class="story-label">tooltip · hover or focus</span>
+      <div class="flex flex-wrap gap-4 pt-10">
+        <Tooltip text="Settings"><Button icon aria-label="Settings"><Icon name="settings" /></Button></Tooltip>
+        <Tooltip text="Share with friends"><Button icon color="pink" aria-label="Share"><Icon name="share" /></Button></Tooltip>
+        <Tooltip text="Below" position="bottom"><Button color="light">Bottom</Button></Tooltip>
+        <Tooltip text="+10 HP"><Badge pill color="red"><Icon name="favorite" /> Potion</Badge></Tooltip>
+      </div>
+    </section>
+
+    <section class="flex w-full max-w-lg flex-col items-start gap-3">
+      <span class="story-label">toast · click to show</span>
+      <div class="flex flex-wrap gap-3">
+        <Button color="green" data-toast='{"title":"Game saved","message":"Slot 1 · 12:04","color":"green","icon":"check-circle"}'>
+          <Icon name="save" /> Save
+        </Button>
+        <Button color="red" data-toast='{"title":"Low health!","message":"Find a potion.","color":"red","icon":"warning"}'>
+          <Icon name="warning" /> Warn
+        </Button>
+        <Button color="yellow" data-toast='{"title":"Achievement","message":"First blood","color":"yellow","icon":"star","duration":0}'>
+          <Icon name="star" /> Sticky
+        </Button>
+        <Button color="light" data-toast='{"title":"Hello","color":"blue"}'>Plain</Button>
+      </div>
+      <span class="story-label">toast · static</span>
+      <Toast title="Item collected" message="Golden key · +1" color="yellow" icon="star" />
+    </section>
+  </div>
+</div>

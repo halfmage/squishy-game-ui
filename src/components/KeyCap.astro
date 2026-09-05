@@ -1,0 +1,27 @@
+---
+/**
+ * Keyboard key for control hints.
+ *   <KeyCap>E</KeyCap>   <KeyCap dark pressed>Space</KeyCap>
+ *   <KeyCap hint="Interact">E</KeyCap>   → key + text
+ */
+interface Props {
+  pressed?: boolean;
+  dark?: boolean;
+  /** Text after the key */
+  hint?: string;
+  class?: string;
+}
+
+const { pressed = false, dark = false, hint, class: className } = Astro.props;
+---
+
+{
+  hint ? (
+    <span class:list={['key-hint', className]}>
+      <kbd class:list={['keycap', pressed && 'is-pressed', dark && 'is-dark']}><slot /></kbd>
+      <span>{hint}</span>
+    </span>
+  ) : (
+    <kbd class:list={['keycap', pressed && 'is-pressed', dark && 'is-dark', className]}><slot /></kbd>
+  )
+}
