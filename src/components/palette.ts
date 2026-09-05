@@ -43,6 +43,7 @@ export function colorStyle(name: ColorName): string {
     `--c-to: ${c.to}`,
     `--c-text: ${c.text}`,
     `--c-text-shadow: ${shadow}`,
+    `--c-text-shadow-xs: ${c.light ? 'none' : '1px 1px 0 rgba(0,0,0,.5)'}`,
     `--c-icon-shadow: ${shadow}`,
     `--accent: ${c.from}`,
   ].join('; ');
