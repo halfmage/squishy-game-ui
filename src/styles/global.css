@@ -42,6 +42,10 @@
 @utility text-shadow-pixel {
   text-shadow: var(--c-text-shadow, 2px 2px 0 rgba(0, 0, 0, 0.5));
 }
+/* 1px shadow for text below 18px */
+@utility text-shadow-pixel-xs {
+  text-shadow: var(--c-text-shadow-xs, 1px 1px 0 rgba(0, 0, 0, 0.5));
+}
 
 /* ---------------------------------------------------------------------------
    Theme tokens + keyframes
@@ -152,6 +156,15 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ---------------------------------------------------------------------------
+   Small text (below 18px) always gets a 1px shadow. Light surfaces set
+   --c-text-shadow-xs to none; colored elements set it via colorStyle().
+   --------------------------------------------------------------------------- */
+.text-ui-xs,
+.text-xs {
+  text-shadow: var(--c-text-shadow-xs, 1px 1px 0 rgba(0, 0, 0, 0.5));
 }
 
 /* ===========================================================================
@@ -374,6 +387,7 @@
 }
 .panel-footer {
   @apply flex flex-wrap items-center justify-end gap-3 border-t-4 border-black/10 bg-black/5 px-4 py-3;
+  --c-text-shadow-xs: none;
 }
 /* Controls inside a light panel: dark text, no text shadow */
 .panel .choice-field,
@@ -417,6 +431,9 @@
 }
 .dropdown-menu {
   @apply absolute top-full left-0 z-40 mt-2 flex min-w-48 animate-pop flex-col gap-0.5 rounded-lg border-4 border-black/80 bg-linear-180 from-zinc-100 to-zinc-300 p-1.5 shadow-[inset_0_0_0_3px_rgba(255,255,255,.3),6px_6px_0_rgba(0,0,0,.25)];
+}
+.dropdown-menu {
+  --c-text-shadow-xs: none;
 }
 .dropdown.is-right .dropdown-menu {
   @apply right-0 left-auto;
@@ -475,7 +492,7 @@
   color: var(--c-text, #fff);
 }
 .badge-sm {
-  @apply min-w-[22px] px-1.5 py-0.5 text-ui-xs [&_svg]:size-3;
+  @apply min-w-[22px] px-1.5 py-0.5 text-ui-xs text-shadow-pixel-xs [&_svg]:size-3;
 }
 .badge-md {
   @apply min-w-7 px-2 py-0.5 pb-1 text-ui-sm [&_svg]:size-4;
@@ -542,6 +559,9 @@
 }
 .toast {
   @apply pointer-events-auto flex w-full animate-toast-in items-start gap-3 rounded-lg border-4 border-black/80 bg-linear-180 from-zinc-100 to-zinc-300 p-3 text-zinc-800 shadow-[inset_0_0_0_3px_rgba(255,255,255,.3),6px_6px_0_rgba(0,0,0,.25)];
+}
+.toast {
+  --c-text-shadow-xs: none;
 }
 .toast.is-leaving {
   @apply animate-toast-out;
