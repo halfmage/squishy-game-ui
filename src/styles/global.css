@@ -10,12 +10,6 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: "Thin Sans";
-  src: url("/fonts/ThinSans.ttf") format("truetype");
-  font-display: swap;
-}
-
 /* ---------------------------------------------------------------------------
    Utilities
    --------------------------------------------------------------------------- */
@@ -53,8 +47,8 @@
    Theme tokens + keyframes
    --------------------------------------------------------------------------- */
 @theme {
-  /* Fonts */
-  --font-sans: "Thin Sans", ui-sans-serif, system-ui, sans-serif;
+  /* Fonts: m6x11plus is the only font. font-sans and font-pixel are the same. */
+  --font-sans: "m6x11plus", ui-monospace, monospace;
   --font-pixel: "m6x11plus", ui-monospace, monospace;
 
   /* UI type scale. Used by every control (text-ui-*). */
@@ -144,7 +138,7 @@
 
 /* Buttons ------------------------------------------------------------------ */
 .btn {
-  @apply relative top-0 inline-flex max-w-full cursor-pointer items-center justify-center gap-2.5 rounded-lg border-4 border-black/80 font-pixel font-medium tracking-wide whitespace-nowrap shadow-[inset_0_0_0_4px_rgba(255,255,255,.2),4px_4px_0_rgba(0,0,0,.25)] outline-neutral-500/25 transition-all duration-75 ease-in-out select-none hover:-top-1 hover:scale-105 hover:animate-bounce-soft hover:brightness-110 focus-visible:scale-105 focus-visible:animate-bounce-soft focus-visible:outline-4 focus-visible:outline-offset-0 focus-visible:outline-white/70 active:top-0 active:scale-x-110 active:scale-y-90 active:brightness-95 [&_svg]:relative [&_svg]:top-px [&_svg]:size-6 [&_svg]:shrink-0 [&_svg]:drop-shadow-(--c-icon-shadow) px-4 py-1.5 pb-2.5 text-ui-md text-shadow-pixel;
+  @apply relative top-0 inline-flex max-w-full cursor-pointer items-center justify-center gap-2.5 rounded-lg border-4 border-black/80 font-pixel font-medium tracking-wide whitespace-nowrap shadow-[inset_0_0_0_4px_rgba(255,255,255,.2),4px_4px_0_rgba(0,0,0,.25)] outline-neutral-500/25 transition-all duration-75 ease-in-out select-none hover:-top-1 hover:scale-105 hover:animate-bounce-soft focus-visible:scale-105 focus-visible:animate-bounce-soft focus-visible:outline-4 focus-visible:outline-offset-0 focus-visible:outline-white/70 active:top-0 active:scale-x-110 active:scale-y-90 [&_svg]:size-6 [&_svg]:shrink-0 [&_svg]:drop-shadow-(--c-icon-shadow) px-4 py-1.5 pb-2.5 text-ui-md text-shadow-pixel;
   background-image: linear-gradient(180deg, var(--c-from, #71717a), var(--c-to, #52525b));
   color: var(--c-text, #fff);
 }
@@ -346,7 +340,7 @@
   @apply ml-auto;
 }
 .panel-body {
-  @apply flex flex-col gap-4 p-6 font-sans text-sm leading-snug;
+  @apply flex flex-col gap-4 p-6 text-ui-sm leading-snug tracking-wide;
 }
 .panel-footer {
   @apply flex flex-wrap items-center justify-end gap-3 border-t-4 border-black/10 bg-black/5 px-4 py-3;
@@ -366,10 +360,13 @@
 
 /* Tabs ---------------------------------------------------------------------- */
 .tab-list {
-  @apply flex flex-wrap gap-2 rounded-lg bg-black/25 p-2 shadow-[inset_0_3px_0_rgba(0,0,0,.4)];
+  @apply flex flex-wrap gap-2 rounded-lg bg-black/50 p-2 shadow-[inset_0_3px_0_rgba(0,0,0,.4)];
 }
 .tab {
-  @apply flex cursor-pointer items-center gap-1.5 rounded-md px-3 py-1 font-pixel text-ui-md tracking-wide text-black transition-all duration-75 select-none hover:bg-white/25 hover:scale-105 active:scale-x-125 active:scale-y-75 focus-visible:outline-2 focus-visible:outline-white/70 aria-selected:bg-linear-180 aria-selected:from-zinc-100 aria-selected:to-zinc-300 aria-selected:text-zinc-800 aria-selected:shadow-[2px_2px_0_rgba(0,0,0,.4)] [&_svg]:size-5;
+  @apply flex cursor-pointer items-center gap-1.5 rounded-md px-3 py-1 font-pixel text-ui-md tracking-wide text-white transition-all duration-75 select-none hover:bg-white/25 hover:scale-105 active:scale-x-125 active:scale-y-75 focus-visible:outline-2 focus-visible:outline-white/70 aria-selected:bg-linear-180 aria-selected:from-zinc-100 aria-selected:to-zinc-300 aria-selected:text-zinc-800 aria-selected:shadow-[2px_2px_0_rgba(0,0,0,.4)] [&_svg]:size-5 text-shadow-pixel;
+}
+.tab[aria-selected="true"] {
+  @apply text-shadow-[none];
 }
 .tab-panel[hidden] {
   display: none;

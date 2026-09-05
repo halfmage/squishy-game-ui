@@ -28,13 +28,13 @@ src/
   layouts/Playground.astro   Shell with background + story nav
   pages/index.astro      Overview
   pages/[story].astro    Renders each story from src/stories
-public/fonts/            m6x11plus.ttf and ThinSans.ttf
+public/fonts/            m6x11plus.ttf
 ```
 
 ## Conventions
 
 - **Type scale**: `text-ui-xs` 12px · `text-ui-sm` 18px · `text-ui-md` 22px · `text-ui-lg` 28px · `text-ui-xl` 36px · `text-ui-2xl` 48px.
-- **Fonts**: `font-pixel` (m6x11plus) for controls, `font-sans` (Thin Sans) for body text.
+- **Font**: m6x11plus is the only font. `font-pixel` and `font-sans` both map to it.
 - **Colors**: `color="green"` etc. on components. Add a color in `palette.ts`.
 - **Icons**: `<Icon name="settings" />` → `material-symbols:settings-rounded`.
   Browse: https://icon-sets.iconify.design/material-symbols/?suffixes=rounded
