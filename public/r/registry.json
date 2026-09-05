@@ -41,7 +41,7 @@
       "description": "Pixelarticons (pixelarticons.com) via astro-icon. <Icon name=\"sword\" />",
       "dependencies": [
         "astro-icon",
-        "@iconify-json/material-symbols"
+        "pixelarticons"
       ],
       "files": [
         {
