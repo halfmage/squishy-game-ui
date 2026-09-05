@@ -38,7 +38,7 @@
       "name": "icon",
       "type": "registry:item",
       "title": "Icon",
-      "description": "Material Symbols Rounded via astro-icon. <Icon name=\"settings\" />",
+      "description": "Pixelarticons (pixelarticons.com) via astro-icon. <Icon name=\"sword\" />",
       "dependencies": [
         "astro-icon",
         "@iconify-json/material-symbols"
@@ -50,7 +50,7 @@
           "target": "~/src/components/Icon.astro"
         }
       ],
-      "docs": "Add `icon()` from astro-icon to integrations in astro.config.mjs.",
+      "docs": "Add `icon({ iconDir: 'node_modules/pixelarticons/svg' })` from astro-icon to integrations in astro.config.mjs.",
       "categories": [
         "foundation"
       ]

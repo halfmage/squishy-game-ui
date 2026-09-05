@@ -8,8 +8,9 @@ export default defineConfig({
   site: 'https://halfmage.github.io',
   base: '/squishy-game-ui',
   integrations: [
-    // Material Symbols via Iconify. Only icons that are used get bundled.
-    icon(),
+    // Pixelarticons (https://pixelarticons.com) as local icon set: <Icon name="heart" />.
+    // Iconify sets still work with full names, e.g. name="material-symbols:home-rounded".
+    icon({ iconDir: 'node_modules/pixelarticons/svg' }),
   ],
   vite: {
     plugins: [tailwindcss()],

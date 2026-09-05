@@ -14,7 +14,7 @@ interface Props {
   class?: string;
 }
 
-const { title, message, color = 'zinc', icon = 'info', class: className } = Astro.props;
+const { title, message, color = 'zinc', icon = 'circle-info', class: className } = Astro.props;
 ---
 
 <div class:list={['toast', className]} role="status" style={colorStyle(color)}>

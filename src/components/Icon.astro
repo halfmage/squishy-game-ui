@@ -1,11 +1,11 @@
 ---
 /**
- * Material Symbols Rounded via astro-icon (Iconify).
- * Pass the short Material name: <Icon name="settings" />  →  material-symbols:settings-rounded
- * Full Iconify names also work: <Icon name="material-symbols:progress-activity" />
- * Browse names: https://icon-sets.iconify.design/material-symbols/?suffixes=rounded
+ * Icons from Pixelarticons (https://pixelarticons.com), loaded by astro-icon
+ * from node_modules/pixelarticons/svg. Use the file name:
+ *   <Icon name="heart" />   <Icon name="sword" />   <Icon name="gear" />
+ * Full Iconify names also work when the set is installed: <Icon name="material-symbols:home-rounded" />
  */
-import { Icon as IconifyIcon } from 'astro-icon/components';
+import { Icon as AstroIcon } from 'astro-icon/components';
 
 interface Props {
   name: string;
@@ -15,14 +15,6 @@ interface Props {
 }
 
 const { name, class: className, 'aria-label': ariaLabel } = Astro.props;
-const iconName = name.includes(':')
-  ? name
-  : `material-symbols:${name.endsWith('-rounded') ? name : `${name}-rounded`}`;
 ---
 
-<IconifyIcon
-  name={iconName}
-  class={className}
-  aria-label={ariaLabel}
-  aria-hidden={ariaLabel ? undefined : 'true'}
-/>
+<AstroIcon name={name} class={className} aria-label={ariaLabel} aria-hidden={ariaLabel ? undefined : 'true'} />

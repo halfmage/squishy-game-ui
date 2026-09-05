@@ -37,7 +37,7 @@ const options = [
 <Playground title="Overview">
   <Heading>Squishy Game UI</Heading>
   <p class="max-w-lg text-center text-ui-sm leading-loose tracking-wide text-white [text-shadow:_2px_2px_0_rgba(0,0,0,.5)]">
-    Every component on one page. Open a story in the nav for details and variants.
+    Every component on one page. Open a story in the sidebar for details and variants.
   </p>
 
   <div class="grid w-full max-w-6xl grid-cols-1 gap-x-10 gap-y-8 lg:grid-cols-2 xl:grid-cols-3">
@@ -48,8 +48,8 @@ const options = [
         {colorNames.map((c) => <Button color={c}>{c}</Button>)}
       </div>
       <div class="flex flex-wrap items-center gap-3">
-        <Button color="green" size="lg"><Icon name="play-arrow" /> Play</Button>
-        <Button color="blue"><Icon name="settings" /> Settings</Button>
+        <Button color="green" size="lg"><Icon name="play" /> Play</Button>
+        <Button color="blue"><Icon name="gear" /> Settings</Button>
         <Button icon color="red" aria-label="Close"><Icon name="close" /></Button>
         <Button icon color="light" size="lg" aria-label="Search"><Icon name="search" /></Button>
         <Button color="zinc" disabled>Disabled</Button>
@@ -60,7 +60,7 @@ const options = [
     <!-- Inputs -->
     <section class="flex flex-col gap-3">
       <span class="story-label">inputs</span>
-      <InputField placeholder="Player name"><Icon name="person" /></InputField>
+      <InputField placeholder="Player name"><Icon name="user" /></InputField>
       <InputField variant="dark" type="password" value="secret"><Icon name="lock" /></InputField>
       <InputField size="lg" placeholder="Search"><Icon name="search" /></InputField>
       <Select options={options} value="normal" />
@@ -85,7 +85,7 @@ const options = [
         <Radio name="difficulty" value="hard" color="red">Hard</Radio>
       </div>
       <div class="flex flex-wrap gap-x-6 gap-y-3">
-        <Toggle name="fullscreen" checked>Fullscreen</Toggle>
+        <Toggle name="expand" checked>Fullscreen</Toggle>
         <Toggle name="vsync" color="purple">V-Sync</Toggle>
       </div>
       <Slider name="master" value={70} class="w-full" />
@@ -95,7 +95,7 @@ const options = [
     <!-- Progress + badges -->
     <section class="flex flex-col gap-3">
       <span class="story-label">progress · badges · keys</span>
-      <ProgressBar name="HP" value={62} color="red" label="62 / 100"><Icon name="favorite" /></ProgressBar>
+      <ProgressBar name="HP" value={62} color="red" label="62 / 100"><Icon name="heart" /></ProgressBar>
       <ProgressBar name="MP" value={40} color="blue" label="40 / 100"><Icon name="star" /></ProgressBar>
       <ProgressBar value={3} max={5} segments={5} color="yellow" size="lg" />
       <div class="flex flex-wrap items-center gap-2">
@@ -116,11 +116,11 @@ const options = [
     <section class="flex flex-col gap-3">
       <span class="story-label">panel · tabs</span>
       <Panel title="Settings" color="zinc">
-        <Icon name="settings" slot="icon" />
+        <Icon name="gear" slot="icon" />
         <Tabs
           tabs={[
-            { id: 'ov-audio', label: 'Audio', icon: 'volume-up' },
-            { id: 'ov-video', label: 'Video', icon: 'sports-esports' },
+            { id: 'ov-audio', label: 'Audio', icon: 'volume-3' },
+            { id: 'ov-video', label: 'Video', icon: 'gamepad' },
           ]}
           active="ov-audio"
         >
@@ -145,29 +145,29 @@ const options = [
       <span class="story-label">dropdown · dialog · toast · tooltip</span>
       <div class="flex flex-wrap gap-3">
         <Dropdown label="Options" color="blue">
-          <Icon name="settings" slot="icon" />
+          <Icon name="gear" slot="icon" />
           <DropdownItem><Icon name="save" /> Save game</DropdownItem>
-          <DropdownItem><Icon name="refresh" /> Restart</DropdownItem>
+          <DropdownItem><Icon name="reload" /> Restart</DropdownItem>
           <div class="dropdown-divider"></div>
-          <DropdownItem danger><Icon name="delete" /> Delete save</DropdownItem>
+          <DropdownItem danger><Icon name="trash" /> Delete save</DropdownItem>
         </Dropdown>
         <Button color="red" data-dialog-open="ov-quit"><Icon name="logout" /> Quit</Button>
       </div>
       <div class="flex flex-wrap gap-3">
-        <Button color="green" data-toast='{"title":"Game saved","message":"Slot 1","color":"green","icon":"check-circle"}'>
+        <Button color="green" data-toast='{"title":"Game saved","message":"Slot 1","color":"green","icon":"check-double"}'>
           <Icon name="save" /> Toast
         </Button>
         <Tooltip text="Share with friends">
           <Button icon color="pink" aria-label="Share"><Icon name="share" /></Button>
         </Tooltip>
-        <Tooltip text="+10 HP" position="bottom"><Badge pill color="red"><Icon name="favorite" /> Potion</Badge></Tooltip>
+        <Tooltip text="+10 HP" position="bottom"><Badge pill color="red"><Icon name="heart" /> Potion</Badge></Tooltip>
       </div>
       <Toast title="Item collected" message="Golden key · +1" color="yellow" icon="star" />
     </section>
   </div>
 
   <Dialog id="ov-quit" title="Quit game?" color="red">
-    <Icon name="warning" slot="icon" />
+    <Icon name="warning-diamond" slot="icon" />
     <p>Unsaved progress is lost. Are you sure?</p>
     <Fragment slot="footer">
       <Button as="button" color="light" data-dialog-close>Cancel</Button>

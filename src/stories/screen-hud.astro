@@ -14,11 +14,11 @@ export const bg = 'zigzag';
 export const fullscreen = true;
 
 const hotbar = [
-  { icon: 'swords', hotkey: '1', selected: true },
+  { icon: 'sword', hotkey: '1', selected: true },
   { icon: 'shield', hotkey: '2' },
-  { icon: 'science', hotkey: '3', count: 3, color: 'red' as const },
-  { icon: 'science', hotkey: '4', count: 5, color: 'blue' as const },
-  { icon: 'local-fire-department', hotkey: '5', count: 12, color: 'orange' as const },
+  { icon: 'potion', hotkey: '3', count: 3, color: 'red' as const },
+  { icon: 'potion', hotkey: '4', count: 5, color: 'blue' as const },
+  { icon: 'fire', hotkey: '5', count: 12, color: 'orange' as const },
   { icon: 'key', hotkey: '6', count: 1, color: 'yellow' as const },
   { hotkey: '7' },
   { hotkey: '8' },
@@ -29,8 +29,8 @@ const hotbar = [
 <Screen pattern="waves" speed="8s">
   <!-- top left: stats -->
   <div class="absolute top-4 left-4 flex w-72 flex-col gap-2">
-    <ProgressBar name="HP" value={62} color="red" label="62 / 100"><Icon name="favorite" /></ProgressBar>
-    <ProgressBar name="MP" value={40} color="blue" label="40 / 100"><Icon name="bolt" /></ProgressBar>
+    <ProgressBar name="HP" value={62} color="red" label="62 / 100"><Icon name="heart" /></ProgressBar>
+    <ProgressBar name="MP" value={40} color="blue" label="40 / 100"><Icon name="zap" /></ProgressBar>
     <ProgressBar name="XP" value={1250} max={2000} color="yellow" size="sm"><Icon name="star" /></ProgressBar>
     <div class="flex items-center gap-2 pl-9">
       <Badge pill color="yellow">Lv 12</Badge>
@@ -41,9 +41,9 @@ const hotbar = [
   <!-- top right: currency + buttons -->
   <div class="absolute top-4 right-4 flex flex-col items-end gap-3">
     <div class="flex gap-2">
-      <Badge pill color="yellow"><Icon name="paid" /> 1,240</Badge>
-      <Badge pill color="cyan"><Icon name="diamond" /> 18</Badge>
-      <Badge pill color="dark"><Icon name="timer" /> 12:34</Badge>
+      <Badge pill color="yellow"><Icon name="coins" /> 1,240</Badge>
+      <Badge pill color="cyan"><Icon name="diamond-gem" /> 18</Badge>
+      <Badge pill color="dark"><Icon name="clock" /> 12:34</Badge>
     </div>
     <div class="flex gap-2">
       <Tooltip text="Map" position="bottom"><Button icon color="light" aria-label="Map"><Icon name="map" /></Button></Tooltip>
@@ -59,7 +59,7 @@ const hotbar = [
 
   <!-- center: crosshair + interaction hint -->
   <div class="absolute inset-0 flex flex-col items-center justify-center gap-6">
-    <Icon name="add" class="size-10 text-white drop-shadow-[3px_3px_0_rgba(0,0,0,.5)]" />
+    <Icon name="plus" class="size-10 text-white drop-shadow-[3px_3px_0_rgba(0,0,0,.5)]" />
     <KeyCap hint="Open chest">E</KeyCap>
   </div>
 
@@ -75,7 +75,7 @@ const hotbar = [
   <!-- bottom right: minimap -->
   <div class="absolute right-4 bottom-4 w-40">
     <Panel title="Map" color="dark">
-      <Icon name="explore" slot="icon" />
+      <Icon name="compass" slot="icon" />
       <div class="relative -m-6 aspect-square bg-emerald-800/80">
         <span class="absolute top-1/2 left-1/2 size-3 -translate-1/2 rounded-full border-2 border-black bg-yellow-300"></span>
         <span class="absolute top-6 right-6 size-2 rounded-full bg-red-500"></span>

@@ -6,7 +6,7 @@
  *   <Dropdown label="Options" color="blue">
  *     <DropdownItem href="/save"><Icon name="save" /> Save</DropdownItem>
  *     <div class="dropdown-divider"></div>
- *     <DropdownItem danger><Icon name="delete" /> Delete</DropdownItem>
+ *     <DropdownItem danger><Icon name="trash" /> Delete</DropdownItem>
  *   </Dropdown>
  */
 import Icon from './Icon.astro';
@@ -27,7 +27,7 @@ const { label, color = 'zinc', size = 'md', align = 'left', class: className } =
 <details class:list={['dropdown', align === 'right' && 'is-right', className]} data-dropdown>
   <summary class:list={['btn', sizes[size] || null]} style={colorStyle(color)}>
     <span class="btn-content"><slot name="icon" />{label}</span>
-    <Icon name="keyboard-arrow-down" />
+    <Icon name="chevron-down" />
   </summary>
   <div class="dropdown-menu" role="menu"><slot /></div>
 </details>

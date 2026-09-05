@@ -27,9 +27,9 @@ export const bg = 'triangles';
 
     <section class="flex w-full max-w-lg flex-col items-center gap-3">
       <span class="story-label">progress · rows with icon and name</span>
-      <ProgressBar name="HP" value={35} color="red" label="35 / 100"><Icon name="favorite" /></ProgressBar>
+      <ProgressBar name="HP" value={35} color="red" label="35 / 100"><Icon name="heart" /></ProgressBar>
       <ProgressBar name="MP" value={80} color="blue" label="80 / 100"><Icon name="star" /></ProgressBar>
-      <ProgressBar name="XP" value={1250} max={2000} color="yellow" label="1250 / 2000"><Icon name="check-circle" /></ProgressBar>
+      <ProgressBar name="XP" value={1250} max={2000} color="yellow" label="1250 / 2000"><Icon name="check-double" /></ProgressBar>
     </section>
 
     <section class="flex w-full max-w-lg flex-col items-center gap-3">
@@ -42,10 +42,10 @@ export const bg = 'triangles';
     <section class="flex w-full max-w-lg flex-col items-center gap-3">
       <span class="story-label">progress · in a panel</span>
       <Panel title="Player" color="blue">
-        <Icon name="person" slot="icon" />
-        <ProgressBar name="HP" value={62} color="red" label="62"><Icon name="favorite" /></ProgressBar>
+        <Icon name="user" slot="icon" />
+        <ProgressBar name="HP" value={62} color="red" label="62"><Icon name="heart" /></ProgressBar>
         <ProgressBar name="MP" value={40} color="blue" label="40"><Icon name="star" /></ProgressBar>
-        <ProgressBar name="XP" value={30} color="yellow" size="sm"><Icon name="check-circle" /></ProgressBar>
+        <ProgressBar name="XP" value={30} color="yellow" size="sm"><Icon name="check-double" /></ProgressBar>
       </Panel>
     </section>
   </div>
@@ -65,7 +65,7 @@ export const bg = 'triangles';
         <Badge color="red">NEW</Badge>
         <Badge pill color="yellow"><Icon name="star" /> 1250</Badge>
         <Badge pill size="sm" color="green">99+</Badge>
-        <Badge pill color="blue"><Icon name="favorite" /> 3</Badge>
+        <Badge pill color="blue"><Icon name="heart" /> 3</Badge>
         <Badge pulse color="pink">LEVEL UP</Badge>
         <span class="relative inline-flex">
           <Button icon color="light" aria-label="Inventory"><Icon name="shopping-cart" /></Button>
@@ -83,8 +83,8 @@ export const bg = 'triangles';
         <KeyCap>Shift</KeyCap>
         <KeyCap dark>Esc</KeyCap>
         <KeyCap dark pressed>Tab</KeyCap>
-        <KeyCap><Icon name="arrow-back" /></KeyCap>
-        <KeyCap><Icon name="arrow-forward" /></KeyCap>
+        <KeyCap><Icon name="arrow-left" /></KeyCap>
+        <KeyCap><Icon name="arrow-right" /></KeyCap>
       </div>
       <div class="flex flex-wrap gap-6">
         <KeyCap hint="Interact">E</KeyCap>
@@ -96,21 +96,21 @@ export const bg = 'triangles';
     <section class="flex w-full max-w-lg flex-col items-start gap-3">
       <span class="story-label">tooltip · hover or focus</span>
       <div class="flex flex-wrap gap-4 pt-10">
-        <Tooltip text="Settings"><Button icon aria-label="Settings"><Icon name="settings" /></Button></Tooltip>
+        <Tooltip text="Settings"><Button icon aria-label="Settings"><Icon name="gear" /></Button></Tooltip>
         <Tooltip text="Share with friends"><Button icon color="pink" aria-label="Share"><Icon name="share" /></Button></Tooltip>
         <Tooltip text="Below" position="bottom"><Button color="light">Bottom</Button></Tooltip>
-        <Tooltip text="+10 HP"><Badge pill color="red"><Icon name="favorite" /> Potion</Badge></Tooltip>
+        <Tooltip text="+10 HP"><Badge pill color="red"><Icon name="heart" /> Potion</Badge></Tooltip>
       </div>
     </section>
 
     <section class="flex w-full max-w-lg flex-col items-start gap-3">
       <span class="story-label">toast · click to show</span>
       <div class="flex flex-wrap gap-3">
-        <Button color="green" data-toast='{"title":"Game saved","message":"Slot 1 · 12:04","color":"green","icon":"check-circle"}'>
+        <Button color="green" data-toast='{"title":"Game saved","message":"Slot 1 · 12:04","color":"green","icon":"check-double"}'>
           <Icon name="save" /> Save
         </Button>
-        <Button color="red" data-toast='{"title":"Low health!","message":"Find a potion.","color":"red","icon":"warning"}'>
-          <Icon name="warning" /> Warn
+        <Button color="red" data-toast='{"title":"Low health!","message":"Find a potion.","color":"red","icon":"warning-diamond"}'>
+          <Icon name="warning-diamond" /> Warn
         </Button>
         <Button color="yellow" data-toast='{"title":"Achievement","message":"First blood","color":"yellow","icon":"star","duration":0}'>
           <Icon name="star" /> Sticky

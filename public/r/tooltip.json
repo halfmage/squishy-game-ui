@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "src/components/Tooltip.astro",
-      "content": "---\n/**\n * CSS-only tooltip. Shows on hover and on keyboard focus of the child.\n *   <Tooltip text=\"Settings\"><Button icon aria-label=\"Settings\"><Icon name=\"settings\" /></Button></Tooltip>\n */\ninterface Props {\n  text: string;\n  position?: 'top' | 'bottom';\n  class?: string;\n}\n\nconst { text, position = 'top', class: className } = Astro.props;\n---\n\n<span class:list={['tooltip-wrap', className]} data-position={position}>\n  <slot />\n  <span class=\"tooltip\" role=\"tooltip\">{text}</span>\n</span>\n",
+      "content": "---\n/**\n * CSS-only tooltip. Shows on hover and on keyboard focus of the child.\n *   <Tooltip text=\"Settings\"><Button icon aria-label=\"Settings\"><Icon name=\"gear\" /></Button></Tooltip>\n */\ninterface Props {\n  text: string;\n  position?: 'top' | 'bottom';\n  class?: string;\n}\n\nconst { text, position = 'top', class: className } = Astro.props;\n---\n\n<span class:list={['tooltip-wrap', className]} data-position={position}>\n  <slot />\n  <span class=\"tooltip\" role=\"tooltip\">{text}</span>\n</span>\n",
       "type": "registry:file",
       "target": "~/src/components/Tooltip.astro"
     }

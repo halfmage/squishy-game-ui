@@ -34,10 +34,10 @@ const options = [
           <span class="story-label">input · {v}</span>
           <InputField variant={v} class="w-full" placeholder={`${v} input`} />
           <InputField variant={v} class="w-full" value="With a value">
-            <Icon name="person" />
+            <Icon name="user" />
           </InputField>
           <InputField variant={v} type="password" class="w-full" value="secret">
-            <Icon name="settings" />
+            <Icon name="gear" />
           </InputField>
           <Select variant={v} class="w-full" options={options} value="normal" />
           <TextArea variant={v} class="w-full" placeholder={`${v} textarea`} rows={3} />
@@ -84,7 +84,7 @@ const options = [
     <section class="flex w-full max-w-lg flex-col items-start gap-3">
       <span class="story-label">toggle</span>
       <div class="flex flex-wrap justify-start gap-x-8 gap-y-3">
-        <Toggle name="fullscreen" checked>Fullscreen</Toggle>
+        <Toggle name="expand" checked>Fullscreen</Toggle>
         <Toggle name="vsync" color="purple">V-Sync</Toggle>
         <Toggle name="hints" color="cyan" checked>Hints</Toggle>
       </div>

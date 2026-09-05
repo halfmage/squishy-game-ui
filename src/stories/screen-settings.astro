@@ -29,13 +29,13 @@ const bindings = [
 
 <Screen pattern="checker" class="flex items-center justify-center p-6">
   <Panel title="Settings" color="zinc" class="max-w-2xl!">
-    <Icon name="settings" slot="icon" />
+    <Icon name="gear" slot="icon" />
     <Button icon color="light" aria-label="Close" slot="actions"><Icon name="close" /></Button>
 
     <Tabs
       tabs={[
-        { id: 'st-audio', label: 'Audio', icon: 'volume-up' },
-        { id: 'st-video', label: 'Video', icon: 'fullscreen' },
+        { id: 'st-audio', label: 'Audio', icon: 'volume-3' },
+        { id: 'st-video', label: 'Video', icon: 'expand' },
         { id: 'st-controls', label: 'Controls', icon: 'keyboard' },
         { id: 'st-game', label: 'Gameplay', icon: 'gamepad' },
       ]}
@@ -63,7 +63,7 @@ const bindings = [
           </div>
         </div>
         <div class="flex flex-wrap items-center gap-6">
-          <Toggle name="fullscreen" color="blue" checked>Fullscreen</Toggle>
+          <Toggle name="expand" color="blue" checked>Fullscreen</Toggle>
           <Toggle name="vsync" color="blue">V-Sync</Toggle>
           <span class="flex items-center gap-3 font-pixel text-ui-sm">FPS cap <Stepper name="fps" min={30} max={240} step={30} value={60} color="blue" /></span>
         </div>
@@ -101,8 +101,8 @@ const bindings = [
     </Tabs>
 
     <Fragment slot="footer">
-      <Button color="light" class="mr-auto"><Icon name="refresh" /> Reset defaults</Button>
-      <Button color="zinc"><Icon name="arrow-back" /> Back</Button>
+      <Button color="light" class="mr-auto"><Icon name="reload" /> Reset defaults</Button>
+      <Button color="zinc"><Icon name="arrow-left" /> Back</Button>
       <Button color="green"><Icon name="check" /> Apply</Button>
     </Fragment>
   </Panel>

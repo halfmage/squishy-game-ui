@@ -31,8 +31,8 @@ export const bg = 'plus';
           inside.
         </p>
         <div class="flex flex-wrap gap-3">
-          <Button color="green"><Icon name="add" /> Add item</Button>
-          <Button color="light"><Icon name="edit" /> Edit</Button>
+          <Button color="green"><Icon name="plus" /> Add item</Button>
+          <Button color="light"><Icon name="pencil" /> Edit</Button>
         </div>
         <Fragment slot="footer">
           <Button color="light">Cancel</Button>
@@ -45,9 +45,9 @@ export const bg = 'plus';
       <span class="story-label">panel · title colors</span>
       <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
         <Panel title="Quest" color="green"><Icon name="star" slot="icon" />Collect 10 gems.</Panel>
-        <Panel title="Danger" color="red"><Icon name="warning" slot="icon" />Lava ahead.</Panel>
+        <Panel title="Danger" color="red"><Icon name="warning-diamond" slot="icon" />Lava ahead.</Panel>
         <Panel title="Shop" color="yellow"><Icon name="shopping-cart" slot="icon" />3 items.</Panel>
-        <Panel title="System" color="dark"><Icon name="info" slot="icon" />v0.1.0</Panel>
+        <Panel title="System" color="dark"><Icon name="circle-info" slot="icon" />v0.1.0</Panel>
       </div>
     </section>
 
@@ -72,12 +72,12 @@ export const bg = 'plus';
     <section class="flex w-full max-w-lg flex-col items-center gap-3">
       <span class="story-label">tabs in a panel</span>
       <Panel title="Settings" color="zinc">
-        <Icon name="settings" slot="icon" />
+        <Icon name="gear" slot="icon" />
         <Tabs
           tabs={[
-            { id: 'audio', label: 'Audio', icon: 'volume-up' },
-            { id: 'video', label: 'Video', icon: 'sports-esports' },
-            { id: 'controls', label: 'Controls', icon: 'settings' },
+            { id: 'audio', label: 'Audio', icon: 'volume-3' },
+            { id: 'video', label: 'Video', icon: 'gamepad' },
+            { id: 'controls', label: 'Controls', icon: 'gear' },
           ]}
           active="audio"
         >
@@ -87,7 +87,7 @@ export const bg = 'plus';
             <Slider name="sfx" value={40} color="pink" class="w-full" />
           </TabPanel>
           <TabPanel id="video">
-            <Toggle name="fullscreen" color="blue" checked>Fullscreen</Toggle>
+            <Toggle name="expand" color="blue" checked>Fullscreen</Toggle>
             <Toggle name="vsync" color="blue">V-Sync</Toggle>
             <Select
               class="w-full"
@@ -129,16 +129,16 @@ export const bg = 'plus';
       <span class="story-label">dropdown menu</span>
       <div class="flex w-full flex-wrap justify-between gap-4">
         <Dropdown label="Options" color="blue">
-          <Icon name="settings" slot="icon" />
+          <Icon name="gear" slot="icon" />
           <DropdownItem><Icon name="save" /> Save game</DropdownItem>
-          <DropdownItem><Icon name="refresh" /> Restart level</DropdownItem>
+          <DropdownItem><Icon name="reload" /> Restart level</DropdownItem>
           <DropdownItem href={`${base}/`}><Icon name="home" /> Main menu</DropdownItem>
           <div class="dropdown-divider"></div>
-          <DropdownItem danger><Icon name="delete" /> Delete save</DropdownItem>
+          <DropdownItem danger><Icon name="trash" /> Delete save</DropdownItem>
         </Dropdown>
         <Dropdown label="Player" color="light" align="right">
-          <Icon name="person" slot="icon" />
-          <DropdownItem><Icon name="edit" /> Rename</DropdownItem>
+          <Icon name="user" slot="icon" />
+          <DropdownItem><Icon name="pencil" /> Rename</DropdownItem>
           <DropdownItem><Icon name="share" /> Share profile</DropdownItem>
           <div class="dropdown-divider"></div>
           <DropdownItem danger><Icon name="logout" /> Log out</DropdownItem>
@@ -149,7 +149,7 @@ export const bg = 'plus';
 </div>
 
 <Dialog id="quit" title="Quit game?" color="red">
-  <Icon name="warning" slot="icon" />
+  <Icon name="warning-diamond" slot="icon" />
   <p>Unsaved progress is lost. Are you sure?</p>
   <Fragment slot="footer">
     <Button as="button" color="light" data-dialog-close>Cancel</Button>

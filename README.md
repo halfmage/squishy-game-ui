@@ -2,7 +2,7 @@
 
 A small Astro + Tailwind v4 playground to develop game-style interface components.
 One general style (rounded, 4px border, gradient, hard shadow, squish on press) with
-color variants. Icons are Material Symbols Rounded via Iconify.
+color variants. Icons are [Pixelarticons](https://pixelarticons.com/) via astro-icon.
 
 ## Commands
 
@@ -36,8 +36,8 @@ src/assets/fonts/        m6x11plus.ttf (bundled by Vite)
 - **Type scale**: `text-ui-xs` 12px · `text-ui-sm` 18px · `text-ui-md` 22px · `text-ui-lg` 28px · `text-ui-xl` 36px · `text-ui-2xl` 48px.
 - **Font**: m6x11plus is the only font. `font-pixel` and `font-sans` both map to it.
 - **Colors**: `color="green"` etc. on components. Add a color in `palette.ts`.
-- **Icons**: `<Icon name="settings" />` → `material-symbols:settings-rounded`.
-  Browse: https://icon-sets.iconify.design/material-symbols/?suffixes=rounded
+- **Icons**: `<Icon name="sword" />` loads `node_modules/pixelarticons/svg/sword.svg`.
+  Browse: https://pixelarticons.com/
 - **Sizes**: `size="sm" | "md" | "lg"` on Button.
 
 ## Add a component

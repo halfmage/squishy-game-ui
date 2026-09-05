@@ -6,21 +6,25 @@ export const title = 'Icons';
 export const bg = 'grid';
 
 const names = [
-  'home', 'settings', 'person', 'share', 'search', 'close', 'check', 'add', 'remove',
-  'play-arrow', 'pause', 'refresh', 'save', 'edit', 'delete', 'star', 'favorite',
-  'volume-up', 'sports-esports', 'shopping-cart', 'lock', 'info', 'warning',
-  'check-circle', 'arrow-back', 'arrow-forward', 'keyboard-arrow-down', 'logout',
+  'home', 'gear', 'user', 'share', 'search', 'close', 'check', 'plus', 'minus',
+  'play', 'pause', 'reload', 'save', 'pencil', 'trash', 'star', 'heart',
+  'volume-3', 'gamepad', 'shopping-cart', 'lock', 'circle-info', 'warning-diamond',
+  'check-double', 'arrow-left', 'arrow-right', 'chevron-down', 'logout',
+  'sword', 'shield', 'potion', 'fire', 'zap', 'key', 'map', 'diamond-gem', 'coins', 'clock',
+  'backpack', 'fish', 'leaf', 'book-open', 'compass', 'flag', 'skull', 'castle', 'trophy', 'crown',
+  'bomb', 'alien', 't-rex', 'joystick', 'chess', 'dog', 'snake', 'tree-pine', 'moon', 'sun',
 ];
 ---
 
 <Heading>Icons</Heading>
 
-<p class="max-w-lg text-center text-ui-sm leading-loose tracking-wide text-white [text-shadow:_2px_2px_0_rgba(0,0,0,.5)]">
-  Material Symbols Rounded via Iconify. Use the short name: <code>&lt;Icon name="settings" /&gt;</code>.
-  Browse all names at icon-sets.iconify.design/material-symbols.
+<p class="max-w-lg text-center text-ui-sm leading-loose tracking-wide text-white">
+  Icons come from
+  <a href="https://pixelarticons.com/" target="_blank" rel="noopener" class="underline hover:text-white/80">Pixelarticons</a>
+  (npm <code>pixelarticons</code>, 1000+ icons). Use the file name: <code>&lt;Icon name="sword" /&gt;</code>.
 </p>
 
-<div class="grid w-full max-w-3xl grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6">
+<div class="grid w-full max-w-4xl grid-cols-3 gap-4 sm:grid-cols-5 md:grid-cols-8">
   {
     names.map((n) => (
       <div class="flex flex-col items-center gap-1 text-white">

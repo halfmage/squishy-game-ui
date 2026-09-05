@@ -25,7 +25,7 @@ const sizeNames = Object.keys(sizes) as (keyof typeof sizes)[];
     {
       sizeNames.map((s) => (
         <Button color="green" size={s}>
-          <Icon name="play-arrow" /> Play ({s})
+          <Icon name="play" /> Play ({s})
         </Button>
       ))
     }
@@ -35,10 +35,10 @@ const sizeNames = Object.keys(sizes) as (keyof typeof sizes)[];
 <section class="flex w-full max-w-4xl flex-col items-center gap-3">
   <span class="story-label">with icons</span>
   <div class="flex flex-wrap items-center justify-center gap-4">
-    <Button color="blue"><Icon name="settings" /> Settings</Button>
+    <Button color="blue"><Icon name="gear" /> Settings</Button>
     <Button color="pink">Share <Icon name="share" /></Button>
     <Button color="yellow"><Icon name="star" /> Favorite</Button>
-    <Button color="light"><Icon name="person" /> Profile</Button>
+    <Button color="light"><Icon name="user" /> Profile</Button>
     <Button color="dark"><Icon name="logout" /> Quit</Button>
   </div>
 </section>
@@ -53,9 +53,9 @@ const sizeNames = Object.keys(sizes) as (keyof typeof sizes)[];
         </Button>
       ))
     }
-    <Button icon color="green" aria-label="Add"><Icon name="add" /></Button>
+    <Button icon color="green" aria-label="Add"><Icon name="plus" /></Button>
     <Button icon color="light" aria-label="Search"><Icon name="search" /></Button>
-    <Button icon color="purple" aria-label="Volume"><Icon name="volume-up" /></Button>
+    <Button icon color="purple" aria-label="Volume"><Icon name="volume-3" /></Button>
   </div>
 </section>
 
@@ -72,5 +72,5 @@ const sizeNames = Object.keys(sizes) as (keyof typeof sizes)[];
 
 <section class="flex w-full max-w-4xl flex-col items-center gap-3">
   <span class="story-label">full width</span>
-  <Button color="orange" size="lg" class="w-full max-w-lg"><Icon name="sports-esports" /> Start Game</Button>
+  <Button color="orange" size="lg" class="w-full max-w-lg"><Icon name="gamepad" /> Start Game</Button>
 </section>

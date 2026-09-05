@@ -14,10 +14,10 @@
     "check": "astro check"
   },
   "dependencies": {
-    "@iconify-json/material-symbols": "^1.2.90",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.1",
     "astro-icon": "^1.2.0",
+    "pixelarticons": "^2.4.1",
     "tailwindcss": "^4.3.3"
   },
   "allowScripts": {

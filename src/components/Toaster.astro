@@ -2,8 +2,8 @@
 /**
  * Toast container + runtime API. Put it once in the layout.
  *
- *   window.toast({ title: 'Saved', message: 'Slot 1', color: 'green', icon: 'check-circle' })
- *   <Button data-toast='{"title":"Saved","color":"green","icon":"check-circle"}'>Save</Button>
+ *   window.toast({ title: 'Saved', message: 'Slot 1', color: 'green', icon: 'check-double' })
+ *   <Button data-toast='{"title":"Saved","color":"green","icon":"check-double"}'>Save</Button>
  *
  * Icons are pre-rendered here, because astro-icon runs at build time.
  * Add a name to `icons` to make it available at runtime.
@@ -12,7 +12,7 @@ import Icon from './Icon.astro';
 import Toast from './Toast.astro';
 import { colorNames, colorStyle } from './palette';
 
-const icons = ['info', 'check-circle', 'warning', 'star', 'save', 'delete', 'favorite', 'shopping-cart'];
+const icons = ['circle-info', 'check-double', 'warning-diamond', 'star', 'save', 'trash', 'heart', 'shopping-cart'];
 const styles = Object.fromEntries(colorNames.map((c) => [c, colorStyle(c)]));
 ---
 
@@ -54,7 +54,7 @@ const styles = Object.fromEntries(colorNames.map((c) => [c, colorStyle(c)]));
       body.appendChild(m);
     }
     el.setAttribute('style', colors[opts.color ?? 'zinc'] ?? colors.zinc ?? '');
-    const iconTpl = document.querySelector<HTMLTemplateElement>(`[data-toast-icon="${opts.icon ?? 'info'}"]`);
+    const iconTpl = document.querySelector<HTMLTemplateElement>(`[data-toast-icon="${opts.icon ?? 'circle-info'}"]`);
     if (iconTpl) el.querySelector('.toast-icon')!.replaceChildren(iconTpl.content.cloneNode(true));
     toaster.appendChild(el);
     const duration = opts.duration ?? 4000;

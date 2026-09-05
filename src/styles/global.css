@@ -687,7 +687,7 @@
 
 /* Sidebar. Toggle with the corner button or the H key. */
 .playground-sidebar {
-  @apply fixed inset-y-0 left-0 z-50 flex w-64 flex-col gap-3 overflow-y-auto border-r-4 border-black/40 bg-black/70 px-3 pt-14 pb-3 font-pixel text-ui-sm tracking-wide text-white backdrop-blur transition-transform duration-150 ease-out;
+  @apply fixed inset-y-0 left-0 z-50 flex w-64 flex-col gap-3 overflow-y-auto border-r-4 border-black/40 bg-black/70 px-3 pt-14 pb-3 font-pixel text-ui-sm tracking-wide text-white transition-transform duration-150 ease-out;
 }
 .nav-hidden .playground-sidebar {
   @apply -translate-x-full;
@@ -720,7 +720,7 @@
   @apply px-2 text-ui-xs text-white/40;
 }
 .playground-nav-toggle {
-  @apply fixed top-3 left-3 z-[60] flex size-8 cursor-pointer items-center justify-center rounded-(--radius-sm) border-2 border-black/60 bg-black/60 text-white/80 backdrop-blur transition-all duration-150 hover:bg-black/80 hover:text-white [&_svg]:size-6;
+  @apply fixed top-3 left-3 z-[60] flex size-8 cursor-pointer items-center justify-center rounded-(--radius-sm) border-2 border-black/60 bg-black/60 text-white/80 transition-all duration-150 hover:bg-black/80 hover:text-white [&_svg]:size-6;
 }
 .playground-nav-toggle svg:first-child,
 .nav-hidden .playground-nav-toggle svg:last-child {

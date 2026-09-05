@@ -2,7 +2,7 @@
 /**
  * General squishy button.
  *
- *   <Button color="green" size="lg" href="/play"><Icon name="play-arrow" /> Play</Button>
+ *   <Button color="green" size="lg" href="/play"><Icon name="play" /> Play</Button>
  *   <Button as="button" type="submit" color="blue">Save</Button>
  *   <Button icon color="red" aria-label="Close"><Icon name="close" /></Button>
  *
@@ -66,7 +66,7 @@ const style = colorStyle(color);
       {...rest}
     >
       <span class="btn-content"><slot /></span>
-      {loading && <span class="btn-spinner"><Icon name="material-symbols:progress-activity" /></span>}
+      {loading && <span class="btn-spinner"><Icon name="loader" /></span>}
     </button>
   ) : (
     <a
@@ -79,7 +79,7 @@ const style = colorStyle(color);
       {...rest}
     >
       <span class="btn-content"><slot /></span>
-      {loading && <span class="btn-spinner"><Icon name="material-symbols:progress-activity" /></span>}
+      {loading && <span class="btn-spinner"><Icon name="loader" /></span>}
     </a>
   )
 }
