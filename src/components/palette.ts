@@ -7,7 +7,7 @@ export interface PaletteColor {
   from: string;
   to: string;
   text: string;
-  /** true for light backgrounds → dark text, no shadows */
+  /** true = the surface color (follows light / dark mode) */
   light?: boolean;
 }
 
@@ -37,13 +37,25 @@ export const accentNames = colorNames.filter(
 /** Inline style with the `--c-*` variables that `.btn`, `.panel`, `.badge`, ... read. */
 export function colorStyle(name: ColorName): string {
   const c: PaletteColor = colors[name];
-  const shadow = c.light ? 'none' : '3px 3px 0 rgba(0,0,0,.5)';
+  if (c.light) {
+    // Light = the surface color. It follows light / dark mode (see :root / .dark in global.css).
+    return [
+      '--c-from: var(--surface-from)',
+      '--c-to: var(--surface-to)',
+      '--c-text: var(--surface-text)',
+      '--c-text-shadow: var(--surface-text-shadow)',
+      '--c-text-shadow-xs: var(--surface-text-shadow-xs)',
+      '--c-icon-shadow: var(--surface-icon-shadow)',
+      `--accent: ${c.from}`,
+    ].join('; ');
+  }
+  const shadow = '3px 3px 0 rgba(0,0,0,.5)';
   return [
     `--c-from: ${c.from}`,
     `--c-to: ${c.to}`,
     `--c-text: ${c.text}`,
     `--c-text-shadow: ${shadow}`,
-    `--c-text-shadow-xs: ${c.light ? 'none' : '1px 1px 0 rgba(0,0,0,.5)'}`,
+    `--c-text-shadow-xs: 1px 1px 0 rgba(0,0,0,.5)`,
     `--c-icon-shadow: ${shadow}`,
     `--accent: ${c.from}`,
   ].join('; ');

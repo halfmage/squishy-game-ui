@@ -27,6 +27,9 @@ const current = Astro.url.pathname.replace(/\/$/, '') || '/';
       // Apply the saved nav state before first paint to avoid a flash.
       try {
         if (localStorage.getItem('nav-hidden') === '1') document.documentElement.classList.add('nav-hidden');
+        const theme = localStorage.getItem('theme');
+        const dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+        if (dark) document.documentElement.classList.add('dark');
       } catch {}
     </script>
   </head>
@@ -45,6 +48,10 @@ const current = Astro.url.pathname.replace(/\/$/, '') || '/';
     <button type="button" class="playground-nav-toggle" data-nav-toggle aria-label="Toggle navigation" title="Toggle navigation (H)">
       <Icon name="keyboard-arrow-up" />
     </button>
+    <button type="button" class="playground-theme-toggle" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode (D)">
+      <Icon name="dark-mode" />
+      <Icon name="light-mode" />
+    </button>
 
     <main class:list={['playground-main', fullscreen ? 'is-fullscreen' : 'is-centered']}>
       <slot />
@@ -59,11 +66,20 @@ const current = Astro.url.pathname.replace(/\/$/, '') || '/';
           localStorage.setItem('nav-hidden', hidden ? '1' : '0');
         } catch {}
       }
+      function toggleTheme(force?: boolean) {
+        const dark = root.classList.toggle('dark', force);
+        try {
+          localStorage.setItem('theme', dark ? 'dark' : 'light');
+        } catch {}
+      }
       document.querySelector('[data-nav-toggle]')?.addEventListener('click', () => toggleNav());
+      document.querySelector('[data-theme-toggle]')?.addEventListener('click', () => toggleTheme());
       document.addEventListener('keydown', (e) => {
         const t = e.target as HTMLElement;
         const typing = t.matches?.('input, textarea, select, [contenteditable]');
-        if (!typing && !e.metaKey && !e.ctrlKey && !e.altKey && e.key.toLowerCase() === 'h') toggleNav();
+        if (typing || e.metaKey || e.ctrlKey || e.altKey) return;
+        if (e.key.toLowerCase() === 'h') toggleNav();
+        if (e.key.toLowerCase() === 'd') toggleTheme();
       });
     </script>
   </body>
