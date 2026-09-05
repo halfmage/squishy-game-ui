@@ -215,8 +215,9 @@
 }
 
 /* Choice controls --------------------------------------------------------- */
+/* The label stays still; only the box / track lifts and squishes. */
 .choice-field {
-  @apply relative top-0 inline-flex cursor-pointer items-center gap-2.5 font-pixel text-ui-md tracking-wide text-white transition-all duration-75 ease-in-out select-none [text-shadow:_3px_3px_0_rgba(0,0,0,.5)] hover:-top-1 hover:scale-105 active:top-0 active:scale-x-110 active:scale-y-95;
+  @apply relative inline-flex cursor-pointer items-center gap-2.5 font-pixel text-ui-md tracking-wide text-white select-none [text-shadow:_3px_3px_0_rgba(0,0,0,.5)];
 }
 .choice-field input {
   @apply sr-only;
@@ -224,6 +225,12 @@
 
 .choice-box {
   @apply relative flex size-8 shrink-0 items-center justify-center rounded-md border-4 border-black/80 bg-linear-180 from-zinc-100 to-zinc-300 shadow-[inset_0_0_0_3px_rgba(255,255,255,.2),4px_4px_0_rgba(0,0,0,.25)] transition-all duration-75 ease-in-out;
+}
+.choice-field:hover .choice-box {
+  @apply -translate-y-1 scale-105;
+}
+.choice-field:active .choice-box {
+  @apply translate-y-0 scale-x-110 scale-y-95;
 }
 .choice-box.is-radio {
   @apply rounded-full;
@@ -249,13 +256,14 @@
   @apply outline-4 outline-offset-2 outline-white/70;
 }
 .choice-field:has(:disabled) {
-  @apply cursor-not-allowed opacity-50 hover:top-0 hover:scale-100;
+  @apply cursor-not-allowed opacity-50;
+}
+.choice-field:has(:disabled) .choice-box,
+.choice-field:has(:disabled) .toggle-track {
+  @apply translate-y-0 scale-100;
 }
 
-/* Toggle: the label stays still, only the track lifts and squishes */
-.choice-field:has(.toggle-track) {
-  @apply hover:top-0 hover:scale-100 active:scale-100;
-}
+/* Toggle */
 .toggle-track {
   @apply relative h-8 w-14 shrink-0 rounded-lg border-4 border-black/80 bg-black/50 shadow-[inset_0_3px_0_rgba(0,0,0,.4),4px_4px_0_rgba(0,0,0,.25)] transition-all duration-75 ease-in-out;
 }
