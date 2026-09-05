@@ -180,7 +180,7 @@
 
 /* Text inputs ------------------------------------------------------------- */
 @utility input-base {
-  @apply relative top-0 flex w-full max-w-lg items-center gap-2.5 rounded-lg border-4 border-black/80 px-4 py-1.5 font-pixel text-ui-md font-medium tracking-wide transition-all duration-75 ease-in-out hover:-top-1 hover:scale-[1.03] focus-within:scale-[1.03] focus-within:animate-bounce-soft focus-within:outline-4 focus-within:outline-offset-0 [&_input]:min-w-0 [&_input]:flex-1 [&_input]:bg-transparent [&_input]:outline-none [&_svg]:relative [&_svg]:top-px [&_svg]:size-6 [&_svg]:shrink-0;
+  @apply relative top-0 flex w-full max-w-lg items-center gap-2.5 rounded-lg border-4 border-black/80 px-4 py-2.5 font-pixel text-ui-md font-medium tracking-wide transition-all duration-75 ease-in-out hover:-top-1 hover:scale-[1.03] focus-within:scale-[1.03] focus-within:animate-bounce-soft focus-within:outline-4 focus-within:outline-offset-0 [&_input]:min-w-0 [&_input]:flex-1 [&_input]:bg-transparent [&_input]:outline-none [&_svg]:relative [&_svg]:top-px [&_svg]:size-6 [&_svg]:shrink-0;
 }
 
 .input-light {
@@ -252,9 +252,18 @@
   @apply cursor-not-allowed opacity-50 hover:top-0 hover:scale-100;
 }
 
-/* Toggle */
+/* Toggle: the label stays still, only the track lifts and squishes */
+.choice-field:has(.toggle-track) {
+  @apply hover:top-0 hover:scale-100 active:scale-100;
+}
 .toggle-track {
   @apply relative h-8 w-14 shrink-0 rounded-lg border-4 border-black/80 bg-black/50 shadow-[inset_0_3px_0_rgba(0,0,0,.4),4px_4px_0_rgba(0,0,0,.25)] transition-all duration-75 ease-in-out;
+}
+.choice-field:hover .toggle-track {
+  @apply -translate-y-1 scale-105;
+}
+.choice-field:active .toggle-track {
+  @apply translate-y-0 scale-x-110 scale-y-95;
 }
 .toggle-track::after {
   content: '';
